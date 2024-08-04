@@ -26,7 +26,8 @@ class Subject(models.Model):
     name = models.CharField(max_length=150)
     year = models.IntegerField(default=0)
     branch = models.CharField(choices=Branches, max_length=30, default="Common")
-    # credits = models.DecimalField(default=0.0)
+    views = models.IntegerField(default=0)
+    viewed_by = models.ManyToManyField(User, related_name='viewed_subjects', blank=True)
     
     def __str__(self):
         return (f"{self.name}, {self.branch}")

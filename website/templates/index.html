@@ -1,9 +1,6 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
-{% block content %}
-
-    <!-- 
+<!-- 
     <h2 class="work-sans-fonts m-3 mx-4 text-danger " style="padding-left: 10px; padding-top: 20px;">
         Rtu Syllabus Cheat Sheet - All Topics Details
     </h2>
@@ -13,298 +10,562 @@
     </h4> 
     -->
 
+<!-- Service Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+        <a href="{% url 'year' 1 %}">
+          <div class="service-item text-center pt-3">
+            <div class="p-4">
+              <i class="fas fa-3x fa-dice-one text-primary mb-4"></i>
+              <h5 class="mb-3">First Year</h5>
+              <p>
+                Common topics like Maths, Physics, Chemistry, PPS, Human Values,
+                etc
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+        <a href="{% url 'year' 2 %}">
+          <div class="service-item text-center pt-3">
+            <div class="p-4">
+              <i class="fas fa-3x fa-dice-two text-primary mb-4"></i>
+              <h5 class="mb-3">Second Year</h5>
+              <p>
+                Topics like DSA and OOPs for CS, EMech and Engg Thermodynamics
+                for ME, etc
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+        <a href="{% url 'year' 3 %}">
+          <div class="service-item text-center pt-3">
+            <div class="p-4">
+              <i class="fas fa-3x fa-dice-three text-primary mb-4"></i>
+              <h5 class="mb-3">Third Year</h5>
+              <p>Third year topics for all branches with lab manuals as well</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+        <a href="{% url 'year' 4 %}">
+          <div class="service-item text-center pt-3">
+            <div class="p-4">
+              <i class="fas fa-3x fa-dice-four text-primary mb-4"></i>
+              <h5 class="mb-3">Fourth Year</h5>
+              <p>Final year engg. topics for all branches</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Service End -->
 
-    <!-- Service Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <a href="{% url 'year' 1 %}">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fas fa-3x fa-dice-one text-primary mb-4"></i>
-                            <h5 class="mb-3">First Year</h5>
-                            <p>Common topics like Maths, Physics, Chemistry, PPS, Human Values, etc</p>
-                        </div>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <a href="{% url 'year' 2 %}">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fas fa-3x fa-dice-two text-primary mb-4"></i>
-                            <h5 class="mb-3">Second Year</h5>
-                            <p>Topics like DSA and OOPs for CS, EMech and Engg Thermodynamics for ME, etc</p>
-                        </div>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <a href="{% url 'year' 3 %}">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fas fa-3x fa-dice-three text-primary mb-4"></i>
-                            <h5 class="mb-3">Third Year</h5>
-                            <p>Third year topics for all branches with lab manuals as well</p>
-                        </div>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <a href="{% url 'year' 4 %}">
-                        <div class="service-item text-center pt-3">
-                            <div class="p-4">
-                                <i class="fas fa-3x fa-dice-four text-primary mb-4"></i>
-                                <h5 class="mb-3">Fourth Year</h5>
-                                <p>Final year engg. topics for all branches</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+
+<!-- delete this if you find card good -->
+
+
+
+<!-- <div class="container-xxl py-5">
+  <div class="container">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h6 class="section-title bg-white text-center text-primary px-3">
+        Courses
+      </h6>
+      <h1 class="mb-5">Popular Courses</h1>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="course-item bg-light">
+          <a href="{% url 'subject_desc' 'dsa' %}">
+            <div class="position-relative overflow-hidden">
+                <img
+                class="img-fluid"
+                src="{% static 'img/dsa.jpg' %}"
+                alt=""
+                style="height: 270px; width: 420px"
+              />
+              <div
+              class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4"
+              >
+              <a
+              href="#"
+              class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
+              style="border-radius: 30px 0 0 30px"
+              >Read More</a
+              >
+              <a
+              href="#"
+                  class="flex-shrink-0 btn btn-sm btn-primary px-3"
+                  style="border-radius: 0 30px 30px 0"
+                  >Join Now</a
+                >
+              </div>
+            </div>
+            <div class="text-center p-4 pb-0">
+              <h3 class="mb-0">DSA</h3>
+              <div class="mb-3">
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+                <small>(123)</small>
+            </div>
+            <h5 class="mb-4">basics of Data Structures & Algorithms</h5>
+            </div>
+        </a>
+          <div class="d-flex border-top">
+            <small class="flex-fill text-center border-end py-2"
+              ><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small
+              >
+              <small class="flex-fill text-center border-end py-2"
+              ><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small
+              >
+              <small class="flex-fill text-center py-2"
+              ><i class="fa fa-user text-primary me-2"></i>30 Students</small
+              >
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="course-item bg-light">
+              <div class="position-relative overflow-hidden">
+                  <img
+                  class="img-fluid"
+              src="{% static 'img/course-2.jpg' %}"
+              alt=""
+              />
+              <div
+              class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4"
+              >
+              <a
+                href="#"
+                class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
+                style="border-radius: 30px 0 0 30px"
+                >Read More</a
+              >
+              <a
+                href="#"
+                class="flex-shrink-0 btn btn-sm btn-primary px-3"
+                style="border-radius: 0 30px 30px 0"
+                >Join Now</a
+              >
+            </div>
+          </div>
+          <div class="text-center p-4 pb-0">
+            <h3 class="mb-0">$149.00</h3>
+            <div class="mb-3">
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+                <small class="fa fa-star text-primary"></small>
+                <small>(123)</small>
+            </div>
+            <h5 class="mb-4">Web Design & Development Course for Beginners</h5>
+          </div>
+          <div class="d-flex border-top">
+              <small class="flex-fill text-center border-end py-2"
+              ><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small
+              >
+              <small class="flex-fill text-center border-end py-2"
+              ><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small
+              >
+              <small class="flex-fill text-center py-2"
+              ><i class="fa fa-user text-primary me-2"></i>30 Students</small
+              >
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+          <div class="course-item bg-light">
+              <div class="position-relative overflow-hidden">
+            <img
+              class="img-fluid"
+              src="{% static 'img/course-3.jpg' %}"
+              alt=""
+              />
+              <div
+              class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4"
+            >
+            <a
+            href="#"
+            class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
+            style="border-radius: 30px 0 0 30px"
+            >Read More</a
+            >
+            <a
+            href="#"
+            class="flex-shrink-0 btn btn-sm btn-primary px-3"
+                style="border-radius: 0 30px 30px 0"
+                >Join Now</a
+                >
+            </div>
+          </div>
+          <div class="text-center p-4 pb-0">
+            <h3 class="mb-0">$149.00</h3>
+            <div class="mb-3">
+              <small class="fa fa-star text-primary"></small>
+              <small class="fa fa-star text-primary"></small>
+              <small class="fa fa-star text-primary"></small>
+              <small class="fa fa-star text-primary"></small>
+              <small class="fa fa-star text-primary"></small>
+              <small>(123)</small>
+            </div>
+            <h5 class="mb-4">Web Design & Development Course for Beginners</h5>
+          </div>
+          <div class="d-flex border-top">
+            <small class="flex-fill text-center border-end py-2"
+            ><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small
+            >
+            <small class="flex-fill text-center border-end py-2"
+              ><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small
+            >
+            <small class="flex-fill text-center py-2"
+              ><i class="fa fa-user text-primary me-2"></i>30 Students</small
+              >
             </div>
         </div>
     </div>
-    <!-- Service End -->
+</div>
+  </div>
+</div> -->
 
-    <!-- Courses Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
-                <h1 class="mb-5">Popular Courses</h1>
-            </div>
-            <div class="row g-4 justify-content-center">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="course-item bg-light">
-                        <div class="position-relative overflow-hidden">
-                            <img class="img-fluid" src="{% static 'img/course-1.jpg' %}" alt="">
-                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4 pb-0">
-                            <h3 class="mb-0">$149.00</h3>
-                            <div class="mb-3">
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small>(123)</small>
-                            </div>
-                            <h5 class="mb-4">Web Design & Development Course for Beginners</h5>
-                        </div>
-                        <div class="d-flex border-top">
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small>
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
-                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>30 Students</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="course-item bg-light">
-                        <div class="position-relative overflow-hidden">
-                            <img class="img-fluid" src="{% static 'img/course-2.jpg' %}" alt="">
-                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4 pb-0">
-                            <h3 class="mb-0">$149.00</h3>
-                            <div class="mb-3">
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small>(123)</small>
-                            </div>
-                            <h5 class="mb-4">Web Design & Development Course for Beginners</h5>
-                        </div>
-                        <div class="d-flex border-top">
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small>
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
-                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>30 Students</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="course-item bg-light">
-                        <div class="position-relative overflow-hidden">
-                            <img class="img-fluid" src="{% static 'img/course-3.jpg' %}" alt="">
-                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4 pb-0">
-                            <h3 class="mb-0">$149.00</h3>
-                            <div class="mb-3">
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small>(123)</small>
-                            </div>
-                            <h5 class="mb-4">Web Design & Development Course for Beginners</h5>
-                        </div>
-                        <div class="d-flex border-top">
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small>
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
-                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>30 Students</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- delete untill this -->
+
+<!-- Courses Start -->
+<style>
+   
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        font-size:20px;
+    }
+
+.c-details span {
+    font-weight: 300;
+    font-size: 17px
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    background-color: #eee;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 39px
+}
+
+.badge span {
+    background-color: #fffbec;
+    width: 60px;
+    height: 25px;
+    padding-bottom: 3px;
+    border-radius: 5px;
+    display: flex;
+    color: #fed85d;
+    justify-content: center;
+    align-items: center
+}
+
+.progress {
+    height: 10px;
+    border-radius: 10px
+}
+
+.progress div {
+    background-color: red
+}
+
+.text1 {
+    font-size: 14px;
+    font-weight: 600
+}
+.txt{
+  font-size:20px;
+}
+.text2 {
+    color: #a5aec0
+}
+</style>
+<div class="container mt-5 mb-3">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+        <h6 class="section-title bg-white text-center text-primary px-3">
+          Courses
+        </h6>
+        <h1 class="mb-5">Popular Topics</h1>
     </div>
-    <!-- Courses End -->
-
-
-    <!-- About Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
-                    <div class="position-relative h-100">
-                        <img class="img-fluid position-absolute w-100 h-100" src="{% static 'img/about.jpg' %}" alt="" style="object-fit: cover;">
+    <div class="col row overflow-auto la">
+      {% for subject in top_subjects %}
+        <div class="col-md-4">
+            <a href="{% url 'subject_desc' subject.name %}">
+              <div class="card p-3 mb-2 subject-card" style="height:300px; font-size:x-large;">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-row align-items-center"> 
+                        <div class="ms-2 c-details">
+                            <h6 class="txt">{{subject.branch}}</h6> 
+                            {% if subject.year == 1 %} <span>{{subject.year}}st year</span>
+                            {% elif subject.year == 2 %} <span>{{subject.year}}nd year</span>
+                            {% elif subject.year == 3 %} <span>{{subject.year}}rd year</span>
+                            {% elif subject.year == 4 %} <span>{{subject.year}}th year</span>
+                            {% endif %}
+                        </div>
                     </div>
+                    <div class="badge"> <span>{{subject.views}}</span> </div>
                 </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
-                    <h1 class="mb-4">Welcome to MaNiK</h1>
-                    <p class="mb-4">This is the single stop for any engineering study material</p>
-                    <p class="mb-4">Video lectures, Notes, Playlists, Previous year papers and much more! right in your hands for free!</p>
-                    <div class="row gy-2 gx-4 mb-4">
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Skilled Instructors</p>
+                <div class="mt-5">
+                    <h3 class="heading">{{subject.name}}</h3>
+                    <div class="mb-5">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Classes</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>International Certificate</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Skilled Instructors</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Classes</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>International Certificate</p>
-                        </div>
+                        <div class="mt-3"> <span class="text1">viewed by {{subject.views}} users<span class="">out of {{total_users}}</span></span> </div>
                     </div>
-                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
                 </div>
             </div>
+            </a>
         </div>
+      {% endfor %}
     </div>
-    <!-- About End -->
+</div>
 
-
-
-    <!-- Team Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Founders</h6>
-                <h1 class="mb-5"></h1>
-            </div>
-            <div class="row g-2 justify-content-center">
-                
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="team-item bg-light">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{% static 'img/team-1.jpeg' %}" alt="" style="height:390px;">
-                        </div>
-                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
-                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
-                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <h5 class="mb-0">Manish Sharma</h5>
-                            <small>Founder</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="team-item bg-light">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{% static 'img/team-2.jpeg' %}" alt="">
-                        </div>
-                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
-                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
-                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <h5 class="mb-0">Nikhil Yadav</h5>
-                            <small>Co-Founder</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Courses End -->
+<!-- About Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row g-5">
+      <div
+        class="col-lg-6 wow fadeInUp"
+        data-wow-delay="0.1s"
+        style="min-height: 400px"
+      >
+        <div class="position-relative h-100">
+          <img
+            class="img-fluid position-absolute w-100 h-100"
+            src="{% static 'img/about.jpg' %}"
+            alt=""
+            style="object-fit: cover"
+          />
         </div>
-    </div>
-    <!-- Team End -->
-
-
-    <!-- Testimonial Start -->
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container">
-            <div class="text-center">
-                <h6 class="section-title bg-white text-center text-primary px-3">Testimonial</h6>
-                <h1 class="mb-5">Our Students Say!</h1>
-            </div>
-            <div class="owl-carousel testimonial-carousel position-relative">
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{% static 'img/testimonial-1.jpg' %}" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{% static 'img/testimonial-2.jpg' %}" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{% static 'img/testimonial-3.jpg' %}" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{% static 'img/testimonial-4.jpg' %}" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+        <h6 class="section-title bg-white text-start text-primary pe-3">
+          About Us
+        </h6>
+        <h1 class="mb-4">Welcome to MaNiK</h1>
+        <p class="mb-4">
+          This is the single stop for any engineering study material
+        </p>
+        <p class="mb-4">
+          Video lectures, Notes, Playlists, Previous year papers and much more!
+          right in your hands for free!
+        </p>
+        <div class="row gy-2 gx-4 mb-4">
+          <div class="col-sm-6">
+            <p class="mb-0">
+              <i class="fa fa-arrow-right text-primary me-2"></i>Skilled
+              Instructors
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <p class="mb-0">
+              <i class="fa fa-arrow-right text-primary me-2"></i>Online Classes
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <p class="mb-0">
+              <i class="fa fa-arrow-right text-primary me-2"></i>International
+              Certificate
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <p class="mb-0">
+              <i class="fa fa-arrow-right text-primary me-2"></i>Skilled
+              Instructors
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <p class="mb-0">
+              <i class="fa fa-arrow-right text-primary me-2"></i>Online Classes
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <p class="mb-0">
+              <i class="fa fa-arrow-right text-primary me-2"></i>International
+              Certificate
+            </p>
+          </div>
         </div>
+        <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
+      </div>
     </div>
-    <!-- Testimonial End -->
-        
+  </div>
+</div>
+<!-- About End -->
 
-    
+<!-- Team Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h6 class="section-title bg-white text-center text-primary px-3">
+        Founders
+      </h6>
+      <h1 class="mb-5"></h1>
+    </div>
+    <div class="row g-2 justify-content-center">
+      <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+        <div class="team-item bg-light">
+          <div class="overflow-hidden">
+            <img
+              class="img-fluid"
+              src="{% static 'img/team-1.jpeg' %}"
+              alt=""
+              style="height: 390px"
+            />
+          </div>
+          <div
+            class="position-relative d-flex justify-content-center"
+            style="margin-top: -23px"
+          >
+            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+              <a class="btn btn-sm-square btn-primary mx-1" href=""
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a class="btn btn-sm-square btn-primary mx-1" href=""
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a class="btn btn-sm-square btn-primary mx-1" href=""
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
+          </div>
+          <div class="text-center p-4">
+            <h5 class="mb-0">Manish Sharma</h5>
+            <small>Founder</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+        <div class="team-item bg-light">
+          <div class="overflow-hidden">
+            <img
+              class="img-fluid"
+              src="{% static 'img/team-2.jpeg' %}"
+              alt=""
+            />
+          </div>
+          <div
+            class="position-relative d-flex justify-content-center"
+            style="margin-top: -23px"
+          >
+            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+              <a class="btn btn-sm-square btn-primary mx-1" href=""
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a class="btn btn-sm-square btn-primary mx-1" href=""
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a class="btn btn-sm-square btn-primary mx-1" href=""
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
+          </div>
+          <div class="text-center p-4">
+            <h5 class="mb-0">Nikhil Yadav</h5>
+            <small>Co-Founder</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Team End -->
+
+<!-- Testimonial Start -->
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+  <div class="container">
+    <div class="text-center">
+      <h6 class="section-title bg-white text-center text-primary px-3">
+        Testimonial
+      </h6>
+      <h1 class="mb-5">Our Students Say!</h1>
+    </div>
+    <div class="owl-carousel testimonial-carousel position-relative">
+      <div class="testimonial-item text-center">
+        <img
+          class="border rounded-circle p-2 mx-auto mb-3"
+          src="{% static 'img/testimonial-1.jpg' %}"
+          style="width: 80px; height: 80px"
+        />
+        <h5 class="mb-0">Client Name</h5>
+        <p>Profession</p>
+        <div class="testimonial-text bg-light text-center p-4">
+          <p class="mb-0">
+            Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam
+            amet diam et eos. Clita erat ipsum et lorem et sit.
+          </p>
+        </div>
+      </div>
+      <div class="testimonial-item text-center">
+        <img
+          class="border rounded-circle p-2 mx-auto mb-3"
+          src="{% static 'img/testimonial-2.jpg' %}"
+          style="width: 80px; height: 80px"
+        />
+        <h5 class="mb-0">Client Name</h5>
+        <p>Profession</p>
+        <div class="testimonial-text bg-light text-center p-4">
+          <p class="mb-0">
+            Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam
+            amet diam et eos. Clita erat ipsum et lorem et sit.
+          </p>
+        </div>
+      </div>
+      <div class="testimonial-item text-center">
+        <img
+          class="border rounded-circle p-2 mx-auto mb-3"
+          src="{% static 'img/testimonial-3.jpg' %}"
+          style="width: 80px; height: 80px"
+        />
+        <h5 class="mb-0">Client Name</h5>
+        <p>Profession</p>
+        <div class="testimonial-text bg-light text-center p-4">
+          <p class="mb-0">
+            Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam
+            amet diam et eos. Clita erat ipsum et lorem et sit.
+          </p>
+        </div>
+      </div>
+      <div class="testimonial-item text-center">
+        <img
+          class="border rounded-circle p-2 mx-auto mb-3"
+          src="{% static 'img/testimonial-4.jpg' %}"
+          style="width: 80px; height: 80px"
+        />
+        <h5 class="mb-0">Client Name</h5>
+        <p>Profession</p>
+        <div class="testimonial-text bg-light text-center p-4">
+          <p class="mb-0">
+            Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam
+            amet diam et eos. Clita erat ipsum et lorem et sit.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Testimonial End -->
 
 {% endblock %}

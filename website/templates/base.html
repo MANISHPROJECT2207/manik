@@ -59,11 +59,44 @@
         .liked {
             color: red; /* Or any color you want for the liked state */
         }
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        
+        .wrapper-f {
+            display: flex;
+            flex-direction: column;
+            
+        }
+        
+        .content {
+            flex: 1;
+        }
+        
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+        }
+        .custom-icon {
+            color: gray;
+            margin-top:8px;
+            margin-right:8px;
+            font-size: 24px;
+        }
+        
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
     </style>
 </head>
 
 <body> 
-
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0" style="height:60px;">
@@ -73,23 +106,140 @@
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="input-group">
+            <form method="get" action="{% url 'search' %}" class="d-flex w-40">
+                <input type="text" placeholder="Search" class="form-control" name="query"/>
+                <button type="submit" class="btn btn-search">
+                    <i class="fa fa-search search-icon"></i>
+                </button>
+            </form>
+          </div>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="{% url 'home' %}" class="nav-item nav-link mt-2">Home</a>
                 <a href="{% url 'about' %}" class="nav-item nav-link mt-2">About</a>
-                <a href="{% url 'courses' %}" class="nav-item nav-link mt-2">Courses</a>
                 <a href="{% url 'subjectpages' %}" class="nav-item nav-link mt-2">Subjects</a>
-                <a href="{% url 'contact' %}" class="nav-item nav-link mt-2">Contact</a>
-                <div class="nav-item nav-link dropdown">
-                    <a href="#" class="nav-link nav-item dropdown-toggle" data-bs-toggle="dropdown" style="color:black;">Options</a>
-                    <div class="dropdown-menu fade-down">
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'logout_user' %}" class="dropdown-item">Logout</a>
-                        {% endif %}
-                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                        <a href="{% url '_404_error' %}" class="dropdown-item">404 Page</a>
+
+                <li class="nav-item topbar-icon dropdown hidden-caret">
+                    <a class="" data-bs-toggle="dropdown" href="#">
+                        <i class="fas fa-layer-group fa-2x custom-icon"></i>
+                    </a>
+                    <div class="dropdown-menu quick-actions animated fadeIn">
+                        <div class="quick-actions-header">
+                            <span class="title mb-1">Quick Actions</span>
+                            <span class="subtitle op-7">Shortcuts</span>
+                        </div>
+                        <div class="quick-actions-scroll scrollbar-outer">
+                            <div class="quick-actions-items">
+                                <div class="row m-0">
+                                    <a class="col-6 col-md-4 p-0" href="#">
+                                        <div class="quick-actions-item">
+                                            <div class="avatar-item bg-danger rounded-circle icon-container">
+                                                <i class="far fa-calendar-alt fa-2x"></i>
+                                            </div>
+                                            <span class="text">Calendar</span>
+                                        </div>
+                                    </a>
+                                    <a class="col-6 col-md-4 p-0" href="#">
+                                        <div class="quick-actions-item">
+                                            <div class="avatar-item bg-warning rounded-circle icon-container">
+                                                <i class="fas fa-map fa-2x "></i>
+                                            </div>
+                                            <span class="text">Maps</span>
+                                        </div>
+                                    </a>
+                                    <a class="col-6 col-md-4 p-0" href="#">
+                                        <div class="quick-actions-item">
+                                            <div class="avatar-item bg-info rounded-circle icon-container">
+                                                <i class="fas fa-file-excel fa-2x "></i>
+                                            </div>
+                                            <span class="text">Reports</span>
+                                        </div>
+                                    </a>
+                                    <a class="col-6 col-md-4 p-0" href="#">
+                                        <div class="quick-actions-item">
+                                            <div class="avatar-item bg-success rounded-circle icon-container">
+                                                <i class="fas fa-envelope fa-2x "></i>
+                                            </div>
+                                            <span class="text">Emails</span>
+                                        </div>
+                                    </a>
+                                    <a class="col-6 col-md-4 p-0" href="#">
+                                        <div class="quick-actions-item">
+                                            <div class="avatar-item bg-primary rounded-circle icon-container">
+                                                <i class="fas fa-file-invoice-dollar fa-2x "></i>
+                                            </div>
+                                            <span class="text">Invoice</span>
+                                        </div>
+                                    </a>
+                                    <a class="col-6 col-md-4 p-0" href="#">
+                                        <div class="quick-actions-item">
+                                            <div class="avatar-item bg-secondary rounded-circle icon-container">
+                                                <i class="fas fa-credit-card fa-2x"></i>
+                                            </div>
+                                            <span class="text">Payments</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </li>
+  
+
+                <li class="nav-item topbar-user dropdown hidden-caret" style="margin-right:10px;">
+                    <a
+                      class="dropdown-toggle profile-pic"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      aria-expanded="false"
+                    >
+                      <div class="avatar-sm">
+                        <img
+                          src="{% static 'img/profile.jpg' %}"
+                          alt="..."
+                          class="avatar-img rounded-circle"
+                        />
+                      </div>
+                      <span class="profile-username">
+                        <span class="op-7">Hi,</span>
+                        <span class="fw-bold">{{request.user}}</span>
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user animated fadeIn">
+                      <div class="dropdown-user-scroll scrollbar-outer">
+                        <li>
+                          <div class="user-box">
+                            <div class="avatar-lg">
+                              <img
+                                src="{% static 'img/profile.jpg' %}"
+                                alt="image profile"
+                                class="avatar-img rounded"
+                              />
+                            </div>
+                            <div class="u-text">
+                              <h4>{{request.user}}</h4>
+                              <p class="text-muted">{{request.user.email}}</p>
+                              <a href="profile.html" class="btn btn-xs btn-secondary" style="height:30px;">
+                                View Profile
+                              </a>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">My Profile</a>
+                          <a class="dropdown-item" href="#">My Balance</a>
+                          <a class="dropdown-item" href="#">Inbox</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">Account Setting</a>
+                          <div class="dropdown-divider"></div>
+                          {% if user.is_authenticated %}
+                            <a class="dropdown-item" href="{% url 'logout_user' %}">Logout</a>
+                          {% endif %}
+                        </li>
+                      </div>
+                    </ul>
+                  </li>
             </div>
             {% if not user.is_authenticated %}
                 <a href="{% url 'signin' %}" class="btn btn-primary py-3 px-lg-5 d-none d-lg-block" style="height:60px; width:160px;">Signin<i class="fa fa-arrow-right ms-3"></i></a>
@@ -105,7 +255,7 @@
         <br>
 
         <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container-fluid wrapper-f content bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
@@ -132,7 +282,7 @@
                     <h4 class="text-white mb-3">Gallery</h4>
                     <div class="row g-2 pt-2">
                         <div class="col-4">
-                            <img class="img-fluid bg-light p-1" src="{% static 'img/course-1.jpg' %}" alt="">
+                            <img class="img-fluid bg-light p-1" src="{% static 'img/dsa.jpg' %}" alt="">
                         </div>
                         <div class="col-4">
                             <img class="img-fluid bg-light p-1" src="{% static 'img/course-2.jpg' %}" alt="">
@@ -147,7 +297,7 @@
                             <img class="img-fluid bg-light p-1" src="{% static 'img/course-3.jpg' %}" alt="">
                         </div>
                         <div class="col-4">
-                            <img class="img-fluid bg-light p-1" src="{% static 'img/course-1.jpg' %}" alt="">
+                            <img class="img-fluid bg-light p-1" src="{% static 'img/dsa.jpg' %}" alt="">
                         </div>
                     </div>
                 </div>
@@ -209,8 +359,6 @@
                       // Toggle the 'show' class to collapse/expand the div
                       collapseDiv.classList.toggle('show');
                     }
-            
-                    // Optionally, you can add active class to the parent nav-item for styling
                     item.classList.toggle('active');
                   });
                 }

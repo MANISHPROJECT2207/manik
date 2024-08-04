@@ -16,7 +16,9 @@ def about(request):
     return render(request, 'about.html')
 
 def home(request):
-    return render(request, 'index.html')
+    top_subjects = Subject.objects.order_by('-views')[:3]
+    total_users = User.objects.all().count()
+    return render(request, 'index.html', {'top_subjects':top_subjects, 'total_users':total_users})
 
 def testimonial(request):
     return render(request, 'testimonial.html')
@@ -50,7 +52,7 @@ def contact(request):
 
 def signin(request):
     if request.user.is_authenticated:
-        return render(request, 'index.html')
+        return redirect('home')
     if request.method == 'POST':
         x = request.POST.get('ue')
         password = request.POST.get('password')
@@ -157,13 +159,15 @@ def show_revision(request):
         revision_count=Count('items', filter=Q(items__revision=True))
     ).filter(revision_count__gt=0)
     items = Item.objects.all().filter(revision=True)
+    total_items = items.count()
     a = Subject.objects.all().filter(year = 1)
     b = Subject.objects.all().filter(year = 2)
     c = Subject.objects.all().filter(year = 3)
     d = Subject.objects.all().filter(year = 4)
     g = Subject.objects.all().filter(year = 0)
     return render(request, 'show_revision.html', {'items':items, 'subjects': subjects,
-        'a':a, 'b':b, 'c':c, 'd':d, 'g':g
+        'a':a, 'b':b, 'c':c, 'd':d, 'g':g,
+        'total_items':total_items
     })
     
 def subject_desc(request, sub_name):
