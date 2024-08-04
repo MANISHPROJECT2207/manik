@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+    
+    <div class="p-4">
+
+        <div class="container text-center">
+            <div class="row g-2">
+                {% if items %}
+                    <h2 class="wht">Links:</h2>
+                    <br>
+                    {% for item in items %}
+                        <div class="col-4">
+                            <div class="p-3 wht">
+                                <div class="card" style="width: 18rem; height: 26rem;">
+                                    {% if item.image %}
+                                        <img src="{{item.image}}" class="card-img-top" alt="...">
+                                    {% else %}
+                                        <img src="data:image/png;base64,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" class="card-img-top">
+                                    {% endif %}
+                                    <div class="card-body" style="margin-top:-50px;">
+                                        <h5 class="card-title">{{item.title}}</h5>
+                                        <p class="card-text">{{item.description}}</p>
+                                        <a href="{{item.link}}" class="btn btn-primary">Go to playlist</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <h4 style="color:aqua">No Related Items/Links found</h4>
+                {% endif %}
+                
+                {% if subjects %}
+                    <h2 class="wht">Subjects:</h2>
+                    <br>
+                    <div class="container text-center">
+                        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                            {% for subject in subjects %}
+                                <div class="col">
+                                    <div class="p-3 wht" style="background-color:orange;">
+                                        <a href="{% url 'subject_desc' subject.name %}">{{subject.name}}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <h4 style="color:aqua">No Related Subjects found</h4>
+                {% endif %}
+
+            </div>
+        </div>
+
+    
+
+    </div>
+
+{% endblock %}

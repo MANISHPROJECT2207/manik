@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+            <meta name="description" content="" />
+            <meta name="author" content="" />
+            <title>Register</title>
+            <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+            <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+            <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+            <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    </head>
+
+    <style>
+      body {
+        background-color: rgba(0, 0, 0, 0.7);;
+      }
+      .form-container {
+        max-width: 400px;
+        color:white;
+        margin: 100px auto;
+        background-color: rgba(0, 0, 0, 0.7);;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+
+<body style="background-color:rgba(0, 0, 0, 0.7);">
+
+
+<div class="container">
+  <div class="form-container shadow">
+    <h2>Register</h2>
+    <form id="signupForm" method="post" action="{% url 'register' %}">
+      {% csrf_token %}
+      <br>
+      <div class="form-group">
+        <label for="email">Username<span style="color:red;">*</span></label>
+        <input type="text" class="form-control" id="username" name="username">
+      </div> 
+      <br>
+      <div class="form-group">
+        <label for="email">Email address<span style="color:red;">*</span></label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="password">Password<span style="color:red;">*</span></label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password<span style="color:red;">*</span></label>
+        <input type="password" class="form-control" id="confirmPassword" name="p2" required>
+      </div>
+      <br>
+      <button type="submit" class="p-2 btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</html>

@@ -1,0 +1,788 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-logo">
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="{% url 'home' %}" class="logo">
+              <img
+                src="{% static 'img/kaiadmin/logo_light.svg' %}"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="20"
+              />
+            </a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
+            </div>
+            <button class="topbar-toggler more">
+              <i class="gg-more-vertical-alt"></i>
+            </button>
+          </div>
+          <!-- End Logo Header -->
+        </div>
+        
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#base">
+                  <i class="fas fa-home"></i>
+                  <p>Dashboard</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="base1">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="">
+                        <span class="sub-item">Kuch bhi</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li> 
+
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#base">
+                  <i class="fas fa-solid fa-fire"></i>
+                  <p>Hot Topics</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="base1">
+                  <ul class="nav nav-collapse">
+                    {% for subject in subjects|slice:":5" %}
+                    <li>
+                      <a href="{% url 'subject_desc' subject.name %}">
+                        <span class="sub-item">{{subject.name}}</span>
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#base">
+                  <i class="fas fa-dice-one"></i>
+                  <p>1st Year</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="base1">
+                  <ul class="nav nav-collapse">
+                    {% for subject in a %}
+                      <li>
+                        <a href="{% url 'subject_desc' subject.name %}">
+                          <span class="sub-item">{{subject.name}}</span>
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#base">
+                  <i class="fas fa-dice-two"></i>
+                  <p>2nd Year</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="base1">
+                  <ul class="nav nav-collapse">
+                    {% for subject in b %}
+                    <li>
+                      <a href="{% url 'subject_desc' subject.name %}">
+                        <span class="sub-item">{{subject.name}}</span>
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#base">
+                  <i class="fas fa-dice-three"></i>
+                  <p>3rd Year</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="base1">
+                  <ul class="nav nav-collapse">
+                    {% for subject in c %}
+                    <li>
+                      <a href="{% url 'subject_desc' subject.name %}">
+                        <span class="">{{subject.name}}</span>
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#base">
+                  <i class="fas fa-dice-four"></i>
+                  <p>4th Year</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="base1">
+                  <ul class="nav nav-collapse">
+                    {% for subject in d %}
+                    <li>
+                      <a href="{% url 'subject_desc' subject.name %}">
+                        <span class="sub-item">{{subject.name}}</span>
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="main-header">
+          <div class="main-header-logo">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="dark">
+              <a href="index.html" class="logo">
+                <img
+                  src="img/kaiadmin/logo_light.svg"
+                  alt="navbar brand"
+                  class="navbar-brand"
+                  height="20"
+                />
+              </a>
+              <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                  <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                  <i class="gg-menu-left"></i>
+                </button>
+              </div>
+              <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+              </button>
+            </div>
+            <!-- End Logo Header -->
+          </div>
+          <!-- Navbar Header -->
+          <nav
+            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
+          >
+            <div class="container-fluid">
+              <nav
+                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
+              >
+                <div class="input-group">
+                  <form method="get" action="{% url 'search' %}">
+                    <input type="text" placeholder="Search" class="form-control" name="query"/>
+                    <div class="input-group-prepend">
+                      <button type="submit" class="btn btn-search pe-1">
+                        <i class="fa fa-search search-icon"></i>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </nav>
+
+              <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+                
+                <li class="nav-item topbar-icon dropdown hidden-caret">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="messageDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i class="fa fa-envelope"></i>
+                  </a>
+                  <ul
+                    class="dropdown-menu messages-notif-box animated fadeIn"
+                    aria-labelledby="messageDropdown"
+                  >
+                    <li>
+                      <div
+                        class="dropdown-title d-flex justify-content-between align-items-center"
+                      >
+                        Messages
+                        <a href="#" class="small">Mark all as read</a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="message-notif-scroll scrollbar-outer">
+                        <div class="notif-center">
+                          <a href="#">
+                            <div class="notif-img">
+                              <img
+                                src="{% static 'img/jm_denis.jpg' %}"
+                                alt="Img Profile"
+                              />
+                            </div>
+                            <div class="notif-content">
+                              <span class="subject">Jimmy Denis</span>
+                              <span class="block"> How are you ? </span>
+                              <span class="time">5 minutes ago</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="notif-img">
+                              <img
+                                src="{% static 'img/chadengle.jpg' %}"
+                                alt="Img Profile"
+                              />
+                            </div>
+                            <div class="notif-content">
+                              <span class="subject">Chad</span>
+                              <span class="block"> Ok, Thanks ! </span>
+                              <span class="time">12 minutes ago</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="notif-img">
+                              <img
+                                src="img/mlane.jpg"
+                                alt="Img Profile"
+                              />
+                            </div>
+                            <div class="notif-content">
+                              <span class="subject">Jhon Doe</span>
+                              <span class="block">
+                                Ready for the meeting today...
+                              </span>
+                              <span class="time">12 minutes ago</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="notif-img">
+                              <img
+                                src="img/talha.jpg"
+                                alt="Img Profile"
+                              />
+                            </div>
+                            <div class="notif-content">
+                              <span class="subject">Talha</span>
+                              <span class="block"> Hi, Apa Kabar ? </span>
+                              <span class="time">17 minutes ago</span>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <a class="see-all" href="javascript:void(0);"
+                        >See all messages<i class="fa fa-angle-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item topbar-icon dropdown hidden-caret">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="notifDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i class="fa fa-bell"></i>
+                    <span class="notification">4</span>
+                  </a>
+                  <ul
+                    class="dropdown-menu notif-box animated fadeIn"
+                    aria-labelledby="notifDropdown"
+                  >
+                    <li>
+                      <div class="dropdown-title">
+                        You have 4 new notification
+                      </div>
+                    </li>
+                    <li>
+                      <div class="notif-scroll scrollbar-outer">
+                        <div class="notif-center">
+                          <a href="#">
+                            <div class="notif-icon notif-primary">
+                              <i class="fa fa-user-plus"></i>
+                            </div>
+                            <div class="notif-content">
+                              <span class="block"> New user registered </span>
+                              <span class="time">5 minutes ago</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="notif-icon notif-success">
+                              <i class="fa fa-comment"></i>
+                            </div>
+                            <div class="notif-content">
+                              <span class="block">
+                                Rahmad commented on Admin
+                              </span>
+                              <span class="time">12 minutes ago</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="notif-img">
+                              <img
+                                src="img/profile2.jpg"
+                                alt="Img Profile"
+                              />
+                            </div>
+                            <div class="notif-content">
+                              <span class="block">
+                                Reza send messages to you
+                              </span>
+                              <span class="time">12 minutes ago</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="notif-icon notif-danger">
+                              <i class="fa fa-heart"></i>
+                            </div>
+                            <div class="notif-content">
+                              <span class="block"> Farrah liked Admin </span>
+                              <span class="time">17 minutes ago</span>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <a class="see-all" href="javascript:void(0);"
+                        >See all notifications<i class="fa fa-angle-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item topbar-icon dropdown hidden-caret">
+                  <a
+                    class="nav-link"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    aria-expanded="false"
+                  >
+                    <i class="fas fa-layer-group"></i>
+                  </a>
+                  <div class="dropdown-menu quick-actions animated fadeIn">
+                    <div class="quick-actions-header">
+                      <span class="title mb-1">Quick Actions</span>
+                      <span class="subtitle op-7">Shortcuts</span>
+                    </div>
+                    <div class="quick-actions-scroll scrollbar-outer">
+                      <div class="quick-actions-items">
+                        <div class="row m-0">
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div class="avatar-item bg-danger rounded-circle">
+                                <i class="far fa-calendar-alt"></i>
+                              </div>
+                              <span class="text">Calendar</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div
+                                class="avatar-item bg-warning rounded-circle"
+                              >
+                                <i class="fas fa-map"></i>
+                              </div>
+                              <span class="text">Maps</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div class="avatar-item bg-info rounded-circle">
+                                <i class="fas fa-file-excel"></i>
+                              </div>
+                              <span class="text">Reports</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div
+                                class="avatar-item bg-success rounded-circle"
+                              >
+                                <i class="fas fa-envelope"></i>
+                              </div>
+                              <span class="text">Emails</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div
+                                class="avatar-item bg-primary rounded-circle"
+                              >
+                                <i class="fas fa-file-invoice-dollar"></i>
+                              </div>
+                              <span class="text">Invoice</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div
+                                class="avatar-item bg-secondary rounded-circle"
+                              >
+                                <i class="fas fa-credit-card"></i>
+                              </div>
+                              <span class="text">Payments</span>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="nav-item topbar-user dropdown hidden-caret">
+                  <a
+                    class="dropdown-toggle profile-pic"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    aria-expanded="false"
+                  >
+                    <div class="avatar-sm">
+                      <img
+                        src="{% static 'img/profile.jpg' %}"
+                        alt="..."
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                    <span class="profile-username">
+                      <span class="op-7">Hi,</span>
+                      <span class="fw-bold">{{request.user}}</span>
+                    </span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-user animated fadeIn">
+                    <div class="dropdown-user-scroll scrollbar-outer">
+                      <li>
+                        <div class="user-box">
+                          <div class="avatar-lg">
+                            <img
+                              src="img/profile.jpg"
+                              alt="image profile"
+                              class="avatar-img rounded"
+                            />
+                          </div>
+                          <div class="u-text">
+                            <h4>Hizrian</h4>
+                            <p class="text-muted">hello@example.com</p>
+                            <a
+                              href="profile.html"
+                              class="btn btn-xs btn-secondary btn-sm"
+                              >View Profile</a
+                            >
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">My Profile</a>
+                        <a class="dropdown-item" href="#">My Balance</a>
+                        <a class="dropdown-item" href="#">Inbox</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Account Setting</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Logout</a>
+                      </li>
+                    </div>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <!-- End Navbar -->
+        </div>
+
+        <!-- my work of project -->
+        <body style="background-color: rgb(17, 17, 17); color: whitesmoke">
+
+          <div>
+            <h2 class="work-sans-fonts m-3 mx-4 text-danger" style="padding-top: 100px;">
+                {% if year == 1 %} {{year}}st {% endif %}
+                {% if year == 2 %} {{year}}nd {% endif %}
+                {% if year == 3 %} {{year}}rd {% endif %}
+                {% if year == 4 %} {{year}}th {% endif %}
+                year
+            </h2>
+          </div>   
+
+          <!-- // progrees about revision and total watched  -->
+          <div style="padding-right: 20px;">
+            <button class="btn btn-primary float-end mx-lg-2" style="border-color: rgb(50, 50, 50); border-radius: 0.5rem; height: 4rem; background-color: rgb(32, 32, 32);">
+              <a href="{% url 'show_revision' %}"><h3 style="color:white !important;">Show Revision</h3></a>
+           </button>
+         <div class="flex-column">
+
+            <div
+            class="m-4"
+            
+              style="background-color: rgb(32, 32, 32); border-radius: 0.5rem; width: 170px;"
+            >
+            
+            <div class="progress" style="height: 4px;  background-color: rgb(50, 50, 50);">
+              <div class="progress-bar" role="progressbar" style="width: 33%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+              <h4
+                class="align-content-center p-2 px-3"
+                style="color: rgb(238, 75, 43); border-radius: 0.5rem;">
+                Watched : {{numerator}}/{{denominator}}
+              </h4>  
+            </div>
+          </div>
+          </div>
+
+      {% if subjects %}
+          {% for subject in subjects %}
+          <div
+              class="m-4"
+              id="3"
+              style="background-color: rgb(32, 32, 32); border-radius: 0.5rem;"
+            >
+            <div class="progress" style="height: 4px;  background-color: rgb(50, 50, 50);">
+              <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+              <div
+                class="align-content-center p-2 px-3 idCheck"
+                style="color: rgb(238, 75, 43); border-radius: 0.5rem;cursor: pointer;"
+                onclick="faAngleChange(3)">
+                {{ subject.name }}
+                <button class="btn btn-primary float-end mx-lg-2" style="border-color: rgb(50, 50, 50); border-radius: 0.5rem; height: 2.5rem; background-color: rgb(32, 32, 32);">
+                   <i class="fa fa-angle-down faAngle" ></i>
+                </button>
+              </div>  
+              
+              <div class="mx-4 d-none show">
+                <div class="overflow-auto" style="border-radius: 20px;">
+                <table
+                  class="table table-bordered text-white"
+                  style="border-color: rgb(50, 50, 50); background-color: rgb(17, 17, 17);"
+                >
+                  <thead>
+                    <tr>
+                      <th scope="col" class="text-center">#</th>
+                      <th scope="col" class="text-center">title</th>
+                      <th scope="col" class="text-center">link</th>
+                      <th scope="col" class="text-center">description</th>
+                      <th scope="col" class="text-center">likes</th>
+                      <th scope="col" class="text-center">Revision</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in subject.items.all %}
+                      <tr>
+                        <th scope="row">
+                          <div class="form-check">
+                            <input class="form-check-input border-3 item-status-checkbox" type="checkbox" value="{{ item.id }}" id="flexCheckDefault" {% if item.status == 'completed' %} checked {% endif %}>   
+                          </div>
+                        </th>
+                        <td class="text-center">{{item.title}}</td>
+                        <td class="text-center"  style="cursor:pointer;">
+                          <a href=" {{item.link}} "><img src="../static/img/youtube-brands-solid.svg"  style="height: 30px;" alt=""></a>
+                        </td>
+                        <td class="text-center">{{item.description}}</td>
+                        <td class="text-center">
+                          <span class="like-btn" data-item-id="{{ item.id }}">
+                              <i class="fas fa-thumbs-up {% if request.user in item.liked_by.all %} liked{% endif %}"></i>
+                          </span> 
+                          <span class="like-count">{{item.likes}}</span>
+                      </td>
+                        <td class="text-center">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input revision" type="checkbox" id="flexSwitchCheckDefault" value="{{ item.id }}" {% if item.revision %} checked {% endif %}>
+                          </div>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        
+      {% endif %}
+          </div>
+        </body>
+        
+
+        
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const statusCheckboxes = document.querySelectorAll('.item-status-checkbox');
+        const revisionCheckboxes = document.querySelectorAll('.revision');
+        const likeButtons = document.querySelectorAll('.like-btn');
+    
+        statusCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                const itemId = this.value;
+                const isChecked = this.checked;
+    
+                fetch("{% url 'status_completed' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ item_id: itemId, status: isChecked })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log(`Item status updated to ${isChecked ? 'completed' : 'not completed'}.`);
+                    } else {
+                        console.error('Failed to update item status.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    
+        revisionCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                const itemId = this.value;
+                const isChecked = this.checked;
+    
+                fetch("{% url 'revision' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ item_id: itemId, revision: isChecked })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log(`Item marked for revision: ${isChecked}`);
+                    } else {
+                        console.error('Failed to mark the item for revision.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    
+        likeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const itemId = this.getAttribute('data-item-id');
+                const icon = this.querySelector('i');
+                const likeCountElement = this.nextElementSibling;
+                const liked = icon.classList.contains('liked');
+    
+                fetch("{% url 'like_item' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ item_id: itemId, liked: !liked })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        icon.classList.toggle('liked', !liked);
+                        likeCountElement.textContent = data.likes;
+                    } else {
+                        console.error('Failed to update like status.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    });
+    
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Select all nav-item elements
+        const navItems = document.querySelectorAll('.nav-item');
+      
+        navItems.forEach(item => {
+          // Find the link that toggles the collapse
+          const toggleLink = item.querySelector('[data-bs-toggle="collapse"]');
+      
+          if (toggleLink) {
+            toggleLink.addEventListener('click', function(event) {
+              event.preventDefault();
+      
+              // Find the collapse div within the current nav-item
+              const collapseDiv = item.querySelector('.collapse');
+      
+              if (collapseDiv) {
+                // Toggle the 'show' class to collapse/expand the div
+                collapseDiv.classList.toggle('show');
+              }
+      
+              // Optionally, you can add active class to the parent nav-item for styling
+              item.classList.toggle('active');
+            });
+          }
+        });
+      });
+    </script>
+
+   
+
+    <!--   Core JS Files   -->
+    <script src="{% static 'js/core/index.js' %}"></script>
+    <script src="{% static 'js/core/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="{% static 'js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+
+    <!-- Chart JS -->
+    <script src="{% static 'js/plugin/chart.js/chart.min.js' %}"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="{% static 'js/plugin/jquery.sparkline/jquery.sparkline.min.js' %}"></script>
+
+    <!-- Chart Circle -->
+    <script src="{% static 'js/plugin/chart-circle/circles.min.js' %}"></script>
+
+    <!-- Datatables -->
+    <script src="{% static 'js/plugin/datatables/datatables.min.js' %}"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="{% static 'js/plugin/bootstrap-notify/bootstrap-notify.min.js' %}"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="{% static 'js/plugin/jsvectormap/jsvectormap.min.js' %}"></script>
+    <script src="{% static 'js/plugin/jsvectormap/world.js' %}"></script>
+
+    <!-- Google Maps Plugin -->
+    <script src="{% static 'js/plugin/gmaps/gmaps.js' %}"></script>
+
+    <!-- Sweet Alert -->
+    <script src="{% static 'js/plugin/sweetalert/sweetalert.min.js' %}"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="{% static 'js/kaiadmin.min.js' %}"></script>
+
+{% endblock %}
