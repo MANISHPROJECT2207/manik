@@ -16,6 +16,8 @@ SECRET_KEY = 'django-insecure-m(u&5knukkzuavp*b)^k52gj6z&+$=2lqs-5d84t#65)cr&-90
 DEBUG = True
 
 
+
+
 ALLOWED_HOSTS = ['*', 'MANIKEDU.pythonanywhere.com']
 
 
