@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Item, Subject
+from .models import Item, Subject, Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -26,8 +26,9 @@ def testimonial(request):
 
 def _404_error(request):
     return render(request, '404.html')
-def user(request):
-    return render(request,'profile.html')
+def profile(request):
+    profile = Profile.objects.get(user=request.user)
+    return render(request,'profile.html', {'user':request.user, 'profile':profile})
 
 def courses(request):
     return render(request, 'courses.html')

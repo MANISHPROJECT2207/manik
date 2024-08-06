@@ -19,5 +19,5 @@ urlpatterns = [
     path('subjects/<str:sub_name>/', views.subject_desc, name='subject_desc'),
     path('like_item/', views.like_item, name='like_item'),
     path('year/<int:year>', views.year, name='year'), 
-    path('user',views.user,name='user')
+    path('profile/', views.profile, name='profile')
 ]

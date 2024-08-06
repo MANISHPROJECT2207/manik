@@ -3,11 +3,13 @@ import mysql.connector
 dataBase = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    passwd = '5687482582'
+    passwd = 'Mee1074$'
 )
 
 cursorObject = dataBase.cursor()
 
 cursorObject.execute("create database manik;")
 
-print("Ban Gaya!")
+# cursorObject.execute("drop database manik;")
+
+print("Ho Gaya!")

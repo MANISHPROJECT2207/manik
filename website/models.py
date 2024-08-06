@@ -50,3 +50,12 @@ class Item(models.Model):
         
     def __str__(self):
         return self.title
+    
+class Profile(models.Model):
+    user = models.ForeignKey(User, related_name='profiles', on_delete=models.CASCADE)
+    pfp = models.ImageField(upload_to='profile_pictures', blank=True, null=True)
+    year = models.IntegerField(default=0)
+    branch = models.CharField(choices=Branches, max_length=30, default="Common")
+        
+    def __str__(self):
+        return self.user.first_name
