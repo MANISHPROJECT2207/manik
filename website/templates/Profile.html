@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 <section style="background-color: #eee; padding-top: 20px;">
     <div class="container py-5">
 
@@ -7,11 +9,17 @@
         <div class="col-lg-4">
           <div class="card mb-4">
             <div class="card-body text-center">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+              <img {% if profile. %} src="{% static 'img/anonymous_user.jpg' %}" alt="default_avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
-              <h5 class="my-3">{{User.name}}</h5>
-              <p class="text-muted mb-1">Full Stack Developer</p>
-              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+              <h5 class="my-3">{{user}}</h5>
+              <p class="text-muted mb-1">{{user.email}}</p>
+              <p class="text-muted mb-4">
+                {% if profile.year == 1 %} {{profile.year}}st {% endif %}
+                {% if profile.year == 2 %} {{profile.year}}nd {% endif %}
+                {% if profile.year == 3 %} {{profile.year}}rd {% endif %}
+                {% if profile.year == 4 %} {{profile.year}}th {% endif %}
+                 year
+              </p>
               <div class="d-flex justify-content-center mb-2">
                 <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary">Follow</button>
                 <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Message</button>

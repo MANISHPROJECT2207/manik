@@ -58,4 +58,4 @@ class Profile(models.Model):
     branch = models.CharField(choices=Branches, max_length=30, default="Common")
         
     def __str__(self):
-        return self.user.first_name
+        return self.user.email

@@ -76,7 +76,6 @@ def register(request):
         pswd = request.POST.get('password')
         p2 = request.POST.get('p2')
         username = request.POST.get('username')
-        
         if pswd != p2:
             return redirect('register')
 
@@ -88,7 +87,10 @@ def register(request):
 
         # Attempt to authenticate the user
         user = authenticate(request, email=email, password=pswd)
-        
+        user.save()
+        profile = Profile.objects.get_object_or_404(user=user)
+        if not profile: profile = Profile.objects.create(user = user)
+        profile.save()
         if user is not None:
             login(request, user)
             return redirect('home')
