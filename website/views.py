@@ -25,6 +25,8 @@ def testimonial(request):
 
 def _404_error(request):
     return render(request, '404.html')
+def user(request):
+    return render(request,'profile.html')
 
 def courses(request):
     return render(request, 'courses.html')
