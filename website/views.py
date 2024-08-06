@@ -10,6 +10,7 @@ from manik.settings import BASE_DIR
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.utils.decorators import method_decorator
 import json
 
 def about(request):
@@ -240,3 +241,23 @@ def year(request, year):
         'a':a, 'b':b, 'c':c, 'd':d, 'g':g,
         'year':year
         })
+
+@csrf_exempt
+@login_required   
+def update_views(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        subject_id = data.get('subject_id')
+        user = request.user
+
+        try:
+            subject = Subject.objects.get(id=subject_id)
+            print(subject)
+            if user not in subject.viewed_by.all():
+                subject.views += 1
+                subject.viewed_by.add(user)
+                subject.save()
+            return JsonResponse({'success': True, 'views': subject.views})
+        except Subject.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Subject not found.'})
+    return JsonResponse({'success': False, 'error': 'Invalid request.'})

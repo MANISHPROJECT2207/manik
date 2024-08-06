@@ -590,12 +590,8 @@
 
           <div>
             <h2 class="work-sans-fonts m-3 mx-4 text-danger" style="padding-top: 100px;">
-              Rtu Syllabus Cheat Sheet - All Topics Details
+              Subjects
             </h2>
-            <h4 class="px-4">
-              It contains the youtube video lectures of the topics and as well as
-              handwritten notes unit wise for all Yearss
-            </h4>
           </div>   
 
           <!-- // progrees about revision and total watched  -->
@@ -633,16 +629,17 @@
             <div class="progress" style="height: 4px;  background-color: rgb(50, 50, 50);">
               <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-              <div
-                class="align-items-center p-2 px-3 idCheck"
-                style="color: rgb(246, 77, 44); border-radius: 0.5rem;cursor: pointer; height:50px; font-size:1.3rem;"
-                onclick="faAngleChange(3)">
-                {{ subject.name }}
-                <button class="btn btn-primary float-end mx-lg-2" style="border-color: rgb(50, 50, 50); border-radius: 0.5rem; height: 2.5rem; background-color: rgb(32, 32, 32);">
-                   <i class="fa fa-angle-down faAngle" ></i>
-                </button>
-                <span class="float-end mx-2"><i class="fas fa-solid fa-eye mx-1"></i> {{subject.views}}</span>
-              </div>  
+            <div class="align-items-center p-2 px-3 idCheck"
+              style="color: rgb(246, 77, 44); border-radius: 0.5rem; cursor: pointer; height: 50px; font-size: 1.3rem;"
+              onclick="faAngleChange(3)">
+              {{ subject.name }}
+              <button class="btn btn-primary float-end mx-lg-2 view-btn"
+                      style="border-color: rgb(50, 50, 50); border-radius: 0.5rem; height: 2.5rem; background-color: rgb(32, 32, 32);"
+                      data-subject-id="{{ subject.id }}">
+                  <i class="fa fa-angle-down faAngle"></i>
+              </button>
+              <span class="float-end mx-2"><i class="fas fa-solid fa-eye mx-1"></i> <span class="view-count">{{ subject.views }}</span></span>
+            </div> 
               
               <div class="mx-4 d-none show">
                 <div class="overflow-auto" style="border-radius: 20px;">
@@ -815,7 +812,38 @@
                 });
             });
         });
+        const viewButtons = document.querySelectorAll('.view-btn');
+
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const subjectId = this.getAttribute('data-subject-id');
+            const viewCountElement = this.closest('.idCheck').querySelector('.view-count');
+
+            fetch("{% url 'update_views' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ subject_id: subjectId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    viewCountElement.textContent = data.views;
+                } else {
+                    console.error('Failed to update views.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
     });
+        
+    });
+
+    
     
     </script>
 
