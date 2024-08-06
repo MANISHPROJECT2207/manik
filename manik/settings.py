@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-m(u&5knukkzuavp*b)^k52gj6z&+$=2lqs-5d84t#65)cr&-90
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['*', 'MANIKEDU.pythonanywhere.com']
@@ -71,7 +71,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME' : 'manik',
         'USER' : 'root', 
-        'PASSWORD' : 'Mee1074$',
+        'PASSWORD' : '5687482582',
         'HOST' : 'localhost',
         'PORT' : '3306',
     }
