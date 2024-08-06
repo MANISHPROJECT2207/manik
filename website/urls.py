@@ -19,5 +19,9 @@ urlpatterns = [
     path('subjects/<str:sub_name>/', views.subject_desc, name='subject_desc'),
     path('like_item/', views.like_item, name='like_item'),
     path('year/<int:year>', views.year, name='year'), 
+<<<<<<< HEAD
     path('user',views.user,name='user')
+=======
+    path('update-views/', views.update_views, name='update_views'),
+>>>>>>> dcc60dcfd4bed13cfa15da2a768cc6dc202625f8
 ]
