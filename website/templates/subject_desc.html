@@ -1,22 +1,103 @@
-{% extends 'base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Manik</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/kaiadmin.min.css' %}" />
+
+    <link rel="icon" href="{% static 'logo.jpg' %}" type="image/x-icon"/>
+
+    <script src="{% static 'js/plugin/webfont/webfont.min.js' %}"></script>
+
+    <script>
+        WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+            families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+            ],
+            urls: ["css/fonts.min.css"],
+        },
+        active: function () {
+            sessionStorage.fonts = true;
+        },
+        });
+    </script>
+    <style>
+        .liked {
+            color: red; /* Or any color you want for the liked state */
+        }
+        .btn-search {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        
+        .wrapper-f {
+            display: flex;
+            flex-direction: column;
+            
+        }
+        
+        .content {
+            flex: 1;
+        }
+        
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+        }
+    </style>
+</head>
 
 {% block content %}
 
-    <div class="wrapper mb-5">
+    <div class="wrapper">
       <!-- Sidebar -->
       <div class="sidebar" data-background-color="dark">
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
-            <a href="{% url 'home' %}" class="logo">
-              <img
-                src="{% static 'img/kaiadmin/logo_light.svg' %}"
-                alt="navbar brand"
-                class="navbar-brand"
-                height="20"
-              />
-            </a>
+            <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center px-lg-5" style="margin-left:-20px;">
+              <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>MaNik</h2>
+          </a>
             <div class="nav-toggle">
               <button class="btn btn-toggle toggle-sidebar">
                 <i class="gg-menu-right"></i>
@@ -183,20 +264,16 @@
             class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
           >
             <div class="container-fluid">
-              <nav
-                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
-              >
-                <div class="input-group">
-                  <form method="get" action="{% url 'search' %}">
+              
+              <div class="input-group">
+                <form method="get" action="{% url 'search' %}" class="d-flex w-40">
                     <input type="text" placeholder="Search" class="form-control" name="query"/>
-                    <div class="input-group-prepend">
-                      <button type="submit" class="btn btn-search pe-1">
+                    <button type="submit" class="btn btn-search">
                         <i class="fa fa-search search-icon"></i>
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </nav>
+                    </button>
+                </form>
+              </div>
+              
 
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
                 
@@ -339,7 +416,7 @@
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="img/profile2.jpg"
+                                src="{% static 'img/profile2.jpg' %}"
                                 alt="Img Profile"
                               />
                             </div>
@@ -473,14 +550,14 @@
                         <div class="user-box">
                           <div class="avatar-lg">
                             <img
-                              src="img/profile.jpg"
+                              src="{% static 'img/profile.jpg' %}"
                               alt="image profile"
                               class="avatar-img rounded"
                             />
                           </div>
                           <div class="u-text">
-                            <h4>Hizrian</h4>
-                            <p class="text-muted">hello@example.com</p>
+                            <h4>{{request.user}}</h4>
+                            <p class="text-muted">{{request.user.email}}</p>
                             <a
                               href="profile.html"
                               class="btn btn-xs btn-secondary btn-sm"
@@ -497,7 +574,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="{% url 'logout_user' %}">Logout</a>
                       </li>
                     </div>
                   </ul>
@@ -513,8 +590,15 @@
 
           <div>
             <h2 class="work-sans-fonts m-3 mx-4 text-danger" style="padding-top: 100px;">
-              
+              {{subject}}
             </h2>
+            <h4 class="px-4">
+              {% if subject.year == 1 %}{{subject.year}}st year  
+              {% elif subject.year == 2 %}{{subject.year}}nd year
+              {% elif subject.year == 3 %}{{subject.year}}rd year
+              {% else %}{{subject.year}}th year
+              {% endif %}
+            </h4>
           </div>   
 
           <!-- // progrees about revision and total watched  -->
@@ -543,11 +627,11 @@
           </div>
 
       
-         
+            
               
-             
+              
                 <table
-                  class="table table-bordered text-white px-4"
+                  class="table table-bordered text-white"
                   style="border-color: rgb(50, 50, 50); background-color: rgb(17, 17, 17);"
                 >
                   <thead>
@@ -565,16 +649,20 @@
                       <tr>
                         <th scope="row">
                           <div class="form-check">
-                            <input class="form-check-input border-3 item-status-checkbox" type="checkbox" value="{{ item.id }}" id="flexCheckDefault" {% if item.status == 'completed' %} checked {% endif %}>
-                            
+                            <input class="form-check-input border-3 item-status-checkbox" type="checkbox" value="{{ item.id }}" id="flexCheckDefault" {% if item.status == 'completed' %} checked {% endif %}>   
                           </div>
                         </th>
                         <td class="text-center">{{item.title}}</td>
                         <td class="text-center"  style="cursor:pointer;">
-                          <a href=" {{item.link}} "><img src="../static/img/youtube-brands-solid.svg"  style="height: 30px;" alt=""></a>
+                          <a href=" {{item.link}} "><img src="{% static '/img/youtube-brands-solid.svg' %}"  style="height: 30px;" alt=""></a>
                         </td>
                         <td class="text-center">{{item.description}}</td>
-                        <td class="text-center">{{item.likes}}</td>
+                        <td class="text-center">
+                          <span class="like-btn" data-item-id="{{ item.id }}">
+                              <i class="fas fa-thumbs-up {% if request.user in item.liked_by.all %} liked{% endif %}"></i>
+                          </span> 
+                          <span class="like-count">{{item.likes}}</span>
+                      </td>
                         <td class="text-center">
                           <div class="form-check form-switch">
                             <input class="form-check-input revision" type="checkbox" id="flexSwitchCheckDefault" value="{{ item.id }}" {% if item.revision %} checked {% endif %}>
@@ -584,75 +672,13 @@
                     {% endfor %}
                   </tbody>
                 </table>
-         
-         
-        </body>
-        
-
+              
+      <br>
+      <br>
+          </div>
         
       </div>
-    </div>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const statusCheckboxes = document.querySelectorAll('.item-status-checkbox');
-        const revisionCheckboxes = document.querySelectorAll('.revision');
-
-        statusCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                const itemId = this.value;
-                const isChecked = this.checked;
-
-                fetch("{% url 'status_completed' %}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: JSON.stringify({ item_id: itemId, status: isChecked })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log(`Item status updated to ${isChecked ? 'completed' : 'not completed'}.`);
-                    } else {
-                        console.error('Failed to update item status.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            });
-        });
-
-        revisionCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                const itemId = this.value;
-                const isChecked = this.checked;
-
-                fetch("{% url 'revision' %}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: JSON.stringify({ item_id: itemId, revision: isChecked })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log(`Item marked for revision: ${isChecked}`);
-                    } else {
-                        console.error('Failed to mark the item for revision.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            });
-        });
-    });
-    </script>
+    
 
     <script>
       document.addEventListener("DOMContentLoaded", function() {
@@ -674,14 +700,105 @@
                 // Toggle the 'show' class to collapse/expand the div
                 collapseDiv.classList.toggle('show');
               }
-      
-              // Optionally, you can add active class to the parent nav-item for styling
               item.classList.toggle('active');
             });
           }
         });
       });
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const statusCheckboxes = document.querySelectorAll('.item-status-checkbox');
+        const revisionCheckboxes = document.querySelectorAll('.revision');
+        const likeButtons = document.querySelectorAll('.like-btn');
+    
+        statusCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                const itemId = this.value;
+                const isChecked = this.checked;
+    
+                fetch("{% url 'status_completed' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ item_id: itemId, status: isChecked })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log(`Item status updated to ${isChecked ? 'completed' : 'not completed'}.`);
+                    } else {
+                        console.error('Failed to update item status.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    
+        revisionCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                const itemId = this.value;
+                const isChecked = this.checked;
+    
+                fetch("{% url 'revision' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ item_id: itemId, revision: isChecked })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log(`Item marked for revision: ${isChecked}`);
+                    } else {
+                        console.error('Failed to mark the item for revision.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    
+        likeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const itemId = this.getAttribute('data-item-id');
+                const icon = this.querySelector('i');
+                const likeCountElement = this.nextElementSibling;
+                const liked = icon.classList.contains('liked');
+    
+                fetch("{% url 'like_item' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ item_id: itemId, liked: !liked })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        icon.classList.toggle('liked', !liked);
+                        likeCountElement.textContent = data.likes;
+                    } else {
+                        console.error('Failed to update like status.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    });
+    
     </script>
+
+   
 
    
 
