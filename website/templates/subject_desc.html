@@ -593,11 +593,11 @@
               {{subject}}
             </h2>
             <h4 class="px-4">
-              {% if subject.year == 1 %}{{subject.year}}st year  
-              {% elif subject.year == 2 %}{{subject.year}}nd year
-              {% elif subject.year == 3 %}{{subject.year}}rd year
-              {% else %}{{subject.year}}th year
-              {% endif %}
+                {% if year == 1 %} {{year}}<sup>st</sup> {% endif %}
+                {% if year == 2 %} {{year}}<sup>nd</sup> {% endif %}
+                {% if year == 3 %} {{year}}<sup>rd</sup> {% endif %}
+                {% if year == 4 %} {{year}}<sup>th</sup> {% endif %}
+                year
             </h4>
           </div>   
 
