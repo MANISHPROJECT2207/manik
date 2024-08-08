@@ -316,10 +316,10 @@
                     <div class="d-flex flex-row align-items-center"> 
                         <div class="ms-2 c-details">
                             <h6 class="txt">{{subject.branch}}</h6> 
-                            {% if subject.year == 1 %} <span>{{subject.year}}st year</span>
-                            {% elif subject.year == 2 %} <span>{{subject.year}}nd year</span>
-                            {% elif subject.year == 3 %} <span>{{subject.year}}rd year</span>
-                            {% elif subject.year == 4 %} <span>{{subject.year}}th year</span>
+                            {% if subject.year == 1 %} <span>{{subject.year}}<sup>st</sup> year</span>
+                            {% elif subject.year == 2 %} <span>{{subject.year}}<sup>nd</sup> year</span>
+                            {% elif subject.year == 3 %} <span>{{subject.year}}<sup>rd</sup> year</span>
+                            {% elif subject.year == 4 %} <span>{{subject.year}}<sup>th</sup> year</span>
                             {% endif %}
                         </div>
                     </div>
