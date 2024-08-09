@@ -10,7 +10,7 @@
         <div class="col-lg-4">
           <div class="card mb-4">
             <div class="card-body text-center">
-              <img  src="{% static 'img/anonymous_user.jpg' %}" alt="default_avatar"
+              <img src="{% if profile.pfp %}{{ profile.pfp.url }}{% else %}{% static 'img/anonymous_user.jpg' %}{% endif %}" alt="default_avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
               <h5 class="my-3">{{user}}</h5>
               <p class="text-muted mb-1">{{user.email}}</p>

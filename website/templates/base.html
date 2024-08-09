@@ -196,7 +196,7 @@
                     </div>
                 </li> -->
   
-
+                {% if user.is_authenticated %}
                 <li class="nav-item topbar-user dropdown hidden-caret" style="margin-right:10px;">
                     <a
                       class="dropdown-toggle profile-pic"
@@ -251,6 +251,8 @@
                       </div>
                     </ul>
                   </li>
+                {% endif %}
+                
             </div>
             {% if not user.is_authenticated %}
                 <a href="{% url 'signin' %}" class="btn btn-primary py-3 px-lg-5 d-none d-lg-block" style="height:60px; width:160px;">Signin<i class="fa fa-arrow-right ms-3"></i></a>
@@ -290,37 +292,16 @@
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <h4 class="text-white mb-3">Gallery</h4>
-                    <div class="row g-2 pt-2">
-                        <div class="col-4">
-                            <img class="img-fluid bg-light p-1" src="{% static 'img/dsa.jpg' %}" alt="">
-                        </div>
-                        <div class="col-4">
-                            <img class="img-fluid bg-light p-1" src="{% static 'img/course-2.jpg' %}" alt="">
-                        </div>
-                        <div class="col-4">
-                            <img class="img-fluid bg-light p-1" src="{% static 'img/course-3.jpg' %}" alt="">
-                        </div>
-                        <div class="col-4">
-                            <img class="img-fluid bg-light p-1" src="{% static 'img/course-2.jpg' %}" alt="">
-                        </div>
-                        <div class="col-4">
-                            <img class="img-fluid bg-light p-1" src="{% static 'img/course-3.jpg' %}" alt="">
-                        </div>
-                        <div class="col-4">
-                            <img class="img-fluid bg-light p-1" src="{% static 'img/dsa.jpg' %}" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h4 class="text-white mb-3">Newsletter</h4>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                
+                <div class="col-lg-6 col-md-6">
+                    <h4 class="text-white mb-3">Feedback</h4>
+                    <p>Your feedback matters a lot to us!</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        <textarea class="form-control border-0 w-100 py-3 ps-4 pe-5" rows="5" placeholder="Your feedback"></textarea>
+                        <button type="button" class="btn btn-primary py-2 position-absolute bottom-0 end-0 mb-2 me-2">Submit</button>
                     </div>
                 </div>
+                
             </div>
         </div>
         <div class="container">
