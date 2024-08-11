@@ -56,7 +56,6 @@
         });
     </script>
     <style>
-       
         .liked {
             color: red; /* Or any color you want for the liked state */
         }
@@ -106,15 +105,69 @@
                 <!-- <i class="fa fa-book me-3"></i> -->
                 MaNik</h2>
         </a>
-        <button type="button" class="navbar-toggler me-4 border-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <!-- <span class="navbar-toggler-icon"></span> -->
-            <div class="avatar-sm" >
-                <img
-                  src="{% static 'img/profile.jpg' %}"
-                  alt="..."
-                  class="avatar-img rounded-circle"
-                />
-              </div>
+        <button type="button" class="navbar-toggler me-4 border-0" data-bs-toggle="collapse">
+            
+            
+              <div class="">
+         
+                {% if user.is_authenticated %}
+            <li class="nav-item dropdown hidden-caret" style="list-style: none;">
+                    <a
+                      class="dropdown-toggle profile-pic"
+                      data-bs-toggle="dropdown"
+                      
+                    >
+                      <div class="avatar-sm">
+                        <img
+                          src="{% static 'img/profile.jpg' %}"
+                          alt="..."
+                          class="avatar-img rounded-circle"
+                        />
+                      </div>
+                      
+                    </a>
+                    <ul class="dropdown-menu dropdown-user animated fadeIn" style="margin-left: -190px;">
+                      <div class="">
+                        <li>
+                          <div class="user-box">
+                            <div class="avatar-lg">
+                              <img
+                                src="{% static 'img/profile.jpg' %}"
+                                alt="image profile"
+                                class="avatar-img rounded"
+                              />
+                            </div>
+                            <div class="u-text">
+                              <h4>{{request.user}}</h4>
+                              <p class="text-muted">{{request.user.email}}</p>
+                              <a href="{% url 'profile' %}" class="btn btn-xs btn-secondary" style="height:30px;">
+                                View Profile
+                              </a>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">My Profile</a>
+                          <a class="dropdown-item" href="#">My Balance</a>
+                          <a class="dropdown-item" href="#">Inbox</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">Account Setting</a>
+                          <div class="dropdown-divider"></div>
+                          {% if user.is_authenticated %}
+                            <a class="dropdown-item" href="{% url 'logout_user' %}">Logout</a>
+                          {% endif %}
+                        </li>
+                      </div>
+                    </ul>
+                  </li>
+                {% endif %}
+                
+            </div>
+            {% if not user.is_authenticated %}
+                <a href="{% url 'signin' %}" class="btn btn-primary py-3 px-lg-5 d-none d-lg-block" style="height:60px; width:160px;">Signin<i class="fa fa-arrow-right ms-3"></i></a>
+            {% endif %}
+
         </button>
         <div class="input-group justify-content-around">
             <form method="get" action="{% url 'search' %}" class="d-flex w-30">
@@ -128,107 +181,37 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <!-- <a href="{% url 'about' %}" class="nav-item nav-link mt-2">About</a>
-                <a href="{% url 'subjectpages' %}" class="nav-item nav-link mt-2">Subjects</a> -->
-
-                <!-- <li class="nav-item topbar-icon dropdown hidden-caret">
-                    <a class="" data-bs-toggle="dropdown" href="#">
-                        <i class="fas fa-layer-group fa-2x custom-icon"></i>
-                    </a>
-                    <div class="dropdown-menu quick-actions animated fadeIn">
-                        <div class="quick-actions-header">
-                            <span class="title mb-1">Quick Actions</span>
-                            <span class="subtitle op-7">Shortcuts</span>
-                        </div>
-                        <div class="quick-actions-scroll scrollbar-outer">
-                            <div class="quick-actions-items">
-                                <div class="row m-0">
-                                    <a class="col-6 col-md-4 p-0" href="#">
-                                        <div class="quick-actions-item">
-                                            <div class="avatar-item bg-danger rounded-circle icon-container">
-                                                <i class="far fa-calendar-alt fa-2x"></i>
-                                            </div>
-                                            <span class="text">Calendar</span>
-                                        </div>
-                                    </a>
-                                    <a class="col-6 col-md-4 p-0" href="#">
-                                        <div class="quick-actions-item">
-                                            <div class="avatar-item bg-warning rounded-circle icon-container">
-                                                <i class="fas fa-map fa-2x "></i>
-                                            </div>
-                                            <span class="text">Maps</span>
-                                        </div>
-                                    </a>
-                                    <a class="col-6 col-md-4 p-0" href="#">
-                                        <div class="quick-actions-item">
-                                            <div class="avatar-item bg-info rounded-circle icon-container">
-                                                <i class="fas fa-file-excel fa-2x "></i>
-                                            </div>
-                                            <span class="text">Reports</span>
-                                        </div>
-                                    </a>
-                                    <a class="col-6 col-md-4 p-0" href="#">
-                                        <div class="quick-actions-item">
-                                            <div class="avatar-item bg-success rounded-circle icon-container">
-                                                <i class="fas fa-envelope fa-2x "></i>
-                                            </div>
-                                            <span class="text">Emails</span>
-                                        </div>
-                                    </a>
-                                    <a class="col-6 col-md-4 p-0" href="#">
-                                        <div class="quick-actions-item">
-                                            <div class="avatar-item bg-primary rounded-circle icon-container">
-                                                <i class="fas fa-file-invoice-dollar fa-2x "></i>
-                                            </div>
-                                            <span class="text">Invoice</span>
-                                        </div>
-                                    </a>
-                                    <a class="col-6 col-md-4 p-0" href="#">
-                                        <div class="quick-actions-item">
-                                            <div class="avatar-item bg-secondary rounded-circle icon-container">
-                                                <i class="fas fa-credit-card fa-2x"></i>
-                                            </div>
-                                            <span class="text">Payments</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li> -->
-  
+         
                 {% if user.is_authenticated %}
-                
-                  <li class="nav-item topbar-user dropdown hidden-caret" style="margin-right:10px;" href="{% url 'profile' %}">
+                <li class="nav-item topbar-user dropdown hidden-caret" style="margin-right:10px;">
                     <a
                       class="dropdown-toggle profile-pic"
                       data-bs-toggle="dropdown"
-                      href="{% url 'profile' %}"
+                      href="#"
                       aria-expanded="false"
                     >
                       <div class="avatar-sm">
-                        
                         <img
                           src="{% static 'img/profile.jpg' %}"
                           alt="..."
                           class="avatar-img rounded-circle"
                         />
-                        
                       </div>
-                      
+                      <span class="profile-username">
+                        <span class="op-7">Hi,</span>
+                        <span class="fw-bold">{{request.user}}</span>
+                      </span>
                     </a>
                     <ul class="dropdown-menu dropdown-user animated fadeIn">
                       <div class="dropdown-user-scroll scrollbar-outer">
                         <li>
                           <div class="user-box">
                             <div class="avatar-lg">
-                              <a href="{% url 'profile' %}">
                               <img
                                 src="{% static 'img/profile.jpg' %}"
                                 alt="image profile"
                                 class="avatar-img rounded"
                               />
-                            </a>
                             </div>
                             <div class="u-text">
                               <h4>{{request.user}}</h4>
@@ -270,159 +253,70 @@
 
         <br>
 
-        <div style="background-color:#262626;">
-
-            <footer class="text-center text-lg-start border border-white mt-xl-5 pt-4">
-            <!-- Grid container -->
-            <div class="container p-4">
-              <!--Grid row-->
-              <div class="row">
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                  <h5 class="text-uppercase mb-4 text-white">User utilities</h5>
-        
-                  <ul class="list-unstyled mb-4">
-                    {% if profile %}
-                      <li class="py-2">
-                        <a href="{% url 'profile'  %}" class="text-white">Profile</a>
-                      </li>
-                    {% endif %}
-                    <li class="py-2">
-                      <a href="{% url 'logout_user' %}" class="text-white">Logout</a>
-                    </li>
-                    <li class="py-2">
-                      <a href="{% url 'register' %}" class="text-white">Register</a>
-                    </li>
-                    <li class="py-2">
-                      <a href="{% url 'signin' %}" class="text-white">Sign In</a>
-                    </li>
-                  </ul>
+        <!-- Footer Start -->
+    <div class="container-fluid wrapper-f content bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Quick Link</h4>
+                    <a class="btn btn-link" href="{% url 'subjectpages' %}">Subjects</a>
+                    <a class="btn btn-link" href="{% url 'about' %}">About Us</a>
+                    <a class="btn btn-link" href="{% url 'contact' %}">Contact Us</a>
+                    <a class="btn btn-link" href="">Privacy Policy</a>
+                    <a class="btn btn-link" href="">Terms & Condition</a>
+                    <a class="btn btn-link" href="">FAQs & Help</a>
                 </div>
-                <!--Grid column-->
-        
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                  <h5 class="text-uppercase mb-4 text-white">Quick links</h5>
-        
-                  <ul class="list-unstyled">
-                    <li class="py-2">
-                      <a href="{% url 'about' %}" class="text-white">About us</a>
-                    </li>
-                    <li class="py-2">
-                      <a href="{% url 'contact' %}" class="text-white">Contact us</a>
-                    </li>
-                    <li class="py-2">
-                      <a href="{% url 'subjectpages' %}" class="text-white">Subjcts</a>
-                    </li>
-                  </ul>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Jaipur, Rajasthan, India: 302021</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 6353559169</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>manik@gmail.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
-                <!--Grid column-->
-        
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                  <h5 class="text-uppercase mb-4 text-white">Buy Us a coffee<i class="px-2 fas fa-coffee"></i></h5>
-                  <p class="text-white">We pay for keeping this site free for anyone and everyone.</p>
-                  <p class="text-white">Any donations are appreciated !!!</p>
-                  <button type="button" style="background-color:green;" class="btn py-2 text-white bottom-0 end-0 mb-2 me-2">Donate</button>
-
-                  <!-- <ul class="list-unstyled">
-                    <li>
-                      <a href="#!" class="text-white">Jobs</a>
-                    </li>
-                  </ul> -->
+                
+                <div class="col-lg-6 col-md-6">
+                    <h4 class="text-white mb-3">Feedback</h4>
+                    <p>Your feedback matters a lot to us!</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <textarea class="form-control border-0 w-100 py-3 ps-4 pe-5" rows="5" placeholder="Your feedback"></textarea>
+                        <button type="button" class="btn btn-primary py-2 position-absolute bottom-0 end-0 mb-2 me-2">Submit</button>
+                    </div>
                 </div>
-                <!--Grid column-->
-        
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                  <h5 class="text-uppercase mb-4 text-white">Give us your Feedback</h5>
-                  <p class="text-white">Your feedback matters to us!</p>
-        
-                  <div class="form-outline form-white mb-4">
-                    <textarea class="form-control border-0 w-100 py-3 ps-4 pe-5" rows="5" placeholder="Your feedback"></textarea>
-                  </div>
-        
-                  <button type="button" class="btn btn-primary py-2  bottom-0 end-0 mb-2 me-2">Submit</button>
-                </div>
-                <!--Grid column-->
-              </div>
-              <!--Grid row-->
+                
             </div>
-            <!-- Grid container -->
-        
-            <!-- Copyright -->
-            <div class="text-center p-3 border-top border-white  text-white">
-              © 2024 Copyright:
-              <a class="text-white" href="{% url 'home' %}">MANIK</a>
-            </div>
-            <!-- Copyright -->
-          </footer>
-          
         </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">MaNiK</a>, All Right Reserved.
 
-<!-- Footer Start -->
-<!-- <div class="container-fluid wrapper-f content bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
-    <div class="container py-5">
-        <div class="row g-5">
-            <div class="col-lg-2 col-md-6">
-                <h4 class="text-white mb-3">Quick Link</h4>
-                <a class="btn btn-link" href="{% url 'subjectpages' %}">Subjects</a>
-                <a class="btn btn-link" href="{% url 'about' %}">About Us</a>
-                <a class="btn btn-link" href="{% url 'contact' %}">Contact Us</a>
-                <a class="btn btn-link" href="">Privacy Policy</a>
-                <a class="btn btn-link" href="">Terms & Condition</a>
-                <a class="btn btn-link" href="">FAQs & Help</a>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <h4 class="text-white mb-3">Contact</h4>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Jaipur, Rajasthan, India</p>
-                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 6353559169</p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i>manik@gmail.com</p>
-                <div class="d-flex pt-2">
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            
-            <div class="col-lg-6 col-md-12">
-                <h4 class="text-white mb-3">Feedback</h4>
-                <p>Your feedback matters a lot to us!</p>
-                <div class="position-relative mx-auto" style="max-width: 400px;">
-                    <textarea class="form-control border-0 w-100 py-3 ps-4 pe-5" rows="5" placeholder="Your feedback"></textarea>
-                    <button type="button" class="btn btn-primary py-2 position-absolute bottom-0 end-0 mb-2 me-2">Submit</button>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-    <div class="container">
-        <div class="copyright">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a class="border-bottom" href="#">MaNiK</a>, All Right Reserved.
-
-                    Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a><br><br>
-                    Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <div class="footer-menu">
-                        <a href="">Home</a>
-                        <a href="">Cookies</a>
-                        <a href="">Help</a>
-                        <a href="">FQAs</a>
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a><br><br>
+                        Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="">Home</a>
+                            <a href="">Cookies</a>
+                            <a href="">Help</a>
+                            <a href="">FQAs</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> 
-<!-- Footer End -->
+    <!-- Footer End -->
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-primary btn-round back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
         <script>
             document.addEventListener("DOMContentLoaded", function() {
