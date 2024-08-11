@@ -41,6 +41,7 @@ class Item(models.Model):
     link = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=item_status, max_length=15, default="pending")
+    completed = models.BooleanField(default=False)
     revision = models.BooleanField(default=False)
     likes = models.IntegerField(default=0)
     liked_by = models.ManyToManyField(User, related_name='liked_items', blank=True)

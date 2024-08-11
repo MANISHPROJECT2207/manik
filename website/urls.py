@@ -15,10 +15,11 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout_user'),
     path('status_completed/', views.status_completed, name='status_completed'),
     path('revision/', views.revision, name='revision'),
-    path('subjects/show_revision/', views.show_revision, name='show_revision'),
+    path('subjects/show_revision', views.show_revision, name='show_revision'),
     path('subjects/<str:sub_name>/', views.subject_desc, name='subject_desc'),
     path('like_item/', views.like_item, name='like_item'),
     path('year/<int:year>', views.year, name='year'), 
     path('profile/', views.profile, name='profile'),
     path('update_views/', views.update_views, name='update_views'),
+    path('completed/', views.show_completed, name='show_completed'),
 ]

@@ -183,6 +183,7 @@ def subject_desc(request, sub_name):
     numerator = items.filter(status="completed").count()
     denominator = items.count()
     subjects = Subject.objects.all()
+    year = subject.year
     a = Subject.objects.all().filter(year = 1)
     b = Subject.objects.all().filter(year = 2)
     c = Subject.objects.all().filter(year = 3)
@@ -194,7 +195,8 @@ def subject_desc(request, sub_name):
         'numerator':numerator,
         'denominator':denominator,
         'subjects':subjects,
-        'a':a, 'b':b, 'c':c, 'd':d, 'g':g
+        'a':a, 'b':b, 'c':c, 'd':d, 'g':g,
+        'year':year
         })
     
 
@@ -266,3 +268,19 @@ def update_views(request):
         except Subject.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Subject not found.'})
     return JsonResponse({'success': False, 'error': 'Invalid request.'})
+
+def show_completed(request):
+    subjects = Subject.objects.annotate(
+        revision_count=Count('items', filter=Q(items__completed=True))
+    )
+    items = Item.objects.all().filter(revision=True)
+    total_items = items.count()
+    a = Subject.objects.all().filter(year = 1)
+    b = Subject.objects.all().filter(year = 2)
+    c = Subject.objects.all().filter(year = 3)
+    d = Subject.objects.all().filter(year = 4)
+    g = Subject.objects.all().filter(year = 0)
+    return render(request, 'show_revision.html', {'items':items, 'subjects': subjects,
+        'a':a, 'b':b, 'c':c, 'd':d, 'g':g,
+        'total_items':total_items
+    })

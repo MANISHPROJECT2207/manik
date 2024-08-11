@@ -198,35 +198,37 @@
                 </li> -->
   
                 {% if user.is_authenticated %}
-                <li class="nav-item topbar-user dropdown hidden-caret" style="margin-right:10px;">
+                
+                  <li class="nav-item topbar-user dropdown hidden-caret" style="margin-right:10px;" href="{% url 'profile' %}">
                     <a
                       class="dropdown-toggle profile-pic"
                       data-bs-toggle="dropdown"
-                      href="#"
+                      href="{% url 'profile' %}"
                       aria-expanded="false"
                     >
                       <div class="avatar-sm">
+                        
                         <img
                           src="{% static 'img/profile.jpg' %}"
                           alt="..."
                           class="avatar-img rounded-circle"
                         />
+                        
                       </div>
-                      <span class="profile-username">
-                        <span class="op-7">Hi,</span>
-                        <span class="fw-bold">{{request.user}}</span>
-                      </span>
+                      
                     </a>
                     <ul class="dropdown-menu dropdown-user animated fadeIn">
                       <div class="dropdown-user-scroll scrollbar-outer">
                         <li>
                           <div class="user-box">
                             <div class="avatar-lg">
+                              <a href="{% url 'profile' %}">
                               <img
                                 src="{% static 'img/profile.jpg' %}"
                                 alt="image profile"
                                 class="avatar-img rounded"
                               />
+                            </a>
                             </div>
                             <div class="u-text">
                               <h4>{{request.user}}</h4>
@@ -277,20 +279,40 @@
               <div class="row">
                 <!--Grid column-->
                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                  <h5 class="text-uppercase mb-4 text-white">OUR WORLD</h5>
+                  <h5 class="text-uppercase mb-4 text-white">User utilities</h5>
         
                   <ul class="list-unstyled mb-4">
-                    <li>
+                    {% if profile %}
+                      <li class="py-2">
+                        <a href="{% url 'profile'  %}" class="text-white">Profile</a>
+                      </li>
+                    {% endif %}
+                    <li class="py-2">
+                      <a href="{% url 'logout_user' %}" class="text-white">Logout</a>
+                    </li>
+                    <li class="py-2">
+                      <a href="{% url 'register' %}" class="text-white">Register</a>
+                    </li>
+                    <li class="py-2">
+                      <a href="{% url 'signin' %}" class="text-white">Sign In</a>
+                    </li>
+                  </ul>
+                </div>
+                <!--Grid column-->
+        
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                  <h5 class="text-uppercase mb-4 text-white">Quick links</h5>
+        
+                  <ul class="list-unstyled">
+                    <li class="py-2">
                       <a href="{% url 'about' %}" class="text-white">About us</a>
                     </li>
-                    <li>
-                      <a href="#!" class="text-white">Collections</a>
+                    <li class="py-2">
+                      <a href="{% url 'contact' %}" class="text-white">Contact us</a>
                     </li>
-                    <li>
-                      <a href="#!" class="text-white">Environmental philosophy</a>
-                    </li>
-                    <li>
-                      <a href="#!" class="text-white">Artist collaborations</a>
+                    <li class="py-2">
+                      <a href="{% url 'subjectpages' %}" class="text-white">Subjcts</a>
                     </li>
                   </ul>
                 </div>
@@ -298,49 +320,29 @@
         
                 <!--Grid column-->
                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                  <h5 class="text-uppercase mb-4 text-white">Assistance</h5>
-        
-                  <ul class="list-unstyled">
-                    <li>
-                      <a href="#!" class="text-white">Contact us</a>
-                    </li>
-                    <li>
-                      <a href="#!" class="text-white">Size Guide</a>
-                    </li>
-                    <li>
-                      <a href="#!" class="text-white">Shipping Information</a>
-                    </li>
-                    <li>
-                      <a href="#!" class="text-white">Returns & Exchanges</a>
-                    </li>
-                    <li>
-                      <a href="#!" class="text-white">Payment</a>
-                    </li>
-                  </ul>
-                </div>
-                <!--Grid column-->
-        
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                  <h5 class="text-uppercase mb-4 text-white">Careers</h5>
-        
-                  <ul class="list-unstyled">
+                  <h5 class="text-uppercase mb-4 text-white">Buy Us a coffee<i class="px-2 fas fa-coffee"></i></h5>
+                  <p class="text-white">We pay for keeping this site free for anyone and everyone.</p>
+                  <p class="text-white">Any donations are appreciated !!!</p>
+                  <button type="button" style="background-color:green;" class="btn py-2 text-white bottom-0 end-0 mb-2 me-2">Donate</button>
+
+                  <!-- <ul class="list-unstyled">
                     <li>
                       <a href="#!" class="text-white">Jobs</a>
                     </li>
-                  </ul>
+                  </ul> -->
                 </div>
                 <!--Grid column-->
         
                 <!--Grid column-->
                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                  <h5 class="text-uppercase mb-4 text-white">Sign up to our newsletter</h5>
+                  <h5 class="text-uppercase mb-4 text-white">Give us your Feedback</h5>
+                  <p class="text-white">Your feedback matters to us!</p>
         
                   <div class="form-outline form-white mb-4">
                     <textarea class="form-control border-0 w-100 py-3 ps-4 pe-5" rows="5" placeholder="Your feedback"></textarea>
                   </div>
         
-                  <button type="button" class="btn btn-primary py-2 position-absolute bottom-0 end-0 mb-2 me-2">Submit</button>
+                  <button type="button" class="btn btn-primary py-2  bottom-0 end-0 mb-2 me-2">Submit</button>
                 </div>
                 <!--Grid column-->
               </div>
@@ -350,8 +352,8 @@
         
             <!-- Copyright -->
             <div class="text-center p-3 border-top border-white  text-white">
-              © 2020 Copyright:
-              <a class="text-white" href="https://mdbootstrap.com/">MANIK</a>
+              © 2024 Copyright:
+              <a class="text-white" href="{% url 'home' %}">MANIK</a>
             </div>
             <!-- Copyright -->
           </footer>
@@ -420,7 +422,7 @@
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-primary btn-round back-to-top"><i class="bi bi-arrow-up"></i></a>
 
         <script>
             document.addEventListener("DOMContentLoaded", function() {
