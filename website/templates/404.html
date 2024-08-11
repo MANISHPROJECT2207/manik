@@ -39,6 +39,49 @@
         </div>
     </div>
     <!-- 404 End -->
+
+    <table
+                  class="table table-bordered text-white"
+                  style="border-color: rgb(50, 50, 50); background-color: rgb(17, 17, 17);"
+                >
+                  <thead>
+                    <tr>
+                      <th scope="col" class="text-center">#</th>
+                      <th scope="col" class="text-center">title</th>
+                      <th scope="col" class="text-center">link</th>
+                      <th scope="col" class="text-center">description</th>
+                      <th scope="col" class="text-center">likes</th>
+                      <th scope="col" class="text-center">Revision</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in items %}
+                      <tr>
+                        <th scope="row">
+                          <div class="form-check">
+                            <input class="form-check-input border-3 item-status-checkbox" type="checkbox" value="{{ item.id }}" id="flexCheckDefault" {% if item.status == 'completed' %} checked {% endif %}>   
+                          </div>
+                        </th>
+                        <td class="text-center">{{item.title}}</td>
+                        <td class="text-center"  style="cursor:pointer;">
+                          <a href=" {{item.link}} "><img src="{% static '/img/youtube-brands-solid.svg' %}"  style="height: 30px;" alt=""></a>
+                        </td>
+                        <td class="text-center">{{item.description}}</td>
+                        <td class="text-center">
+                          <span class="like-btn" data-item-id="{{ item.id }}">
+                              <i class="fas fa-thumbs-up {% if request.user in item.liked_by.all %} liked{% endif %}"></i>
+                          </span> 
+                          <span class="like-count">{{item.likes}}</span>
+                      </td>
+                        <td class="text-center">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input revision" type="checkbox" id="flexSwitchCheckDefault" value="{{ item.id }}" {% if item.revision %} checked {% endif %}>
+                          </div>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
         
 
 {% endblock %}

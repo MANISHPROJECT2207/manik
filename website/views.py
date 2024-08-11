@@ -179,7 +179,7 @@ def show_revision(request):
 def subject_desc(request, sub_name):
     subject = Subject.objects.get(name=sub_name)
     subjects = Subject.objects.all()
-    if subject : items = Item.objects.all().filter(subject=subject)
+    if subject : items = Item.objects.all().filter(subject=subject).order_by('likes')
     numerator = items.filter(status="completed").count()
     denominator = items.count()
     subjects = Subject.objects.all()
@@ -196,7 +196,7 @@ def subject_desc(request, sub_name):
         'denominator':denominator,
         'subjects':subjects,
         'a':a, 'b':b, 'c':c, 'd':d, 'g':g,
-        'year':year
+        'year':year,
         })
     
 
