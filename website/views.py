@@ -178,26 +178,36 @@ def show_revision(request):
     
 def subject_desc(request, sub_name):
     subject = Subject.objects.get(name=sub_name)
-    subjects = Subject.objects.all()
-    if subject : items = Item.objects.all().filter(subject=subject).order_by('likes')
-    numerator = items.filter(status="completed").count()
-    denominator = items.count()
-    subjects = Subject.objects.all()
+    items = Item.objects.filter(subject=subject)
+    grouped_items = {}
+    unit_ticks = {}
+
+    for item in items:
+        if item.unit not in grouped_items:
+            grouped_items[item.unit] = []
+            unit_ticks[item.unit] = False
+        grouped_items[item.unit].append(item)
+        if item.completed:
+            unit_ticks[item.unit] = True
+
+    total_units = len(grouped_items)
     year = subject.year
-    a = Subject.objects.all().filter(year = 1)
-    b = Subject.objects.all().filter(year = 2)
-    c = Subject.objects.all().filter(year = 3)
-    d = Subject.objects.all().filter(year = 4)
-    g = Subject.objects.all().filter(year = 0)
+    a = Subject.objects.filter(year=1)
+    b = Subject.objects.filter(year=2)
+    c = Subject.objects.filter(year=3)
+    d = Subject.objects.filter(year=4)
+    g = Subject.objects.filter(year=0)
+
     return render(request, 'subject_desc.html', {
-        'subject':subject,
-        'items':items,
-        'numerator':numerator,
-        'denominator':denominator,
-        'subjects':subjects,
-        'a':a, 'b':b, 'c':c, 'd':d, 'g':g,
-        'year':year,
-        })
+        'subject': subject,
+        'items': items,
+        'total_units': total_units,
+        'grouped_items': grouped_items,
+        'unit_ticks': unit_ticks,
+        'year': year,
+        'a': a, 'b': b, 'c': c, 'd': d, 'g': g,
+    })
+
     
 
 @login_required
