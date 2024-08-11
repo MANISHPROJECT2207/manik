@@ -33,6 +33,7 @@ class Subject(models.Model):
         return (f"{self.name}, {self.branch}")
     
 class Item(models.Model):
+    unit = models.IntegerField(default=0, blank=False)
     subject = models.ForeignKey(Subject, related_name='items', on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
     description = models.TextField(blank=True, null=True)
