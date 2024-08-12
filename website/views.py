@@ -33,6 +33,9 @@ def profile(request):
 def courses(request):
     return render(request, 'courses.html')
 
+def firstyear(request):
+    return render(request, 'firstyear.html')
+
 def subjectpages(request):
     items = Item.objects.all()
     numerator = items.filter(status="completed").count()
