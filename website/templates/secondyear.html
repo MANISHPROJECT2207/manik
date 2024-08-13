@@ -1,0 +1,210 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div class="" style="padding-top: 50px; padding-left: 100px">
+    <h5>Welcome to</h5>
+    <h1>Rtu Helper</h1>
+  </div>
+  
+  <div class="" style="padding-top: 50px; padding-left: 100px">
+    <h1>Common</h1>
+  </div>
+<style>
+    /*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+
+.progress {
+  width: 150px;
+  height: 150px;
+  background: none;
+  position: relative;
+}
+
+.progress::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 6px solid #eee;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.progress>span {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+.progress .progress-left {
+  left: 0;
+}
+
+.progress .progress-bar {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border-width: 6px;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+}
+
+.progress .progress-left .progress-bar {
+  left: 100%;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 80px;
+  border-left: 0;
+  -webkit-transform-origin: center left;
+  transform-origin: center left;
+}
+
+.progress .progress-right {
+  right: 0;
+}
+
+.progress .progress-right .progress-bar {
+  left: -100%;
+  border-top-left-radius: 80px;
+  border-bottom-left-radius: 80px;
+  border-right: 0;
+  -webkit-transform-origin: center right;
+  transform-origin: center right;
+}
+
+.progress .progress-value {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSE
+* ==========================================
+*
+*/
+
+
+
+.rounded-lg {
+  border-radius: 1rem;
+}
+
+.text-gray {
+  color: #aaa;
+}
+
+div.h4 {
+  line-height: 1rem;
+}
+
+</style>
+
+ <div style="height: 270px; width: 270px;margin-left: 50px; ">
+    <div style="background-color: blue;border-top-left-radius: 10px;border-top-right-radius: 10px;" class="h-75">
+        <div class="p-2">
+            <p>
+                CSE
+            </p>
+            <h2 style="margin-top: -10px;">OOPs</h2>
+
+        </div>
+    </div>
+    <div  class="h-25 flex-column" style="background-color: #e9e8e8;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;">
+        <div class="d-flex justify-content-between p-3">
+            <div class="justify-content-center">
+                <p style="padding-left: 13px;">5</p>
+                <p style="margin-top: -20px;">Units</p>
+            </div>
+            <div class="justify-content-center align-items-center">
+                <p style="padding-left: 18px;">5</p>
+                <p style="margin-top: -20px;">Topics</p>
+            </div>
+            <div>
+                
+                <div class="progress mx-auto" data-value='50' style="width: 80px; height: 80px; margin-top: -65px;">
+                    <span class="progress-left">
+                                  <span class="progress-bar border-primary"></span>
+                    </span>
+                    <span class="progress-right">
+                                  <span class="progress-bar border-primary"></span>
+                    </span>
+                    <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                        
+                        <div class="h5 font-weight-bold" style="color: white;">80<sup class="small">%</sup></div>
+                    </div>
+                  </div>                  
+                
+
+            </div>
+        </div>
+    </div>
+    <div>
+
+    </div>
+</div> 
+
+
+
+      <!-- Progress bar 2 -->
+      <!-- <div class="progress mx-auto" data-value='90'>
+        <span class="progress-left">
+                      <span class="progress-bar border-danger"></span>
+        </span>
+        <span class="progress-right">
+                      <span class="progress-bar border-danger"></span>
+        </span>
+        <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+          <div class="h2 font-weight-bold">25<sup class="small">%</sup></div>
+        </div>
+      </div> -->
+      <!-- END -->
+
+      
+  
+<script>
+ 
+ 
+
+
+  let value = document.querySelector('.progress').getAttribute('data-value');
+  
+  
+  let left = document.querySelector(".progress-left .progress-bar");
+  
+  
+  let right = document.querySelector(".progress-right .progress-bar");
+  console.log(left);
+  
+
+  if (value > 0) {
+    if (value <= 50) {
+        right.style.transform = 'rotate(' + percentageToDegrees(value) + 'deg)'
+    //   right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+    } else {
+      right.style.transform ='rotate(180deg)'
+      left.style.transform =  'rotate(' + percentageToDegrees(value - 50) + 'deg)'
+    }
+  }
+
+
+
+function percentageToDegrees(percentage) {
+
+  return percentage / 100 * 360
+
+}
+
+
+
+</script>
