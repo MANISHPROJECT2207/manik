@@ -16,6 +16,9 @@ import json
 def about(request):
     return render(request, 'about.html')
 
+def test(request):
+    return render(request, 'card.html', {'progress':50})
+
 def home(request):
     top_subjects = Subject.objects.order_by('-views')[:3]
     total_users = User.objects.all().count()
