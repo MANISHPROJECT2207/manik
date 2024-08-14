@@ -306,7 +306,6 @@ def year(request, year):
         'a':a, 'b':b, 'c':c, 'd':d, 'g':g,
         'year':year,
         'branches':branch_dict,
-        'progress':60,
     })
 
 @csrf_exempt
