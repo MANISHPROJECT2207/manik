@@ -56,6 +56,16 @@ class Item(models.Model):
     def __str__(self):
         return self.title
     
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        unit, created = Unit.objects.get_or_create(
+            number=self.unit,
+            subject=self.subject,
+            defaults={'name': self.subject.name}
+        )
+        unit.items.add(self)
+        unit.save()
+    
 class Unit(models.Model):
     subject = models.ForeignKey(Subject, related_name='units', on_delete=models.CASCADE)
     items = models.ManyToManyField(Item, related_name='units')

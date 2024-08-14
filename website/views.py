@@ -140,15 +140,19 @@ def status_completed(request):
     
     try:
         item = Item.objects.get(id=item_id)
+        unit = Unit.objects.get(number=item.unit, subject=item.subject)
         if status:
             item.completed = True
         else:
             item.completed = False
         if item.completed == True:
             item.completed_by.add(user)
+            unit.completed_by.add(user)
         else:
             item.completed_by.remove(user)
+            unit.completed_by.remove(user)
         item.save()
+        unit.save()
         return JsonResponse({'success': True})
     except Item.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Item not found'})
@@ -202,12 +206,12 @@ def subject_desc(request, sub_name):
     subject = Subject.objects.get(name=sub_name)
     items = Item.objects.filter(subject=subject)
     grouped_items = {}
-    units = Unit.objects.all().filter(subject = subject)
-
+    units = Unit.objects.filter(subject=subject).order_by('number')
+    for unit in units:
+        grouped_items[unit] = []
     for item in items:
-        if item.unit not in grouped_items:
-            grouped_items[item.unit] = []
-        grouped_items[item.unit].append(item)
+        unit = Unit.objects.all().filter(subject=subject, number=item.unit).first()
+        grouped_items[unit].append(item)
 
     total_units = len(grouped_items)
     year = subject.year
@@ -222,7 +226,6 @@ def subject_desc(request, sub_name):
         'items': items,
         'total_units': total_units,
         'grouped_items': grouped_items,
-        'units': units,
         'year': year,
         'a': a, 'b': b, 'c': c, 'd': d, 'g': g,
     })
@@ -263,9 +266,31 @@ def year(request, year):
     
     branch_dict = {}
 
+    # Iterate over the branches defined in the model
     for branch_code, branch_name in Subject._meta.get_field('branch').choices:
-        subjects = Subject.objects.filter(branch=branch_code)
-        branch_dict[branch_name] = list(subjects)
+        # Get the list of subjects for the current branch
+        subjects = Subject.objects.filter(branch=branch_code, year=year)
+        
+        subject_list = []
+        for subject in subjects:
+            total_units = subject.units.count()
+            completed_units = subject.units.filter( completed_by=request.user).count()
+            print(total_units)
+            # Calculate progress as a percentage
+            if total_units > 0:
+                progress = (completed_units / total_units) * 100
+            else:
+                progress = 0
+            
+            # Add the subject with progress to the list
+            subject_data = {
+                'subject': subject,
+                'progress': progress
+            }
+            subject_list.append(subject_data)
+        
+        # Add the branch and its subjects with progress to the dictionary
+        branch_dict[branch_name] = subject_list
     
     a = Subject.objects.all().filter(year = 1)
     b = Subject.objects.all().filter(year = 2)
@@ -281,7 +306,6 @@ def year(request, year):
         'a':a, 'b':b, 'c':c, 'd':d, 'g':g,
         'year':year,
         'branches':branch_dict,
-        'progress':60,
     })
 
 @csrf_exempt

@@ -24,8 +24,8 @@
         width: 70px;
         height: 70px;
         background: conic-gradient(
-            #ffffff 0% {{ progress }}%,
-            rgba(255, 255, 255, 0.3) {{ progress }}% 100%
+            #ffffff 0% {{ x.progress }}%,
+            rgba(255, 255, 255, 0.3) {{ x.progress }}% 100%
         );
         border-radius: 50%;
         display: flex;
@@ -50,39 +50,36 @@
     }
     .scrolling-wrapper{
         overflow-x: auto;
-    }
+    } 
 </style>
 
-
-
-<div class="p-4">   
-  
+<div class="p-4">
+    
     <div class="container-fluid">
       {% for branch, subjects in branches.items %}
-    <h3>{{ branch }}</h3> 
-    <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
-        {% for subject in subjects %}
-            <div class="custom-carousel-item col-md-4">
-                <div class="card-d order-card">
-                    <div class="card-block">
-                        <h6 class="m-b-20">{{ subject.name }}</h6>
-                        <h2 class="text-right">{{ subject.name }}</h2>
-                        <p class="m-b-0"><span class="f-right">{{ subject }}</span></p>
-                        <div class="progress-circle" id="progress-circle">
-                          <span id="progress-text">{{progress}}%</span>
+                <h3>{{branch}}</h3>
+        <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
+                {% for x in subjects %}
+                <div class="custom-carousel-item col-md-4">
+                  <a href="{% url 'subject_desc' x.subject.name %}">
+                    <div class="card-d order-card">
+                        <div class="card-block">
+                            <h6 class="m-b-20">{{ x.subject.name }}</h6>
+                            <h2 class="text-right">{{ x.subject.name }}</h2>
+                            <p class="m-b-0">Completed Orders<span class="f-right">{{ x.subject.name }}</span></p>
+                            <div class="progress-circle" id="progress-circle">
+                                <span id="progress-text">{{ x.progress }}%</span>
+                            </div>
                         </div>
                     </div>
+                  </a>
                 </div>
-            </div>
+                {% endfor %}
+            
+        </div>
         {% endfor %}
     </div>
-{% endfor %}
-    </div>
-    
 </div>
-
-
-
 
 <script>
     let currentIndex = 0;
