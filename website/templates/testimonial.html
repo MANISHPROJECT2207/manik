@@ -1,72 +1,108 @@
 {% extends 'base.html' %}
-{% load static %}
-
 {% block content %}
+<style>
+  .order-card {
+      color: #fff;
+      background: linear-gradient(45deg,#4099ff,#73b4ff);
+      border-radius: 5px;
+      box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+      border: none;
+      margin-top: 20px;
+      width: 100%;
+  }
+  
+  .card-d .card-block {
+      padding: 25px;
+      position: relative;
+  }
+  
+  .progress-circle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 70px;
+      height: 70px;
+      background: conic-gradient(
+          #ffffff 0% {{ x.progress }}%,
+          rgba(255, 255, 255, 0.3) {{ x.progress }}% 100%
+      );
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
 
-    <!-- Header Start -->
-    <div class="container-fluid bg-primary py-5 mb-5 page-header">
-        <div class="container py-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 text-center">
-                    <h1 class="display-3 text-white animated slideInDown">Testimonial</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center">
-                            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Testimonial</li>
-                        </ol>
-                    </nav>
+  .progress-circle::before {
+      content: "";
+      position: absolute;
+      width: 56px; /* Adjusted width to fit inside */
+      height: 56px; /* Adjusted height to fit inside */
+      background-color: #4099ff;
+      border-radius: 50%;
+      z-index: 1; /* Ensuring it’s below the progress text */
+  }
+
+  #progress-text {
+      position: relative;
+      font-size: 18px;
+      color: white;
+      z-index: 2; /* Ensuring text appears on top */
+  }
+  
+  .scrolling-wrapper {
+      overflow-x: auto;
+  }
+</style>
+
+<div class="p-4">   
+  <div class="container-fluid">
+    {% for branch, subjects in branches.items %}
+      <h3>{{ branch }}</h3> 
+      <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
+        {% for x in subjects %}
+            <div class="custom-carousel-item col-md-4">
+              <a href="{% url 'subject_desc' x.subject.name %}">
+                <div class="card-d order-card">
+                    <div class="card-block">
+                        <h6 class="m-b-20">{{ x.subject.name }}</h6>
+                        <h2 class="text-right">{{ x.subject.name }}</h2>
+                        <p class="m-b-0"><span class="f-right">{{ x.subject.name }}</span></p>
+                        <div class="progress-circle" id="progress-circle">
+                            <span id="progress-text">{{x.progress}}%</span>
+                        </div>
+                    </div>
                 </div>
+              </a>
             </div>
-        </div>
-    </div>
-    <!-- Header End -->
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
 
 
-    <!-- Testimonial Start -->
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container">
-            <div class="text-center">
-                <h6 class="section-title bg-white text-center text-primary px-3">Testimonial</h6>
-                <h1 class="mb-5">Our Students Say!</h1>
-            </div>
-            <div class="owl-carousel testimonial-carousel position-relative">
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-1.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-2.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-3.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-4.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Testimonial End -->
-        
+
+<script>
+    let currentIndex = 0;
+
+    function scrollCarousel(direction) {
+        const carousel = document.getElementById('carousel');
+        const itemWidth = document.querySelector('.carousel-item').clientWidth;
+        const totalItems = document.querySelectorAll('.carousel-item').length;
+        const visibleItems = 3;  // Number of items visible in the carousel
+        const maxIndex = totalItems - visibleItems;
+
+        currentIndex += direction;
+
+        if (currentIndex < 0) {
+            currentIndex = 0;
+        } else if (currentIndex > maxIndex) {
+            currentIndex = maxIndex;
+        }
+
+        const translateX = -currentIndex * itemWidth;
+        carousel.style.transform = `translateX(${translateX}px)`;
+    }
+</script>
 
 {% endblock %}
