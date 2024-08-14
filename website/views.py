@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Item, Subject, Profile
+from .models import Item, Subject, Profile, Unit
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -133,10 +133,18 @@ def status_completed(request):
     data = json.loads(request.body)
     item_id = data.get('item_id')
     status = data.get('status')
+    user = request.user
     
     try:
         item = Item.objects.get(id=item_id)
-        item.status = "completed" if status else 'not_completed'
+        if status:
+            item.completed = True
+        else:
+            item.completed = False
+        if item.completed == True:
+            item.completed_by.add(user)
+        else:
+            item.completed_by.remove(user)
         item.save()
         return JsonResponse({'success': True})
     except Item.DoesNotExist:
@@ -150,11 +158,16 @@ def revision(request):
     data = json.loads(request.body)
     item_id = data.get('item_id')
     rev = data.get('revision')
-
+    user = request.user 
+    
     try:
         item = Item.objects.get(id=item_id)
         print(f"Before: Item {item_id} revision={item.revision}")
         item.revision = rev
+        if item.revision == True:
+            item.revision_by.add(user)
+        else:
+            item.revision_by.remove(user)
         item.save()
         print(f"After: Item {item_id} revision={item.revision}")
         return JsonResponse({'success': True})
@@ -186,15 +199,12 @@ def subject_desc(request, sub_name):
     subject = Subject.objects.get(name=sub_name)
     items = Item.objects.filter(subject=subject)
     grouped_items = {}
-    unit_ticks = {}
+    units = Unit.objects.all().filter(subject = subject)
 
     for item in items:
         if item.unit not in grouped_items:
             grouped_items[item.unit] = []
-            unit_ticks[item.unit] = False
         grouped_items[item.unit].append(item)
-        if item.completed:
-            unit_ticks[item.unit] = True
 
     total_units = len(grouped_items)
     year = subject.year
@@ -209,7 +219,7 @@ def subject_desc(request, sub_name):
         'items': items,
         'total_units': total_units,
         'grouped_items': grouped_items,
-        'unit_ticks': unit_ticks,
+        'units': units,
         'year': year,
         'a': a, 'b': b, 'c': c, 'd': d, 'g': g,
     })
@@ -248,7 +258,6 @@ def year(request, year):
     numerator = items.filter(status="completed").count()
     denominator = items.count()
     
-    print(type(subjects))
     
     a = Subject.objects.all().filter(year = 1)
     b = Subject.objects.all().filter(year = 2)
