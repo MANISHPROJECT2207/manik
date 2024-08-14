@@ -48,68 +48,57 @@
         color: white;
         z-index: 1;
     }
-
-    .carousel-container {
-        width: 100%;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .carousel {
-        display: flex;
-    }
-
-    .carousel-item {
-        flex: 0 0 33.33%; /* Shows 3 items at a time */
-        box-sizing: border-box;
-        padding: 0 15px;
+    .scrolling-wrapper{
+        overflow-x: auto;
     }
 </style>
 
-<div class="px-4">
-    <div class="carousel-container">
-        <div class="carousel row">
-            <!-- Start of the card -->
-            <div class=" col-md-4">
-                <div class="card-d order-card">
-                    <div class="card-block">
-                        <h6 class="m-b-20">Orders Received</h6>
-                        <h2 class="text-right">fgb</h2>
-                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
-                        <div class="progress-circle" id="progress-circle">
-                            <span id="progress-text">{{ progress }}%</span>
+<div class="p-4">
+    
+    <div class="container-fluid">
+        <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
+            {% for branch in branches %}
+                <h3>{{branch}}</h3>
+                {% for subject in branch.subjects %}
+                <div class="custom-carousel-item col-md-4">
+                    <div class="card-d order-card">
+                        <div class="card-block">
+                            <h6 class="m-b-20">{{ subject.name }}</h6>
+                            <h2 class="text-right">{{ subject.branch }}</h2>
+                            <p class="m-b-0">Completed Orders<span class="f-right">{{ item.completed }}</span></p>
+                            <div class="progress-circle" id="progress-circle">
+                                <span id="progress-text">{{ progress }}%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- End of the card -->
-            <!-- Repeat the carousel-item block for more cards -->
-            <div class=" col-md-4">
-                <div class="card-d order-card">
-                    <div class="card-block">
-                        <h6 class="m-b-20">Orders Received</h6>
-                        <h2 class="text-right">fgb</h2>
-                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
-                        <div class="progress-circle" id="progress-circle">
-                            <span id="progress-text">{{ progress }}%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=" col-md-4">
-                <div class="card-d order-card">
-                    <div class="card-block">
-                        <h6 class="m-b-20">Orders Received</h6>
-                        <h2 class="text-right">fgb</h2>
-                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
-                        <div class="progress-circle" id="progress-circle">
-                            <span id="progress-text">{{ progress }}%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                {% endfor %}
+            {% endfor %}
         </div>
     </div>
 </div>
+
+<script>
+    let currentIndex = 0;
+
+    function scrollCarousel(direction) {
+        const carousel = document.getElementById('carousel');
+        const itemWidth = document.querySelector('.carousel-item').clientWidth;
+        const totalItems = document.querySelectorAll('.carousel-item').length;
+        const visibleItems = 3;  // Number of items visible in the carousel
+        const maxIndex = totalItems - visibleItems;
+
+        currentIndex += direction;
+
+        if (currentIndex < 0) {
+            currentIndex = 0;
+        } else if (currentIndex > maxIndex) {
+            currentIndex = maxIndex;
+        }
+
+        const translateX = -currentIndex * itemWidth;
+        carousel.style.transform = `translateX(${translateX}px)`;
+    }
+</script>
 
 {% endblock %}

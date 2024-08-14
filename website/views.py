@@ -17,7 +17,9 @@ def about(request):
     return render(request, 'about.html')
 
 def test(request):
-    return render(request, 'card.html', {'progress':50})
+    items = Item.objects.all()
+    
+    return render(request, 'card.html', {'progress':99, 'items':items})
 
 def home(request):
     top_subjects = Subject.objects.order_by('-views')[:3]
@@ -37,7 +39,8 @@ def courses(request):
     return render(request, 'courses.html')
 
 def firstyear(request):
-    return render(request, 'firstyear.html')
+    items = Item.objects.all()
+    return render(request, 'firstyear.html', {"items":items, 'progress':60})
 
 def subjectpages(request):
     items = Item.objects.all()
@@ -258,6 +261,11 @@ def year(request, year):
     numerator = items.filter(status="completed").count()
     denominator = items.count()
     
+    branch_dict = {}
+
+    for branch_code, branch_name in Subject._meta.get_field('branch').choices:
+        subjects = Subject.objects.filter(branch=branch_code)
+        branch_dict[branch_name] = list(subjects)
     
     a = Subject.objects.all().filter(year = 1)
     b = Subject.objects.all().filter(year = 2)
@@ -271,8 +279,10 @@ def year(request, year):
         'denominator':denominator,
         'subjects':subjects,
         'a':a, 'b':b, 'c':c, 'd':d, 'g':g,
-        'year':year
-        })
+        'year':year,
+        'branches':branch_dict,
+        'progress':60,
+    })
 
 @csrf_exempt
 @login_required   
