@@ -40,7 +40,7 @@ def courses(request):
 
 def firstyear(request):
     items = Item.objects.all()
-    return render(request, 'firstyear.html', {"items":items, 'progress':60})
+    return render(request, 'secondyear.html', {"items":items, 'progress':60})
 
 def subjectpages(request):
     items = Item.objects.all()
