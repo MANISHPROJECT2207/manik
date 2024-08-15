@@ -67,7 +67,7 @@ WSGI_APPLICATION = 'manik.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 manish = '5687482582'
-nikhil = 'Mee1074$'
+nikhil = 'Mee1074$'   
 
 DATABASES = {
     'default': {

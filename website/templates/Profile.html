@@ -55,10 +55,10 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Full Name</p>
+                  <p class="mb-0">Username</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">Johnatan Smith</p>
+                  <p class="text-muted mb-0">{{request.user}}</p>
                 </div>
               </div>
               <hr>
@@ -67,16 +67,16 @@
                   <p class="mb-0">Email</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">example@example.com</p>
+                  <p class="text-muted mb-0">{{request.user.email}}</p>
                 </div>
               </div>
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Phone</p>
+                  <p class="mb-0">Branch</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">(097) 234-5678</p>
+                  <p class="text-muted mb-0">{{profile.branch}}</p>
                 </div>
               </div>
               <hr>
@@ -106,7 +106,7 @@
             <div class="col-md-12">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
+                  <p class="mb-4"><span class="text-primary font-italic me-1">Subjects</span> you study
                   </p>
                   <p class="mb-1" style="font-size: .77rem;">Web Design</p>
                   <div class="progress rounded" style="height: 5px;">
