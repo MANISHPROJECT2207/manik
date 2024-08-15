@@ -52,54 +52,59 @@
         </div>
         <div class="col-lg-8">
           <div class="card mb-4">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Username</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{request.user}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Email</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{request.user.email}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Branch</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{profile.branch}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Year</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">
-                    {% if profile.year == 1 %} {{profile.year}}<sup>st</sup> {% endif %}
-                    {% if profile.year == 2 %} {{profile.year}}<sup>nd</sup> {% endif %}
-                    {% if profile.year == 3 %} {{profile.year}}<sup>rd</sup> {% endif %}
-                    {% if profile.year == 4 %} {{profile.year}}<sup>th</sup> {% endif %}
-                  </p>
-                </div>
-              </div>
-              <hr>
-              <div class="row justify-content-center ">
-                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary" style="width: fit-content;">Edit</button>
-              
-            </div>
-              
-            </div>
+            <h4 class="pt-4 px-4 text-primary">Edit profile</h4>
+            <form method="post" action="{% url 'edit_profile' %}">
+                {% csrf_token %}
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <p class="mb-0">Username</p>
+                      </div>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="{{request.user}}">
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <p class="mb-0">Email</p>
+                      </div>
+                      <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="{{request.user.email}}">
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <p class="mb-0">Branch</p>
+                        </div>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="branch" name="branch">
+                                {% for value, display in Branches %}
+                                    <option value="{{ value }}" {% if profile.branch == value %}selected{% endif %}>{{ display }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <p class="mb-0">Year</p>
+                      </div>
+                      <div class="col-sm-10">
+                        
+                        <input type="number" class="form-control" id="branch" name="branch" placeholder="{{profile.year}}">
+                        
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row justify-content-center ">
+                      <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary" style="width: fit-content;">Save</button>
+                    
+                  </div>
+                    
+                  </div>
+            </form>
           </div>
           <div class="row">
             
@@ -108,31 +113,15 @@
                 <div class="card-body">
                   <p class="mb-4"><span class="text-primary font-italic me-1">Subjects</span> you study
                   </p>
-                  <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                  <div class="progress rounded mb-2" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
+                  {% for branch, subjects in branches.items %}
+                    {% for x in subjects %}
+                        <p class="mb-1" style="font-size: .77rem;">{{x.subject.name}}</p>
+                        <div class="progress rounded" style="height: 5px;">
+                            <div class="progress-bar" role="progressbar" style="width: {{x.progress}}%" aria-valuenow="80"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    {% endfor %}
+                  {% endfor %}
                 </div>
               </div>
             </div>

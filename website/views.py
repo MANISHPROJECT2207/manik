@@ -13,6 +13,18 @@ from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
 import json
 
+
+Branches = [
+    ("Common", "common/all"),
+    ("CSE.", "computer science and engg"),
+    ("EC.","electronics and comm."),
+    ("Elec.","electrical"),
+    ("IT.", "information technology"),
+    ("Mech.", "mechanical"),
+    ("Civil", "civil"),
+    ("AI.", "Artificial Intelligence"),
+]
+
 def about(request):
     return render(request, 'about.html')
 
@@ -34,7 +46,29 @@ def _404_error(request):
 
 def profile(request):
     profile = Profile.objects.get(user=request.user)
-    return render(request,'profile.html', {'user':request.user, 'profile':profile})
+    branch_dict = {}
+    for branch_code, branch_name in Subject._meta.get_field('branch').choices:
+        subjects = Subject.objects.filter(branch=branch_code, year=profile.year)
+        
+        subject_list = []
+        for subject in subjects:
+            total_units = subject.units.count()
+            completed_units = subject.units.filter( completed_by=request.user).count()
+           
+            if total_units > 0:
+                progress = (completed_units / total_units) * 100
+            else:
+                progress = 0
+            
+            subject_data = {
+                'subject': subject,
+                'progress': progress
+            }
+            subject_list.append(subject_data)
+        
+        branch_dict[branch_name] = subject_list
+   
+    return render(request,'profile.html', {'user':request.user, 'profile':profile, 'Branches': Branches, 'branch_dict':branch_dict})
 
 def courses(request):
     return render(request, 'courses.html')
@@ -266,7 +300,6 @@ def year(request, year):
     denominator = items.count()
     
     branch_dict = {}
-
     for branch_code, branch_name in Subject._meta.get_field('branch').choices:
         subjects = Subject.objects.filter(branch=branch_code, year=year)
         
@@ -274,7 +307,7 @@ def year(request, year):
         for subject in subjects:
             total_units = subject.units.count()
             completed_units = subject.units.filter( completed_by=request.user).count()
-            print(total_units)
+         
             if total_units > 0:
                 progress = (completed_units / total_units) * 100
             else:
@@ -314,7 +347,6 @@ def update_views(request):
 
         try:
             subject = Subject.objects.get(id=subject_id)
-            print(subject)
             if user not in subject.viewed_by.all():
                 subject.views += 1
                 subject.viewed_by.add(user)
@@ -339,3 +371,32 @@ def show_completed(request):
         'a':a, 'b':b, 'c':c, 'd':d, 'g':g,
         'total_items':total_items
     })
+    
+def edit_profile(request):
+    user = request.user
+    profile, created = Profile.objects.get_or_create(user=user)
+    
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        year = request.POST.get('year')
+        branch = request.POST.get('branch')
+
+        print("POST data:", request.POST)
+        print("Selected branch:", branch) 
+        
+        if username: 
+            user.username = username
+        if email: 
+            user.email = email
+        if year: 
+            profile.year = year
+        if branch and branch in dict(Branches).keys():
+            profile.branch = branch
+        
+        user.save()
+        profile.save()
+
+        return render(request, 'profile.html', {'profile': profile, 'Branches': Branches})
+
+    return render(request, 'profile.html', {'profile': profile, 'Branches': Branches})
