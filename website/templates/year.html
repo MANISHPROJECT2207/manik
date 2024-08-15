@@ -57,11 +57,11 @@
     
     <div class="container-fluid">
       {% for branch, subjects in branches.items %}
-                <h3>{{branch}}</h3>
-        <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
+            <h3>{{branch}}</h3>
+            <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
                 {% for x in subjects %}
                 <div class="custom-carousel-item col-md-4">
-                  <a href="{% url 'subject_desc' x.subject.name %}">
+                <a href="{% url 'subject_desc' x.subject.name %}">
                     <div class="card-d order-card">
                         <div class="card-block">
                             <h6 class="m-b-20">{{ x.subject.name }}</h6>
@@ -72,11 +72,10 @@
                             </div>
                         </div>
                     </div>
-                  </a>
+                </a>
                 </div>
-                {% endfor %}
-            
-        </div>
+                {% endfor %}            
+            </div>
         {% endfor %}
     </div>
 </div>

@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div style="background-color: #ffffff;">
+<div style="background-color: white;">
     <div class="container py-5">
 
   
@@ -93,13 +93,13 @@
                       </div>
                       <div class="col-sm-10">
                         
-                        <input type="number" class="form-control" id="branch" name="branch" placeholder="{{profile.year}}">
+                        <input type="number" class="form-control" id="year" name="year" placeholder="{{profile.year}}">
                         
                       </div>
                     </div>
                     <hr>
                     <div class="row justify-content-center ">
-                      <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary" style="width: fit-content;">Save</button>
+                      <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary" style="width: fit-content;"><i class="fas fa-solid fa-pencil"></i> Save</button>
                     
                   </div>
                     
@@ -113,7 +113,7 @@
                 <div class="card-body">
                   <p class="mb-4"><span class="text-primary font-italic me-1">Subjects</span> you study
                   </p>
-                  {% for branch, subjects in branches.items %}
+                  {% for branch, subjects in branch_dict.items %}
                     {% for x in subjects %}
                         <p class="mb-1" style="font-size: .77rem;">{{x.subject.name}}</p>
                         <div class="progress rounded" style="height: 5px;">

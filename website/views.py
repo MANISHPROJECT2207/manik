@@ -54,7 +54,7 @@ def profile(request):
         for subject in subjects:
             total_units = subject.units.count()
             completed_units = subject.units.filter( completed_by=request.user).count()
-           
+         
             if total_units > 0:
                 progress = (completed_units / total_units) * 100
             else:
@@ -67,8 +67,11 @@ def profile(request):
             subject_list.append(subject_data)
         
         branch_dict[branch_name] = subject_list
+        
+    print(branch_dict)
    
-    return render(request,'profile.html', {'user':request.user, 'profile':profile, 'Branches': Branches, 'branch_dict':branch_dict})
+    return render(request,'profile.html', {'user':request.user, 'profile':profile,
+    'Branches': Branches, 'branch_dict':branch_dict})
 
 def courses(request):
     return render(request, 'courses.html')
@@ -382,7 +385,6 @@ def edit_profile(request):
         year = request.POST.get('year')
         branch = request.POST.get('branch')
 
-        print("POST data:", request.POST)
         print("Selected branch:", branch) 
         
         if username: 
@@ -397,6 +399,6 @@ def edit_profile(request):
         user.save()
         profile.save()
 
-        return render(request, 'profile.html', {'profile': profile, 'Branches': Branches})
+        return render(request, 'profile.html', {'profile': profile, 'Branches': Branches,'user':user})
 
-    return render(request, 'profile.html', {'profile': profile, 'Branches': Branches})
+    return render(request, 'profile.html', {'profile': profile, 'Branches': Branches,'user':user})
