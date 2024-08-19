@@ -114,9 +114,13 @@
               <div class="">
          
                 {% if user.is_authenticated %}
-            <li class="nav-item dropdown hidden-caret" style="list-style: none;">
+            <li class="nav-item dropdown hidden-caret profile-dropdown" style="list-style: none;">
                     <a
                       class="dropdown-toggle profile-pic"
+                      onclick="{let value = document.querySelector('.profile-dropdown')
+                        if(value.classList.contains('show')){value.classList.remove('show')}else{value.classList.add('show')}
+
+                      }"
                       data-bs-toggle="dropdown"
                       
                     >
@@ -129,7 +133,7 @@
                       </div>
                       
                     </a>
-                    <ul class="dropdown-menu dropdown-user animated fadeIn" style="margin-left: -190px;">
+                    <ul class="dropdown-menu dropdown-user animated fadeIn profile-dropdown" style="margin-left: -190px;">
                       <div class="">
                         <li>
                           <div class="user-box">
@@ -191,7 +195,7 @@
                       class="dropdown-toggle profile-pic"
                       data-bs-toggle="dropdown"
                       href="#"
-                      aria-expanded="false"
+                      aria-expanded="true"
                     >
                       <div class="avatar-sm">
                         <img
