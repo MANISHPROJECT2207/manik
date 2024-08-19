@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+*:hover {
+   -webkit-transition: all 1s ease;
+   transition: all 1s ease;
+}
+
+.profile-card .card-img-block {
+   float: left;
+   width: 100%;
+   height: 150px;
+   overflow: hidden;
+}
+
+.profile-card .card-body {
+   position: relative;
+}
+
+.profile-card .profile {
+   border-radius: 50%;
+   position: absolute;
+   top: -62px;
+   left: 50%;
+   width: 100px;
+   border: 3px solid rgba(255, 255, 255, 1);
+   margin-left: -50px;
+}
+
+.profile-card .card-img-block {
+   position: relative;
+}
+
+.profile-card .card-img-block > .info-box {
+   position: absolute;
+   background: #3404f3;
+   width: 100%;
+   height: 100%;
+   color: #fff;
+   padding: 20px;
+   text-align: center;
+   font-size: 14px;
+   -webkit-transition: 1s ease;
+   transition: 1s ease;
+   opacity: 0;
+}
+
+.profile-card .card-img-block:hover > .info-box {
+   opacity: 1;
+   -webkit-transition: all 1s ease;
+   transition: all 1s ease;
+}
+
+.profile-card h5 {
+   font-weight: 600;
+   color: #3404f3;
+}
+
+.profile-card .card-text {
+   font-weight: 300;
+   font-size: 15px;
+}
+
+.profile-card .icon-block {
+   float: left;
+   width: 100%;
+}
+
+.profile-card .icon-block a {
+   text-decoration: none;
+}
+
+.profile-card i {
+   display: inline-block;
+   font-size: 16px;
+   color: #3404f3;
+   text-align: center;
+   border: 1px solid #3404f3;
+   width: 30px;
+   height: 30px;
+   line-height: 30px;
+   border-radius: 50%;
+   margin: 0 5px;
+}
+
+.profile-card i:hover {
+   background-color: #3404f3;
+   color: #fff;
+}
+</style>
+
+<section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mt-4">
+            <div class="card profile-card">
+               <div class="card-img-block">
+                  <div class="info-box">Sharma Ji</div>
+                  <img class="img-fluid" src="https://images.unsplash.com/photo-1458668383970-8ddd3927deed?dpr=1&auto=format&crop=entropy&fit=crop&w=1500&h=1004&q=80" alt="Card image cap">
+               </div>
+               <div class="card-body pt-5">
+                  <img src="{% static 'img/manish.jpeg' %}" alt="profile-image" class="profile h-50" />
+                  <h5 class="card-title text-center">Manish Sharma</h5>
+                  <p class="card-text text-center">Founder</p>
+                  <div class="icon-block text-center"><a href="#"><i class="fab fa-facebook"></i></a><a href="#">
+                        <i class="fab fa-instagram"></i></a><a href="#"> <i class="fas fa-envelope"></i></a>
+                  </div>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mt-4">
+            <div class="card profile-card">
+               <div class="card-img-block">
+                  <div class="info-box">Yadav Ji</div>
+                  <img class="img-fluid" src="https://images.unsplash.com/photo-1458668383970-8ddd3927deed?dpr=1&auto=format&crop=entropy&fit=crop&w=1500&h=1004&q=80" alt="Card image cap">
+               </div>
+               <div class="card-body pt-5">
+                  <img src="{% static 'img/nikhil.jpeg' %}" alt="profile-image" class="profile h-50" />
+                  <h5 class="card-title text-center">Nikhil Yadav</h5>
+                  <p class="card-text text-center">Co-Founder</p>
+                  <div class="icon-block text-center"><a href="#"><i class="fab fa-facebook"></i></a><a href="#">
+                        <i class="fab fa-instagram"></i></a><a href="#"> <i class="fas fa-envelope"></i></a>
+                  </div>
+               </div>
+            </div>
+        </div>
+      </div>
+   </div>
+</section>
+
+{% endblock %}

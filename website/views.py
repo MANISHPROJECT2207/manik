@@ -29,9 +29,7 @@ def about(request):
     return render(request, 'about.html')
 
 def test(request):
-    items = Item.objects.all()
-    
-    return render(request, 'card.html', {'progress':99, 'items':items})
+    return render(request, 'test.html')
 
 def home(request):
     top_subjects = Subject.objects.order_by('-views')[:3]
