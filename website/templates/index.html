@@ -306,9 +306,9 @@
         </h6>
         <h1 class="mb-5">Popular Topics</h1>
     </div>
-    <div class="col row overflow-auto la text-center justify-content-center">
+    <div class="col row overflow-auto la text-center justify-content-center fadeInUp">
       {% for subject in top_subjects %}
-        <div class="col-md-4 col-10">
+        <div class="col-md-3 col-7">
             <a href="{% url 'subject_desc' subject.name %}">
               <div class="card p-3 mb-2 subject-card" style="height:300px; font-size:x-large;">
                 <div class="d-flex justify-content-between">
@@ -322,7 +322,7 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="badge"> <span>{{subject.views}}</span> </div>
+                    <div class="badge border-0"> <span>{{subject.views}}</span> </div>
                 </div>
                 <div class="mt-5">
                     <h3 class="heading" style="font-size:xx-large;">{{subject.name}}</h3>
