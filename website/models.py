@@ -85,3 +85,11 @@ class Profile(models.Model):
         
     def __str__(self):
         return self.user.email
+    
+class Feedback(models.Model):
+    text = models.TextField()
+    user = models.ForeignKey(User, related_name='feedbacks', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.user.username
