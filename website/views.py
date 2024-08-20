@@ -73,7 +73,11 @@ def profile(request):
 
 def courses(request):
     return render(request, 'courses.html')
+def register2(request):
+    return render(request, 'register2.html')
 
+def login2(request):
+    return render(request, 'login2.html')
 def firstyear(request):
     items = Item.objects.all()
     return render(request, 'secondyear.html', {"items":items, 'progress':60})

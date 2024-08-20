@@ -24,5 +24,8 @@ urlpatterns = [
     path('completed/', views.show_completed, name='show_completed'),
     path('firstyear/', views.firstyear, name='first_year'),
     path('test/', views.test, name='test'),
-    path('edit_profile', views.edit_profile, name='edit_profile',)
+    path('edit_profile', views.edit_profile, name='edit_profile',),
+    path('register2/', views.register2, name='register'),
+    path('login2/', views.login2, name='login'),
+    
 ]
