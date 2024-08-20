@@ -80,6 +80,8 @@ def login2(request):
     return render(request, 'login2.html')
 def reportbug(request):
     return render(request, 'reportbug.html')
+def editprofile(request):
+    return render(request, 'editprofile.html')
 def firstyear(request):
     items = Item.objects.all()
     return render(request, 'secondyear.html', {"items":items, 'progress':60})
