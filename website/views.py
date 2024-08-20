@@ -183,10 +183,15 @@ def status_completed(request):
             item.completed = False
         if item.completed == True:
             item.completed_by.add(user)
-            unit.completed_by.add(user)
         else:
             item.completed_by.remove(user)
-            unit.completed_by.remove(user)
+            
+        all_items = Item.objects.get(unit=unit)
+        for item in all_items:
+            if item.completed_by == False:
+                unit.completed_by.remove(user)
+                break
+            else: unit.completed_by.add(user)
         item.save()
         unit.save()
         return JsonResponse({'success': True})
@@ -303,12 +308,11 @@ def year(request, year):
     branch_dict = {}
     for branch_code, branch_name in Subject._meta.get_field('branch').choices:
         subjects = Subject.objects.filter(branch=branch_code, year=year)
-        
         subject_list = []
         for subject in subjects:
             total_units = subject.units.count()
-            completed_units = subject.units.filter( completed_by=request.user).count()
-         
+            completed_units = subject.units.filter(completed_by=request.user).count()
+        
             if total_units > 0:
                 progress = (completed_units / total_units) * 100
             else:

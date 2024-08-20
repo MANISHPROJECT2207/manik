@@ -419,12 +419,12 @@
                               <tr>
                                   <th scope="row">
                                       <div class="form-check">
-                                          <input class="form-check-input border-3 item-status-checkbox" type="checkbox" value="{{ item.id }}" id="flexCheckDefault" {% if request.user in item.completed_by.all %} checked {% endif %}>   
+                                          <input class="form-check-input border-3 item-status-checkbox" type="checkbox" value="{{ item.id }}" id="flexCheckDefault" {% if request.user in unit.completed_by.all %} checked {% endif %}>   
                                       </div>
                                   </th>
                                   <td class="text-center">{{item.title}}</td>
                                   <td class="text-center" style="cursor:pointer;">
-                                      <a href="{{ item.link }}"><img src="../static/img/youtube-brands-solid.svg" style="height: 30px;" alt=""></a>
+                                      <a href="{{ item.link }}"><img src="{% static 'img/youtube-brands-solid.svg' %}" style="height: 30px;" alt=""></a>
                                   </td>
                                   <td class="text-center">{{item.description}}</td>
                                   <td class="text-center">
