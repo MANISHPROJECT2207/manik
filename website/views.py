@@ -78,6 +78,8 @@ def register2(request):
 
 def login2(request):
     return render(request, 'login2.html')
+def reportbug(request):
+    return render(request, 'reportbug.html')
 def firstyear(request):
     items = Item.objects.all()
     return render(request, 'secondyear.html', {"items":items, 'progress':60})
