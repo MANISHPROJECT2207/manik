@@ -150,7 +150,7 @@
                         <li>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="{%url 'editprofile'%}">Edit Profile</a>
-                          <a class="dropdown-item" href="{% url 'reportbug' %}">Report A Bug</a>
+                          <a class="dropdown-item" href="{% url 'feedback' %}">Feedback</a>
                           <a class="dropdown-item" href="#">Inbox</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#">Account Setting</a>
@@ -226,7 +226,7 @@
                         <li>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="{%url 'editprofile'%}">Edit Profile</a>
-                          <a class="dropdown-item" href="{% url 'reportbug' %}">Report A Bug</a>
+                          <a class="dropdown-item" href="{% url 'feedback' %}">Feedback</a>
                           <a class="dropdown-item" href="#">Inbox</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#">Account Setting</a>
@@ -324,15 +324,14 @@
               <div class="col-lg-3 col-md-5 mb-4 mb-lg-0 text-center mx-3 mx-lg-0">
                 <h5 class="text-uppercase mb-4 text-white">Give us your Feedback</h5>
                 <p class="text-white">Your feedback matters to us!</p>
-                
-
+                <form method="post" action="{% url 'feedback' %}">
+                  {% csrf_token%}
                   <div class="form-outline form-white mb-4 col-10 col-lg-12" style="margin-left: 25px;">
-                    <textarea class="form-control border-2" rows="5" placeholder="Your feedback"></textarea>
+                    <textarea class="form-control border-2" name="feedback" rows="5" placeholder="Your feedback"></textarea>
                   </div>
-                  
-                
-      
-                <button type="button"  class="btn btn-primary py-2  bottom-0 end-0 mb-2 me-2">Submit</button>
+                  <button type="submit" class="btn btn-primary py-2  bottom-0 end-0 mb-2 me-2">Submit</button>
+                </form>
+
               </div>
               <!--Grid column-->
             </div>

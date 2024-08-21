@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Item, Subject, Profile, Unit
+from .models import Item, Subject, Profile, Unit, Feedback
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -50,6 +50,12 @@ def home(request):
             subject_list.append(subject_data)
     print(subject_list)
     
+    if request.method == 'POST':
+        x = request.POST.get('feedback')
+        feedback = Feedback.objects.create(user=request.user, text=x)
+        feedback.save()
+        return redirect('home')
+    
     return render(request, 'index.html', {
         'top_subjects':top_subjects,
         'total_users':total_users,
@@ -63,8 +69,8 @@ def testimonial(request):
 def _404_error(request):
     return render(request, '404.html')
 
-def profile(request):
-    profile = Profile.objects.get(user=request.user)
+def profile(request): 
+    profile, created = Profile.objects.get_or_create(user=request.user)
     branch_dict = {}
     for branch_code, branch_name in Subject._meta.get_field('branch').choices:
         subjects = Subject.objects.filter(branch=branch_code, year=profile.year)
@@ -94,18 +100,9 @@ def profile(request):
 
 def courses(request):
     return render(request, 'courses.html')
-def register2(request):
-    return render(request, 'register2.html')
 
-def login2(request):
-    return render(request, 'login2.html')
-def reportbug(request):
-    return render(request, 'reportbug.html')
 def editprofile(request):
     return render(request, 'editprofile.html')
-def firstyear(request):
-    items = Item.objects.all()
-    return render(request, 'secondyear.html', {"items":items, 'progress':60})
 
 def subjectpages(request):
     items = Item.objects.all()
@@ -157,18 +154,17 @@ def register(request):
             user = User.objects.create_user(email=email, password=pswd, username=username)
             user.save()
         except Exception as e:
-            return redirect('register')
+            return render(request, 'register.html')
 
-        # Attempt to authenticate the user
         user = authenticate(request, email=email, password=pswd)
-        user.save()
-        profile = Profile.objects.get_object_or_404(user=user)
-        if not profile: profile = Profile.objects.create(user = user)
-        profile.save()
+        
+        # try:
+        #     profile, created = Profile.objects.get_or_create(user=user)
+        # except:
+        #     profile = Profile.objects.create(user=user)
+        # profile.save()
         if user is not None:
             login(request, user)
-            return redirect('home')
-        else:
             return redirect('home')
     return render(request, 'register.html')
 
@@ -430,3 +426,12 @@ def edit_profile(request):
         return render(request, 'profile.html', {'profile': profile, 'Branches': Branches,'user':user})
 
     return render(request, 'profile.html', {'profile': profile, 'Branches': Branches,'user':user})
+
+@login_required
+def feedback(request):
+    if request.method == 'POST':
+        x = request.POST.get('feedback')
+        feedback = Feedback.objects.create(user=request.user, text=x)
+        feedback.save()
+        return redirect('home')
+    return render(request, 'feedback.html')
