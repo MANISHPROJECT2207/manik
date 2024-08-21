@@ -366,18 +366,18 @@
               <div class="scrolling-wrapper row flex-row flex-nowrap pb-4">
                   {% for x in subject_list %}
                   <div class="custom-carousel-item col-md-3">
-                  <a href="{% url 'subject_desc' x.subject.name %}">
-                      <div class="card-d order-card">
-                          <div class="card-block">
-                              <h6 class="m-b-20">{{ x.subject.name }}</h6>
-                              <h2 class="text-right">{{ x.subject.name }}</h2>
-                              <p class="m-b-0"><span class="f-right">{{ x.subject.name }}</span></p>
-                              <div class="progress-circle" id="progress-circle">
-                                  <span id="progress-text">{{ x.progress }}%</span>
-                              </div>
-                          </div>
-                      </div>
-                  </a>
+                    <a href="{% url 'subject_desc' x.subject.name %}">
+                        <div class="card-d order-card" id="{{x.subject.name}}">
+                            <div class="card-block">
+                                <h6 class="m-b-20">{{ x.subject.branch }}</h6>
+                                <h2 class="text-right">{{ x.subject.name }}</h2>
+                                <p class="m-b-0"><span class="f-right">{{ x.subject.views }}</span></p>
+                                <div class="progress-circle" id="progress-circle">
+                                    <span id="progress-text">{{ x.progress }}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                   </div>
                   {% endfor %}             
               </div>

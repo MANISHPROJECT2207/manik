@@ -31,25 +31,6 @@ def about(request):
 def test(request):
     return render(request, 'test.html')
 
-# branch_dict = {}
-#     for branch_code, branch_name in Subject._meta.get_field('branch').choices:
-#         subjects = Subject.objects.filter(branch=branch_code, year=year)
-#         subject_list = []
-#         for subject in subjects:
-#             total_units = subject.units.count()
-#             completed_units = subject.units.filter(completed_by=request.user).count()
-        
-#             if total_units > 0: progress = (completed_units / total_units) * 100
-#             else: progress = 0
-            
-#             subject_data = {
-#                 'subject': subject,
-#                 'progress': progress
-#             }
-#             subject_list.append(subject_data)
-        
-#         branch_dict[branch_name] = subject_list
-
 def home(request):
     top_subjects = Subject.objects.order_by('-views')[:3]
     total_users = User.objects.all().count()
@@ -57,7 +38,7 @@ def home(request):
     subject_list = []
     for subject in popular:
             total_units = subject.units.count()
-            completed_units = subject.units.filter(completed_by=request.user).count()
+            completed_units = Unit.objects.all().filter(subject=subject).count()
         
             if total_units > 0: progress = int((completed_units / total_units) * 100)
             else: progress = 0
@@ -94,7 +75,7 @@ def profile(request):
             completed_units = subject.units.filter( completed_by=request.user).count()
          
             if total_units > 0:
-                progress = int((completed_units / total_units) * 100)
+                progress = (completed_units / total_units) * 100
             else:
                 progress = 0
             
