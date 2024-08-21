@@ -453,24 +453,26 @@ ul {
 
 </style>
 
-<div id="menu-wrapper" class="menu-wrapper col-11 mx-2 mx-lg-5 mx-md-5">
+<div id="menu-wrapper" class="menu-wrapper col-11 mx-2 mx-lg-5 mx-md-5 px-4">
 	<ul id="menu" class="menu">
+    {% for x in subject_list %}
 		<li class="item">
       <div class="custom-carousel-item col-md-12 col-12 col-lg-12">
-        <a >
+        <a href="{% url 'subject_desc' x.subject.name %}">
             <div class="card-d order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">hello</h6>
-                    <h2 class="text-right">bye</h2>
-                    <p class="m-b-0"><span class="f-right">you</span></p>
+                    <h6 class="m-b-20">{{ x.subject.branch }}</h6>
+                    <h2 class="text-right">{{ x.subject.name }}</h2>
+                    <p class="m-b-0"><span class="f-right">{{ x.subject.views }}</span></p>
                     <div class="progress-circle" id="progress-circle">
-                        <span id="progress-text">bro</span>
+                        <span id="progress-text">{{x.progress}}%</span>
                     </div>
                 </div>
             </div>
         </a>
         </div>
     </li>
+    {% endfor %}
     <li class="item"><div class="custom-carousel-item col-md-12 col-12 col-lg-12">
       <a >
           <div class="card-d order-card">
@@ -513,10 +515,7 @@ ul {
           </div>
       </a>
       </div></li>
-    <li class="item">5</li>
-    <li class="item">6</li>
-    <li class="item">7</li>
-    <li class="item">8</li>
+    
 	</ul>
 
 	<div class="arrows">
