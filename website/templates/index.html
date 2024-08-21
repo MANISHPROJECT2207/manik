@@ -299,45 +299,90 @@
     color: #a5aec0
 }
 </style>
+
+
+<style>
+  .order-card {
+      color: #fff;
+      background: linear-gradient(45deg,#4099ff,#73b4ff);
+      border-radius: 5px;
+      box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+      border: none;
+      margin-top: 20px;
+      width: 100%;
+  }
+  
+  .card-d .card-block {
+      padding: 25px;
+      position: relative;
+  }
+  
+  .progress-circle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 70px;
+      height: 70px;
+      background: conic-gradient(
+          #ffffff 0% {{ x.progress }}%,
+          rgba(255, 255, 255, 0.3) {{ x.progress }}% 100%
+      );
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .progress-circle::before {
+      content: "";
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      background-color: #4099ff;
+      border-radius: 50%;
+  }
+
+  #progress-text {
+      position: relative;
+      font-size: 18px;
+      color: white;
+      z-index: 1;
+  }
+  .scrolling-wrapper{
+      overflow-x: auto;
+  } 
+</style>
+
 <div class="container mt-5 mb-3 col-11">
     <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
         <h6 class="section-title bg-white text-center text-primary px-3">
           Courses
         </h6>
-        <h1 class="mb-5">Popular Topics</h1>
+        <h1 class="">Popular Topics</h1>
     </div>
-    <div class="col row overflow-auto la text-center justify-content-center fadeInUp">
-      {% for subject in top_subjects %}
-        <div class="col-md-3 col-7">
-            <a href="{% url 'subject_desc' subject.name %}">
-              <div class="card p-3 mb-2 subject-card" style="height:300px; font-size:x-large;">
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex flex-row align-items-center"> 
-                        <div class="ms-2 c-details">
-                            <h6 class="txt">{{subject.branch}}</h6> 
-                            {% if subject.year == 1 %} <span>{{subject.year}}<sup>st</sup> year</span>
-                            {% elif subject.year == 2 %} <span>{{subject.year}}<sup>nd</sup> year</span>
-                            {% elif subject.year == 3 %} <span>{{subject.year}}<sup>rd</sup> year</span>
-                            {% elif subject.year == 4 %} <span>{{subject.year}}<sup>th</sup> year</span>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="badge border-0"> <span>{{subject.views}}</span> </div>
-                </div>
-                <div class="mt-5">
-                    <h3 class="heading" style="font-size:xx-large;">{{subject.name}}</h3>
-                    <div class="mb-5">
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 69%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="mt-3"> <span class="text1">viewed by {{subject.views}} users <span class="">out of {{total_users}}</span></span> </div>
-                    </div>
-                </div>
-            </div>
-            </a>
-        </div>
-      {% endfor %}
-    </div>
+    <div class="p-4">
+    
+      <div class="container-fluid">
+              <div class="scrolling-wrapper row flex-row flex-nowrap pb-4">
+                  {% for x in subject_list %}
+                  <div class="custom-carousel-item col-md-3">
+                  <a href="{% url 'subject_desc' x.subject.name %}">
+                      <div class="card-d order-card">
+                          <div class="card-block">
+                              <h6 class="m-b-20">{{ x.subject.name }}</h6>
+                              <h2 class="text-right">{{ x.subject.name }}</h2>
+                              <p class="m-b-0"><span class="f-right">{{ x.subject.name }}</span></p>
+                              <div class="progress-circle" id="progress-circle">
+                                  <span id="progress-text">{{ x.progress }}%</span>
+                              </div>
+                          </div>
+                      </div>
+                  </a>
+                  </div>
+                  {% endfor %}             
+              </div>
+      </div>
+  </div>
 </div>
 
 <!-- Courses End -->
@@ -688,5 +733,28 @@
   </div>
 </div> -->
 <!-- Testimonial End -->
+
+<script>
+  let currentIndex = 0;
+
+  function scrollCarousel(direction) {
+      const carousel = document.getElementById('carousel');
+      const itemWidth = document.querySelector('.carousel-item').clientWidth;
+      const totalItems = document.querySelectorAll('.carousel-item').length;
+      const visibleItems = 3;  // Number of items visible in the carousel
+      const maxIndex = totalItems - visibleItems;
+
+      currentIndex += direction;
+
+      if (currentIndex < 0) {
+          currentIndex = 0;
+      } else if (currentIndex > maxIndex) {
+          currentIndex = maxIndex;
+      }
+
+      const translateX = -currentIndex * itemWidth;
+      carousel.style.transform = `translateX(${translateX}px)`;
+  }
+</script>
 
 {% endblock %}
