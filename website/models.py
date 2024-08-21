@@ -28,7 +28,6 @@ class Subject(models.Model):
     branch = models.CharField(choices=Branches, max_length=30, default="Common")
     views = models.IntegerField(default=0)
     viewed_by = models.ManyToManyField(User, related_name='viewed_subjects', blank=True)
-    no_units = models.IntegerField(default=1)
     
     def __str__(self):
         return (f"{self.name}, {self.branch}")
