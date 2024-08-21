@@ -14,7 +14,7 @@
 <div class="container-xxl py-5" style="margin-top: 30px;">
   <div class="container">
     <div class="row g-4">
-      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
         <a href="{% url 'year' 1 %}">
           <div class="service-item text-center pt-3">
             <div class="p-4">
@@ -28,7 +28,7 @@
           </div>
         </a>
       </div>
-      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
         <a href="{% url 'year' 2 %}">
           <div class="service-item text-center pt-3">
             <div class="p-4">
@@ -41,7 +41,7 @@
           </div>
         </a>
       </div>
-      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
         <a href="{% url 'year' 3 %}">
           <div class="service-item text-center pt-3">
             <div class="p-4">
@@ -52,7 +52,7 @@
           </div>
         </a>
       </div>
-      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
         <a href="{% url 'year' 4 %}">
           <div class="service-item text-center pt-3">
             <div class="p-4">
@@ -354,7 +354,7 @@
 </style>
 
 <div class="container mt-5 mb-3 col-11">
-    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.5s">
         <h6 class="section-title bg-white text-center text-primary px-3">
           Courses
         </h6>
@@ -384,6 +384,246 @@
       </div>
   </div>
 </div>
+
+
+
+
+<style>
+  .menu-wrapper {
+  position: relative; /* Required for arrow keys to be absolutely positioned child divs inside menu-wrapper parent. */
+ 
+  height: 200px;  /* Intentionally shorter than menu items, to hide horizontal scroll bar. */
+
+  overflow-x: hidden;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center;
+  padding: 20px 20px;  /* Inner space on the left and right sides of wrapper must match flexbox gap space between menu items. */
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none; /* Hide unordered list bullet. */
+}
+
+.menu {
+  height: 700px;
+  /* background: #f3f3f3; */
+  box-sizing: border-box;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  position: relative; /* Required for animation. */
+  display: flex;
+  align-items: center;
+  gap: 20px;  /* Flexbox space between menu items must match the left/right padding of menu wrapper. */
+}
+
+.menu .item {
+  /* Weird - Visible items inherit this from .menu but not hidden items# 6-8 when they slide in and can be seen. */
+  width: 300px;
+  
+  
+  
+ 
+  display: flex;            /* Needed to center number in middle of menu item, solution # 1 of 3. */
+  align-items: center;      /* Needed to vertically center number in middle of menu item, solution # 2 of 3. */
+  justify-content: center;  /* Needed to horizontally center number in middle of menu item, solution # 3 of 3. */
+}
+
+.arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /* width: 3em; Excluding width means that arrow div will only be as wide as it needs to be to contain the < or > characters. */
+}
+
+.left-arrow {
+  left: 0;
+}
+
+.right-arrow {
+  right: 40px;
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+</style>
+
+<div id="menu-wrapper" class="menu-wrapper col-11 mx-2 mx-lg-5 mx-md-5">
+	<ul id="menu" class="menu">
+		<li class="item">
+      <div class="custom-carousel-item col-md-12 col-12 col-lg-12">
+        <a >
+            <div class="card-d order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">hello</h6>
+                    <h2 class="text-right">bye</h2>
+                    <p class="m-b-0"><span class="f-right">you</span></p>
+                    <div class="progress-circle" id="progress-circle">
+                        <span id="progress-text">bro</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        </div>
+    </li>
+    <li class="item"><div class="custom-carousel-item col-md-12 col-12 col-lg-12">
+      <a >
+          <div class="card-d order-card">
+              <div class="card-block">
+                  <h6 class="m-b-20">hello</h6>
+                  <h2 class="text-right">bye</h2>
+                  <p class="m-b-0"><span class="f-right">you</span></p>
+                  <div class="progress-circle" id="progress-circle">
+                      <span id="progress-text">bro</span>
+                  </div>
+              </div>
+          </div>
+      </a>
+      </div></li>
+    <li class="item"><div class="custom-carousel-item col-md-12 col-12 col-lg-12">
+      <a >
+          <div class="card-d order-card">
+              <div class="card-block">
+                  <h6 class="m-b-20">hello</h6>
+                  <h2 class="text-right">bye</h2>
+                  <p class="m-b-0"><span class="f-right">you</span></p>
+                  <div class="progress-circle" id="progress-circle">
+                      <span id="progress-text">bro</span>
+                  </div>
+              </div>
+          </div>
+      </a>
+      </div></li>
+    <li class="item"><div class="custom-carousel-item col-md-12 col-12 col-lg-12">
+      <a >
+          <div class="card-d order-card">
+              <div class="card-block">
+                  <h6 class="m-b-20">hello</h6>
+                  <h2 class="text-right">bye</h2>
+                  <p class="m-b-0"><span class="f-right">you</span></p>
+                  <div class="progress-circle" id="progress-circle">
+                      <span id="progress-text">bro</span>
+                  </div>
+              </div>
+          </div>
+      </a>
+      </div></li>
+    <li class="item">5</li>
+    <li class="item">6</li>
+    <li class="item">7</li>
+    <li class="item">8</li>
+	</ul>
+
+	<div class="arrows">
+		<button id="leftArrow" class="left-arrow arrow hidden border-0 h-25 rounded-circle" style="margin-top: 75px; font-size: 30px; color: red; background-color: #faf6f6;">
+			<<
+		</button>
+		<button id="rightArrow" class="right-arrow arrow border-0 h-25 rounded-circle" style="margin-top: 75px; font-size: 30px; color: red; background-color:  #faf6f6;">
+			>>
+		</button>
+	</div>
+
+</div>
+
+<script>
+  const leftArrow = document.getElementById('leftArrow');
+const rightArrow = document.getElementById('rightArrow');
+const menu = document.getElementById('menu');
+
+// Establish unchanging constants and initialize variables.
+const menuWrapperSize = document.getElementById('menu-wrapper').offsetWidth; // Unchanging area of the screen where the menu is always visible.
+const menuSize = document.getElementById('menu').offsetWidth;	// Includes itemsCount * itemSize but also factors in space between items added by flexbox.
+const menuInvisibleSize = Math.max(menuSize - menuWrapperSize, 0);	// Fixed portion of scrollable menu that is hidden at all times, or zero if menu fits within container.
+const arrowSize = rightArrow.offsetWidth;	// Width of each arrow div. In current design, this equates to 12px. Still computes value even if right arrow is hidden, which it is at time this line is executed.
+const menuEndOffset = Math.max(menuInvisibleSize - arrowSize, 0);	// Fixed portion of scrollable menu that is not obscured by an overlapping arrow key, or zero if no arrow keys are needed.
+const itemsCount = document.getElementsByClassName('item').length; // Number of menu items.
+const itemSize = document.getElementsByClassName('item')[0].offsetWidth; // offsetWidth includes borders and padding but not margins of a menu item (since all the same, choose first one in array). FYI, clientWidth includes padding but NOT borders and margins.
+const itemsSpaceBetween = (menuSize - (itemsCount * itemSize)) / (itemsCount - 1);	// Space between menu items is deliberately set to equal menu wrapper padding left/right. In this design it is 20 pixels.
+const distanceInPixels = itemSize + itemsSpaceBetween;	// Distance to scroll per arrow button click equals width of a menu item plus the space to its right or left. In this design, it is 75 + 20 = 95.
+const durationInMilliseconds = 500;
+let starttime = null;
+
+// Iniitially, on page load menu items are left aligned and left arrow is hidden. Let's hide right arrow also if there is no need for it (as when all menu items fit within visible container).
+if (menuInvisibleSize === 0) {
+	rightArrow.classList.add("hidden");
+}
+
+// Get current left position of menu in pixels.
+const getMenuPosition = () => {
+	return parseFloat(menu.style.left) || 0;	// First time, left property is not set so initialize to 0.
+};
+
+// Get current distance (in pixels) that we have scrolled.
+const getScrolledDistance = () => {
+	return -1 * getMenuPosition();	// Negate value because this is the only way it will work.
+};
+
+// After an arrow key is clicked and menu is animating, check to see where we are and determine which arrow key(s) to show, always resulting in at least one arrow key visible. Also, update data at bottom.
+// Notes: o This function is only applicable when all menu items cannot be seen in container at one time and an arrow key is clicked to animate menu. 
+//        o If all menu items fit in visible container, UI will be initially rendered without any arrow keys and this function will never be called.
+const checkPosition = () => {
+	// Calculate where we are right now.
+	const menuPosition = getScrolledDistance();
+
+	// Determine which arrow key(s) to display based on position.
+	if (menuPosition <= arrowSize) {			// SHOW RIGHT ARROW if we are scrolling from far left.
+		leftArrow.classList.add("hidden");		// FYI, this will NOT create duplicate hidden class if leftArrow already contains it.	
+		rightArrow.classList.remove("hidden");
+	} else if (menuPosition < menuEndOffset) {	// SHOW BOTH ARROWS when in the middle of the menu.
+		leftArrow.classList.remove("hidden");
+		rightArrow.classList.remove("hidden");
+	} else if (menuPosition >= menuEndOffset) {	// SHOW LEFT ARROW if we are scrolling as far right as we can go.
+		leftArrow.classList.remove("hidden");
+		rightArrow.classList.add("hidden");
+    }
+
+	// Print changing scroll position under the menu for informational purposes.
+	document.querySelector("#print-menu-position span").textContent = menuPosition + 'px';
+};
+
+const animateMenu = (timestamp, startingPoint, distance) => {
+    const runtime = timestamp - starttime;
+    let progress = runtime / durationInMilliseconds;
+    progress = Math.min(progress, 1);
+	let newValue = (startingPoint + (distance * progress)).toFixed(2) + 'px';
+	menu.style.left = newValue;
+
+	if (runtime < durationInMilliseconds) {	// If we still have time remaining...
+        requestAnimationFrame(function(timestamp) {	// Request another animation frame and recursively call THIS function.
+            animateMenu(timestamp, startingPoint, distance);
+        })
+    }
+	checkPosition();
+};
+ 
+const animationFramesSetup = (timestamp, travelDistanceInPixels) => {
+	timestamp = timestamp || new Date().getTime();	// if browser doesn't support requestAnimationFrame, generate our own timestamp using Date.
+	starttime = timestamp;
+	const startingPoint = getMenuPosition();		// This cannot be defined up top in constants. Need to read current value only during initial setup of arrow button click.
+	animateMenu(timestamp, startingPoint, travelDistanceInPixels);
+};
+
+rightArrow.addEventListener('click', () => requestAnimationFrame(
+	timestamp => animationFramesSetup(timestamp, -1 * distanceInPixels)
+));
+	
+leftArrow.addEventListener('click', () => requestAnimationFrame(
+	timestamp => animationFramesSetup(timestamp, distanceInPixels)
+));
+
+// Print unchanging values under the menu for informational purposes.
+document.querySelector("#print-wrapper-size span").textContent = menuWrapperSize + 'px';
+document.querySelector("#print-menu-size span").textContent = menuSize + 'px';
+document.querySelector("#print-menu-invisible-size span").textContent = menuInvisibleSize + 'px';
+document.querySelector("#print-menu-end-offset span").textContent = menuEndOffset + 'px';
+
+</script>
+
 
 <!-- Courses End -->
 <!-- About Start -->
