@@ -199,22 +199,20 @@ def status_completed(request):
         item = Item.objects.get(id=item_id)
         unit = Unit.objects.get(number=item.unit, subject=item.subject)
         if status:
-            item.completed = True
-        else:
-            item.completed = False
-        if item.completed == True:
             item.completed_by.add(user)
         else:
             item.completed_by.remove(user)
             
-        all_items = Item.objects.get(unit=unit)
+        all_items = Item.objects.filter(unit=unit)
         for item in all_items:
             if item.completed_by == False:
                 unit.completed_by.remove(user)
+                print("booyah")
                 break
             else: unit.completed_by.add(user)
         item.save()
         unit.save()
+        
         return JsonResponse({'success': True})
     except Item.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Item not found'})

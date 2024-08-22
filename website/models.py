@@ -41,10 +41,7 @@ class Item(models.Model):
     video = models.FileField(upload_to='videos/', blank=True, null=True)
     link = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(choices=item_status, max_length=15, default="pending")
-    completed = models.BooleanField(default=False)
     completed_by = models.ManyToManyField(User, related_name='completed_items', blank=True)
-    revision = models.BooleanField(default=False)
     revision_by = models.ManyToManyField(User, related_name='revision_items', blank=True)
     likes = models.IntegerField(default=0)
     liked_by = models.ManyToManyField(User, related_name='liked_items', blank=True)
@@ -69,12 +66,11 @@ class Unit(models.Model):
     subject = models.ForeignKey(Subject, related_name='units', on_delete=models.CASCADE)
     items = models.ManyToManyField(Item, related_name='units')
     number = models.IntegerField(default=0)
-    completed = models.BooleanField(default=False)
     completed_by = models.ManyToManyField(User, related_name='completed_units', blank=True)
     name = models.CharField(max_length=255, default=subject.name)
     
     def __str__(self):
-        return str(self.number)
+        return str(f"{self.number}, {self.subject}")
     
 class Profile(models.Model):
     user = models.ForeignKey(User, related_name='profiles', on_delete=models.CASCADE)
