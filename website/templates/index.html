@@ -464,7 +464,8 @@ ul {
                     <h6 class="m-b-20">{{ x.subject.branch }}</h6>
                     <h2 class="text-right">{{ x.subject.name }}</h2>
                     <p class="m-b-0"><span class="f-right">{{ x.subject.views }}</span></p>
-                    <div class="progress-circle" id="progress-circle">
+                    <div class="progress-circle" id="progress-circle"
+                    style="background: conic-gradient(#ffffff 0% {{ x.progress }}%, rgba(255, 255, 255, 0.3) {{ x.progress }}% 100%);">
                         <span id="progress-text">{{x.progress}}%</span>
                     </div>
                 </div>
@@ -473,49 +474,7 @@ ul {
         </div>
     </li>
     {% endfor %}
-    <li class="item"><div class="custom-carousel-item col-md-12 col-12 col-lg-12">
-      <a >
-          <div class="card-d order-card">
-              <div class="card-block">
-                  <h6 class="m-b-20">hello</h6>
-                  <h2 class="text-right">bye</h2>
-                  <p class="m-b-0"><span class="f-right">you</span></p>
-                  <div class="progress-circle" id="progress-circle">
-                      <span id="progress-text">bro</span>
-                  </div>
-              </div>
-          </div>
-      </a>
-      </div></li>
-    <li class="item"><div class="custom-carousel-item col-md-12 col-12 col-lg-12">
-      <a >
-          <div class="card-d order-card">
-              <div class="card-block">
-                  <h6 class="m-b-20">hello</h6>
-                  <h2 class="text-right">bye</h2>
-                  <p class="m-b-0"><span class="f-right">you</span></p>
-                  <div class="progress-circle" id="progress-circle">
-                      <span id="progress-text">bro</span>
-                  </div>
-              </div>
-          </div>
-      </a>
-      </div></li>
-    <li class="item"><div class="custom-carousel-item col-md-12 col-12 col-lg-12">
-      <a >
-          <div class="card-d order-card">
-              <div class="card-block">
-                  <h6 class="m-b-20">hello</h6>
-                  <h2 class="text-right">bye</h2>
-                  <p class="m-b-0"><span class="f-right">you</span></p>
-                  <div class="progress-circle" id="progress-circle">
-                      <span id="progress-text">bro</span>
-                  </div>
-              </div>
-          </div>
-      </a>
-      </div></li>
-    
+   
 	</ul>
 
 	<div class="arrows">
