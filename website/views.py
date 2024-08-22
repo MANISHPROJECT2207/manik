@@ -37,20 +37,22 @@ def home(request):
     popular = Subject.objects.all().order_by('views')[:8]
     subject_list = []
     user = request.user
-    for subject in popular:
-            total_items = Item.objects.all().filter(subject=subject).count()
-            completed_items  = Item.objects.all().filter(completed_by=user, subject=subject).count()
-        
-            if total_items > 0: progress = int((completed_items / total_items) * 100)
-            else: progress = 0
+    try:
+        for subject in popular:
+                total_items = Item.objects.all().filter(subject=subject).count()
+                completed_items  = Item.objects.all().filter(completed_by=user, subject=subject).count()
             
-            subject_data = {
-                'subject': subject,
-                'progress': progress
-            }
-            subject_list.append(subject_data)
-    print(subject_list)
-    
+                if total_items > 0: progress = int((completed_items / total_items) * 100)
+                else: progress = 0
+                
+                subject_data = {
+                    'subject': subject,
+                    'progress': progress
+                }
+                subject_list.append(subject_data)
+    except Exception as e:
+        pass
+        
     if request.method == 'POST':
         x = request.POST.get('feedback')
         feedback = Feedback.objects.create(user=request.user, text=x)
@@ -133,8 +135,6 @@ def signin(request):
         x = request.POST.get('ue')
         password = request.POST.get('password')
         user = authenticate(request, username=x, password=password)
-        if user is None:
-            user = authenticate(request, email=x, password=password)
         
         if user is not None:
             login(request, user)
@@ -159,11 +159,6 @@ def register(request):
 
         user = authenticate(request, email=email, password=pswd)
         
-        # try:
-        #     profile, created = Profile.objects.get_or_create(user=user)
-        # except:
-        #     profile = Profile.objects.create(user=user)
-        # profile.save()
         if user is not None:
             login(request, user)
             return redirect('home')
