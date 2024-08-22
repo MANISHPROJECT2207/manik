@@ -107,24 +107,6 @@ def courses(request):
 def editprofile(request):
     return render(request, 'editprofile.html')
 
-def subjectpages(request):
-    items = Item.objects.all()
-    numerator = items.filter(status="completed").count()
-    denominator = items.count()
-    subjects = Subject.objects.all()
-    a = Subject.objects.all().filter(year = 1)
-    b = Subject.objects.all().filter(year = 2)
-    c = Subject.objects.all().filter(year = 3)
-    d = Subject.objects.all().filter(year = 4)
-    g = Subject.objects.all().filter(year = 0)
-    return render(request, 'subjectpages.html', {
-        'items' : items,
-        'subjects' : subjects,
-        'numerator':numerator,
-        'denominator':denominator,
-        'a':a, 'b':b, 'c':c, 'd':d, 'g':g
-    })
-
 def contact(request):
     return render(request, 'contact.html')
 
@@ -178,7 +160,7 @@ def search(request):
     if query:
         items = items.filter(Q(description__icontains=query) | Q(title__icontains=query))
         subjects = subjects.filter(Q(name__icontains=query) | Q(branch__icontains=query))
-    return render(request, 'subjectpages.html', {
+    return render(request, 'base.html', {
         'items': items,
         'subjects': subjects,
         'numerator':numerator,
@@ -229,37 +211,46 @@ def revision(request):
     
     try:
         item = Item.objects.get(id=item_id)
-        print(f"Before: Item {item_id} revision={item.revision}")
         item.revision = rev
         if item.revision == True:
             item.revision_by.add(user)
         else:
             item.revision_by.remove(user)
         item.save()
-        print(f"After: Item {item_id} revision={item.revision}")
         return JsonResponse({'success': True})
     except Item.DoesNotExist:
-        print(f"Item {item_id} not found")
         return JsonResponse({'success': False, 'error': 'Item not found'})
     except Exception as e:
-        print(f"Error: {e}")
         return JsonResponse({'success': False, 'error': str(e)})
 
     
-def show_revision(request):
-    subjects = Subject.objects.annotate(
-        revision_count=Count('items', filter=Q(items__revision=True))
-    ).filter(revision_count__gt=0)
-    items = Item.objects.all().filter(revision=True)
+def show_revision(request, subject):
+    subject = Subject.objects.get(name=subject)
+    user = request.user
+    if user is not None or user.is_authenticated:
+        items = Item.objects.all().filter(revision_by=user, subject=subject)
+    else: items = Item.objects.all().filter(subject=subject)
     total_items = items.count()
+    grouped_items = {}
+    for item in items:
+        unit = Unit.objects.get(subject=subject, number=item.unit)
+        if unit not in grouped_items: grouped_items[unit] = []
+        grouped_items[unit].append(item)
+
+    total_units = len(grouped_items)
+    year = subject.year
     a = Subject.objects.all().filter(year = 1)
     b = Subject.objects.all().filter(year = 2)
     c = Subject.objects.all().filter(year = 3)
     d = Subject.objects.all().filter(year = 4)
     g = Subject.objects.all().filter(year = 0)
-    return render(request, 'show_revision.html', {'items':items, 'subjects': subjects,
+    return render(request, 'subject_desc.html', {'subject': subject,
         'a':a, 'b':b, 'c':c, 'd':d, 'g':g,
-        'total_items':total_items
+        'total_items':total_items,
+        'items': items,
+        'total_units': total_units,
+        'grouped_items': grouped_items,
+        'year': year,
     })
     
 def subject_desc(request, sub_name):
