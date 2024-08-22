@@ -36,11 +36,12 @@ def home(request):
     total_users = User.objects.all().count()
     popular = Subject.objects.all().order_by('views')[:8]
     subject_list = []
+    user = request.user
     for subject in popular:
-            total_units = subject.units.count()
-            completed_units = Unit.objects.all().filter(subject=subject).count()
+            total_items = Item.objects.all().filter(subject=subject).count()
+            completed_items  = Item.objects.all().filter(completed_by=user, subject=subject).count()
         
-            if total_units > 0: progress = int((completed_units / total_units) * 100)
+            if total_items > 0: progress = int((completed_items / total_items) * 100)
             else: progress = 0
             
             subject_data = {

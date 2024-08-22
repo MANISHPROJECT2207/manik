@@ -372,7 +372,9 @@
                                 <h6 class="m-b-20">{{ x.subject.branch }}</h6>
                                 <h2 class="text-right">{{ x.subject.name }}</h2>
                                 <p class="m-b-0"><span class="f-right">{{ x.subject.views }}</span></p>
-                                <div class="progress-circle" id="progress-circle">
+                                <div class="progress-circle" id="progress-circle"
+                                style="background: conic-gradient(#ffffff 0% {{ x.progress }}%, rgba(255, 255, 255, 0.3) {{ x.progress }}% 100%);">
+>
                                     <span id="progress-text">{{ x.progress }}%</span>
                                 </div>
                             </div>
