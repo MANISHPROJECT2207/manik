@@ -80,8 +80,8 @@ def profile(request):
         
         subject_list = []
         for subject in subjects:
-            total_units = subject.units.count()
-            completed_units = subject.units.filter( completed_by=request.user).count()
+            total_units = Item.objects.all().count()
+            completed_units = Item.objects.all().filter(subject=subject, completed_by=request.user).count()
          
             if total_units > 0:
                 progress = (completed_units / total_units) * 100
@@ -329,10 +329,10 @@ def year(request, year):
         subjects = Subject.objects.filter(branch=branch_code, year=year)
         subject_list = []
         for subject in subjects:
-            total_units = subject.units.count()
-            completed_units = subject.units.filter(completed_by=request.user).count()
+            total_topics = Item.objects.all().count()
+            completed_topics = Item.objects.all().filter(completed_by=request.user, subject=subject).count()
         
-            if total_units > 0: progress = int((completed_units / total_units) * 100)
+            if total_topics > 0: progress = int((completed_topics  / total_topics) * 100)
             else: progress = 0
             
             subject_data = {
