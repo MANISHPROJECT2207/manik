@@ -1,16 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-item_status = [
-    ("pending","Pending"),
-    ("completed","Completed")
-]
-
-revision_status = [
-    ("not visited", "Not Visited"),
-    ("revision", "Revision")
-]
-
 Branches = [
     ("Common", "common/all"),
     ("CSE.", "computer science and engg"),
