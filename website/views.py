@@ -155,16 +155,12 @@ def search(request):
     items = Item.objects.all()
     query = request.GET.get('query', '')
     subjects = Subject.objects.all()
-    numerator = items.filter(status="completed").count()
-    denominator = items.count()
     if query:
         items = items.filter(Q(description__icontains=query) | Q(title__icontains=query))
         subjects = subjects.filter(Q(name__icontains=query) | Q(branch__icontains=query))
     return render(request, 'base.html', {
         'items': items,
         'subjects': subjects,
-        'numerator':numerator,
-        'denominator':denominator,
         'query': query,
     })
     
@@ -312,7 +308,7 @@ def like_item(request):
 def year(request, year):
     subjects = Subject.objects.all().filter(year=year)
     items = Item.objects.filter(subject__in=subjects)
-    numerator = items.filter(status="completed").count()
+    numerator = items.filter(completed_by=request.user).count()
     denominator = items.count()
     
     branch_dict = {}
