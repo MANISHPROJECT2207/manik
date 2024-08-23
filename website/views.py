@@ -34,7 +34,7 @@ def test(request):
 def home(request):
     top_subjects = Subject.objects.order_by('-views')[:3]
     total_users = User.objects.all().count()
-    popular = Subject.objects.all().order_by('views')[:8]
+    popular = Subject.objects.all().order_by('-views')[:8]
     subject_list = []
     user = request.user
     try:
@@ -103,9 +103,6 @@ def profile(request):
 
 def courses(request):
     return render(request, 'courses.html')
-
-def editprofile(request):
-    return render(request, 'editprofile.html')
 
 def contact(request):
     return render(request, 'contact.html')
@@ -250,7 +247,13 @@ def show_revision(request, subject):
     })
     
 def subject_desc(request, sub_name):
+    user = request.user
     subject = Subject.objects.get(name=sub_name)
+    if not subject.viewed_by.filter(id=user.id).exists():
+        subject.viewed_by.add(user)
+        x = subject.views
+        subject.views = x + 1
+        subject.save()
     items = Item.objects.filter(subject=subject)
     grouped_items = {}
     units = Unit.objects.filter(subject=subject).order_by('number')
@@ -267,6 +270,7 @@ def subject_desc(request, sub_name):
     c = Subject.objects.filter(year=3)
     d = Subject.objects.filter(year=4)
     g = Subject.objects.filter(year=0)
+    
 
     return render(request, 'subject_desc.html', {
         'subject': subject,
@@ -308,7 +312,8 @@ def like_item(request):
 def year(request, year):
     subjects = Subject.objects.all().filter(year=year)
     items = Item.objects.filter(subject__in=subjects)
-    numerator = items.filter(completed_by=request.user).count()
+    user = request.user
+    numerator = items.filter(completed_by=user).count()
     denominator = items.count()
     
     branch_dict = {}
@@ -317,7 +322,7 @@ def year(request, year):
         subject_list = []
         for subject in subjects:
             total_topics = Item.objects.all().count()
-            completed_topics = Item.objects.all().filter(completed_by=request.user, subject=subject).count()
+            completed_topics = Item.objects.all().filter(completed_by=user, subject=subject).count()
         
             if total_topics > 0: progress = int((completed_topics  / total_topics) * 100)
             else: progress = 0
@@ -380,6 +385,33 @@ def show_completed(request):
         'total_items':total_items
     })
     
+# seperate page waala
+def editprofile(request):
+    user = request.user
+    profile, created = Profile.objects.get_or_create(user=user)
+    
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        year = request.POST.get('year')
+        branch = request.POST.get('branch')
+        
+        if username: 
+            user.username = username
+        if email: 
+            user.email = email
+        if year: 
+            profile.year = year
+        if branch and branch in dict(Branches).keys():
+            profile.branch = branch
+        
+        user.save()
+        profile.save()
+
+        return render(request, 'profile.html', {'profile': profile, 'Branches': Branches,'user':user})
+
+    return render(request, 'editprofile.html', {'profile': profile, 'Branches': Branches,'user':user})
+    
 def edit_profile(request):
     user = request.user
     profile, created = Profile.objects.get_or_create(user=user)
@@ -389,8 +421,6 @@ def edit_profile(request):
         email = request.POST.get('email')
         year = request.POST.get('year')
         branch = request.POST.get('branch')
-
-        print("Selected branch:", branch) 
         
         if username: 
             user.username = username
