@@ -118,16 +118,16 @@
 
 <div class="container mt-5 mb-3 col-11">
     <div class="text-center wow fadeInUp" data-wow-delay="0.5s">
-        <h6 class="section-title bg-white text-center text-primary px-3">
-          Courses
-        </h6>
-        <h1 class="">Popular Topics</h1>
+        <h4 class="section-title bg-white text-center text-primary px-3">
+          Subjects
+        </h4>
+        <h6 class="">some subjects related to your search</h6>
     </div>
     <div class="p-4">
     
       <div class="container-fluid wow fadeInUp" data-wow-delay="0.3s">
               <div class="scrolling-wrapper row flex-row flex-nowrap pb-4">
-                  {% for x in subject_list %}
+                {% for x in subject_list %}
                   <div class="custom-carousel-item col-md-5 col-lg-3 col-10">
                     <a href="{% url 'subject_desc' x.subject.name %}">
                         <div class="card-d order-card" id="{{x.subject.name}}">
@@ -150,7 +150,12 @@
 </div>
 
 <div class="pages flex row justify-content-center h2" style="text-align: center;">
-    <div class="flex row justify-content-center h2" style="text-align: center;">Topics</div>
+    <div class="text-center wow fadeInUp" data-wow-delay="0.5s">
+        <h4 class="section-title bg-white text-center text-primary px-3">
+          Topics
+        </h4>
+        <h6 class="">some topics related to your search</h6>
+    </div>
     <div class="mx-4 d-none show">
         <div class="overflow-auto" style="border-radius: 20px;">
             <table class="table table-bordered text-white" style="border-color: rgb(50, 50, 50); background-color: rgb(17, 17, 17);">
@@ -166,6 +171,7 @@
                 </thead>
                 <tbody>
                     {% for item in items %}
+                    <h1>df</h1>
                         <tr>
                             <th scope="row">
                                 <div class="form-check">

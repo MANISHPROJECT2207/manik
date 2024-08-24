@@ -151,17 +151,36 @@ def logout_user(request):
 
 
 def search(request):
+    user = request.user
     items = Item.objects.all()
     query = request.GET.get('query', '')
     subjects = Subject.objects.all()
     if query:
         items = items.filter(Q(description__icontains=query) | Q(title__icontains=query))
+        print(items)
         subjects = subjects.filter(Q(name__icontains=query) | Q(branch__icontains=query))
-        print(subjects)
-    return render(request, 'base.html', {
+        subject_list = []
+        try:
+            for subject in subjects:
+                    total_items = Item.objects.all().filter(subject=subject).count()
+                    completed_items  = Item.objects.all().filter(completed_by=user, subject=subject).count()
+                
+                    if total_items > 0: progress = int((completed_items / total_items) * 100)
+                    else: progress = 0
+                    
+                    subject_data = {
+                        'subject': subject,
+                        'progress': progress
+                    }
+                    subject_list.append(subject_data)
+        except Exception as e:
+            pass
+    
+    return render(request, 'search.html', {
         'items': items,
         'subjects': subjects,
         'query': query,
+        'subject_list':subject_list,
     })
     
     
