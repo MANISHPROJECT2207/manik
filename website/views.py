@@ -125,24 +125,24 @@ def signin(request):
 
 def register(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        pswd = request.POST.get('password')
-        p2 = request.POST.get('p2')
-        username = request.POST.get('username')
-        if pswd != p2:
-            return redirect('register')
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        password2 = request.POST['p2']
 
-        try:
-            user = User.objects.create_user(email=email, password=pswd, username=username)
-            user.save()
-        except Exception as e:
-            return render(request, 'register.html')
+        if password == password2:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already exists')
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, 'Email already exists')
+            else:
+                user = User.objects.create_user(username=username, email=email, password=password)
+                user.save()
+                login(request, user)
+                return redirect('home')
+        else:
+            messages.error(request, 'Passwords do not match')
 
-        user = authenticate(request, email=email, password=pswd)
-        
-        if user is not None:
-            login(request, user)
-            return redirect('home')
     return render(request, 'register.html')
 
 def logout_user(request):
@@ -157,6 +157,7 @@ def search(request):
     if query:
         items = items.filter(Q(description__icontains=query) | Q(title__icontains=query))
         subjects = subjects.filter(Q(name__icontains=query) | Q(branch__icontains=query))
+        print(subjects)
     return render(request, 'base.html', {
         'items': items,
         'subjects': subjects,
