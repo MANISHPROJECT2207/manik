@@ -156,9 +156,9 @@
         </h4>
         <h6 class="">some topics related to your search</h6>
     </div>
-    <div class="mx-4 d-none show">
-        <div class="overflow-auto" style="border-radius: 20px;">
-            <table class="table table-bordered text-white" style="border-color: rgb(50, 50, 50); background-color: rgb(17, 17, 17);">
+    <div class="mx-4 col-10 pt-5 ">
+        <div class="overflow-auto " style="border-radius: 20px;">
+            <table class="table table-bordered text-white" style="border-color: rgb(69, 40, 230); background-color: rgb(17, 17, 17);">
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">#</th>
@@ -169,12 +169,12 @@
                         <th scope="col" class="text-center">Revision</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="" style="text-align: center; border-color: blue;">
                     {% for item in items %}
-                    <h1>df</h1>
+                    
                         <tr>
-                            <th scope="row">
-                                <div class="form-check">
+                            <th scope="row" class="text-center">
+                                <div class="form-check text-center">
                                     <input class="form-check-input border-3 item-status-checkbox" type="checkbox" value="{{ item.id }}" id="flexCheckDefault" {% if request.user in item.completed_by.all %} checked {% endif %}>   
                                 </div>
                             </th>
