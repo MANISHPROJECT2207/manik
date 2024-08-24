@@ -19,10 +19,10 @@
                   <h5 class="my-3">{{ profile.user.username }}</h5>
                   <p class="text-muted mb-1">{{ profile.user.email }}</p>
                   <p class="text-muted mb-1">
-                      {% if profile.year == 1 %} {{ year }}<sup>st</sup>{% endif %}
-                      {% if profile.year == 2 %} {{ year }}<sup>nd</sup>{% endif %}
-                      {% if profile.year == 3 %} {{ year }}<sup>rd</sup>{% endif %}
-                      {% if profile.year == 4 %} {{ year }}<sup>th</sup>{% endif %}
+                      {% if profile.year == 1 %} {{ profile.year }}<sup>st</sup>{% endif %}
+                      {% if profile.year == 2 %} {{ profile.year }}<sup>nd</sup>{% endif %}
+                      {% if profile.year == 3 %} {{ profile.year }}<sup>rd</sup>{% endif %}
+                      {% if profile.year == 4 %} {{ profile.year }}<sup>th</sup>{% endif %}
                       year
                   </p>
                   <p class="text-muted mb-4">{{ profile.branch }}</p>

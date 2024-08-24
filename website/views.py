@@ -438,29 +438,7 @@ def edit_profile(request):
         user.save()
         profile.save()
         
-        branch_dict = {}
-        subjects = Subject.objects.filter(branch=profile.branch, year=profile.year)
-        for branch_code, branch_name in Subject._meta.get_field('branch').choices:
-            branch_subjects = subjects.filter(branch=branch_code)
-            
-            subject_list = []
-            for subject in branch_subjects:
-                total_units = Item.objects.filter(subject=subject).count()
-                completed_units = Item.objects.filter(subject=subject, completed_by=request.user).count()
-            
-                progress = (completed_units / total_units) * 100 if total_units > 0 else 0
-                
-                subject_data = {
-                    'subject': subject,
-                    'progress': progress
-                }
-                subject_list.append(subject_data)
-            
-            branch_dict[branch_name] = subject_list
-        
-        year = profile.year
-        return render(request, 'profile.html', {'user':request.user, 'profile':profile,
-    'Branches': Branches, 'branch_dict':branch_dict, 'year':year})
+        return redirect('profile')
 
     return render(request, 'profile.html', {'profile': profile, 'Branches': Branches,'user':user})
 
