@@ -12,6 +12,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
 import json
+import time
+from django.template.loader import render_to_string
 
 
 Branches = [
@@ -71,22 +73,19 @@ def testimonial(request):
 
 def _404_error(request):
     return render(request, '404.html')
-
 def profile(request): 
     profile, created = Profile.objects.get_or_create(user=request.user)
     branch_dict = {}
+    subjects = Subject.objects.filter(branch=profile.branch, year=profile.year)
     for branch_code, branch_name in Subject._meta.get_field('branch').choices:
-        subjects = Subject.objects.filter(branch=branch_code, year=profile.year)
+        branch_subjects = subjects.filter(branch=branch_code)
         
         subject_list = []
-        for subject in subjects:
-            total_units = Item.objects.all().count()
-            completed_units = Item.objects.all().filter(subject=subject, completed_by=request.user).count()
+        for subject in branch_subjects:
+            total_units = Item.objects.filter(subject=subject).count()
+            completed_units = Item.objects.filter(subject=subject, completed_by=request.user).count()
          
-            if total_units > 0:
-                progress = (completed_units / total_units) * 100
-            else:
-                progress = 0
+            progress = (completed_units / total_units) * 100 if total_units > 0 else 0
             
             subject_data = {
                 'subject': subject,
@@ -95,11 +94,14 @@ def profile(request):
             subject_list.append(subject_data)
         
         branch_dict[branch_name] = subject_list
-        
-    print(branch_dict)
-   
-    return render(request,'profile.html', {'user':request.user, 'profile':profile,
-    'Branches': Branches, 'branch_dict':branch_dict})
+    
+    return render(request, 'profile.html', {
+        'user': request.user, 
+        'profile': profile,
+        'Branches': Branches, 
+        'branch_dict': branch_dict
+    })
+
 
 def courses(request):
     return render(request, 'courses.html')
@@ -434,8 +436,30 @@ def edit_profile(request):
         
         user.save()
         profile.save()
-
-        return render(request, 'profile.html', {'profile': profile, 'Branches': Branches,'user':user})
+        
+        branch_dict = {}
+        subjects = Subject.objects.filter(branch=profile.branch, year=profile.year)
+        for branch_code, branch_name in Subject._meta.get_field('branch').choices:
+            branch_subjects = subjects.filter(branch=branch_code)
+            
+            subject_list = []
+            for subject in branch_subjects:
+                total_units = Item.objects.filter(subject=subject).count()
+                completed_units = Item.objects.filter(subject=subject, completed_by=request.user).count()
+            
+                progress = (completed_units / total_units) * 100 if total_units > 0 else 0
+                
+                subject_data = {
+                    'subject': subject,
+                    'progress': progress
+                }
+                subject_list.append(subject_data)
+            
+            branch_dict[branch_name] = subject_list
+        
+        year = profile.year
+        return render(request, 'profile.html', {'user':request.user, 'profile':profile,
+    'Branches': Branches, 'branch_dict':branch_dict, 'year':year})
 
     return render(request, 'profile.html', {'profile': profile, 'Branches': Branches,'user':user})
 
