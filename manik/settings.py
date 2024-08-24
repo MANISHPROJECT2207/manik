@@ -67,16 +67,16 @@ WSGI_APPLICATION = 'manik.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 manish = '5687482582'
-nikhil = 'Mee1074$'   
+nikhil = 'mannichor#'   
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME' : 'manik',
-        'USER' : 'root', 
+        'USER' : 'MANIK', 
         'PASSWORD' : nikhil,
         'HOST' : 'localhost',
-        'PORT' : '3306',
+        'PORT' : '8000',
     }
 }
 
