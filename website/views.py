@@ -12,6 +12,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
 import json
+import time
+from django.template.loader import render_to_string
 
 
 Branches = [
@@ -71,22 +73,19 @@ def testimonial(request):
 
 def _404_error(request):
     return render(request, '404.html')
-
 def profile(request): 
     profile, created = Profile.objects.get_or_create(user=request.user)
     branch_dict = {}
+    subjects = Subject.objects.filter(branch=profile.branch, year=profile.year)
     for branch_code, branch_name in Subject._meta.get_field('branch').choices:
-        subjects = Subject.objects.filter(branch=branch_code, year=profile.year)
+        branch_subjects = subjects.filter(branch=branch_code)
         
         subject_list = []
-        for subject in subjects:
-            total_units = Item.objects.all().count()
-            completed_units = Item.objects.all().filter(subject=subject, completed_by=request.user).count()
+        for subject in branch_subjects:
+            total_units = Item.objects.filter(subject=subject).count()
+            completed_units = Item.objects.filter(subject=subject, completed_by=request.user).count()
          
-            if total_units > 0:
-                progress = (completed_units / total_units) * 100
-            else:
-                progress = 0
+            progress = (completed_units / total_units) * 100 if total_units > 0 else 0
             
             subject_data = {
                 'subject': subject,
@@ -95,11 +94,14 @@ def profile(request):
             subject_list.append(subject_data)
         
         branch_dict[branch_name] = subject_list
-        
-    print(branch_dict)
-   
-    return render(request,'profile.html', {'user':request.user, 'profile':profile,
-    'Branches': Branches, 'branch_dict':branch_dict})
+    
+    return render(request, 'profile.html', {
+        'user': request.user, 
+        'profile': profile,
+        'Branches': Branches, 
+        'branch_dict': branch_dict
+    })
+
 
 def courses(request):
     return render(request, 'courses.html')
@@ -123,24 +125,24 @@ def signin(request):
 
 def register(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        pswd = request.POST.get('password')
-        p2 = request.POST.get('p2')
-        username = request.POST.get('username')
-        if pswd != p2:
-            return redirect('register')
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        password2 = request.POST['p2']
 
-        try:
-            user = User.objects.create_user(email=email, password=pswd, username=username)
-            user.save()
-        except Exception as e:
-            return render(request, 'register.html')
+        if password == password2:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already exists')
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, 'Email already exists')
+            else:
+                user = User.objects.create_user(username=username, email=email, password=password)
+                user.save()
+                login(request, user)
+                return redirect('home')
+        else:
+            messages.error(request, 'Passwords do not match')
 
-        user = authenticate(request, email=email, password=pswd)
-        
-        if user is not None:
-            login(request, user)
-            return redirect('home')
     return render(request, 'register.html')
 
 def logout_user(request):
@@ -155,6 +157,7 @@ def search(request):
     if query:
         items = items.filter(Q(description__icontains=query) | Q(title__icontains=query))
         subjects = subjects.filter(Q(name__icontains=query) | Q(branch__icontains=query))
+        print(subjects)
     return render(request, 'base.html', {
         'items': items,
         'subjects': subjects,
@@ -334,6 +337,7 @@ def year(request, year):
             subject_list.append(subject_data)
         
         branch_dict[branch_name] = subject_list
+    print(branch_dict)
     a = Subject.objects.all().filter(year = 1)
     b = Subject.objects.all().filter(year = 2)
     c = Subject.objects.all().filter(year = 3)
@@ -433,8 +437,8 @@ def edit_profile(request):
         
         user.save()
         profile.save()
-
-        return render(request, 'profile.html', {'profile': profile, 'Branches': Branches,'user':user})
+        
+        return redirect('profile')
 
     return render(request, 'profile.html', {'profile': profile, 'Branches': Branches,'user':user})
 

@@ -11,45 +11,46 @@
 
   
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-4" id="user-info-section">
           <div class="card mb-4">
-            <div class="card-body text-center">
-              <img src="{% if profile.pfp %}{{ profile.pfp.url }}{% else %}{% static 'img/anonymous_user.jpg' %}{% endif %}" alt="default_avatar"
-                class="rounded-circle img-fluid" style="width: 150px;">
-              <h5 class="my-3">{{user}}</h5>
-              <p class="text-muted mb-1">{{user.email}}</p>
-              <p class="text-muted mb-4">
-                {% if profile.year == 1 %} {{profile.year}}<sup>st</sup>{% endif %}
-                {% if profile.year == 2 %} {{profile.year}}<sup>nd</sup>{% endif %}
-                {% if profile.year == 3 %} {{profile.year}}<sup>rd</sup>{% endif %}
-                {% if profile.year == 4 %} {{profile.year}}<sup>th</sup>{% endif %}
-                 year
-              </p>
-              <div class="d-flex justify-content-center mb-2">
-                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary">Follow</button>
-                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Message</button>
+              <div class="card-body text-center">
+                  <img src="{% if profile.pfp %}{{ profile.pfp.url }}{% else %}{% static 'img/anonymous_user.jpg' %}{% endif %}" alt="default_avatar"
+                      class="rounded-circle img-fluid" style="width: 150px;">
+                  <h5 class="my-3">{{ profile.user.username }}</h5>
+                  <p class="text-muted mb-1">{{ profile.user.email }}</p>
+                  <p class="text-muted mb-1">
+                      {% if profile.year == 1 %} {{ profile.year }}<sup>st</sup>{% endif %}
+                      {% if profile.year == 2 %} {{ profile.year }}<sup>nd</sup>{% endif %}
+                      {% if profile.year == 3 %} {{ profile.year }}<sup>rd</sup>{% endif %}
+                      {% if profile.year == 4 %} {{ profile.year }}<sup>th</sup>{% endif %}
+                      year
+                  </p>
+                  <p class="text-muted mb-4">{{ profile.branch }}</p>
+                  <div class="d-flex justify-content-center mb-2">
+                      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary">Follow</button>
+                      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Message</button>
+                  </div>
               </div>
-            </div>
           </div>
-          
-        </div>
+      </div>
+      
         <div class="col-lg-8">
           <div class="card mb-4">
             <h4 class="pt-4 px-4 text-primary">Edit profile</h4>
-            <form method="post" action="{% url 'edit_profile' %}">
+            <form method="post" id="edit-profile-form" action="{% url 'edit_profile' %}">
                 {% csrf_token %}
                 <div class="card-body">
                     <div class="row">
                       <div class="col-sm-2">
                         <p class="mb-0">Username</p>
                       </div>
-                      <div class="col-sm-10">
+                      <div class="col-sm-10" id="username-inp">
                         <input type="text" class="form-control" id="username" name="username" placeholder="{{request.user}}">
                       </div>
                     </div>
                     <hr>
                     <div class="row">
-                      <div class="col-sm-2">
+                      <div class="col-sm-2" id="email-inp">
                         <p class="mb-0">Email</p>
                       </div>
                       <div class="col-sm-10">
@@ -64,7 +65,7 @@
                         <div class="col-sm-10">
                             <select class="form-control" id="branch" name="branch">
                                 {% for value, display in Branches %}
-                                    <option value="{{ value }}" {% if profile.branch == value %}selected{% endif %}>{{ display }}</option>
+                                    <option value="{{ value }}" id="branch-inp-{{value}}" {% if profile.branch == value %}selected{% endif %}>{{ display }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -74,10 +75,8 @@
                       <div class="col-sm-2">
                         <p class="mb-0">Year</p>
                       </div>
-                      <div class="col-sm-10">
-                        
+                      <div class="col-sm-10" id="year-inp">
                         <input type="number" class="form-control" id="year" name="year" placeholder="{{profile.year}}">
-                        
                       </div>
                     </div>
                     <hr>
@@ -118,6 +117,36 @@
       </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script>
+    $(document).ready(function() {
+        $('#edit-profile-form').on('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            $.ajax({
+                url: $(this).attr('action'), // Form action URL
+                method: 'POST',
+                data: $(this).serialize(), // Serialize form data
+                success: function(response) {
+                    // Update the user info section with the response
+                    $('#user-info-section').html(response.updated_user_info);
+
+                    // Optionally show a success message
+                    alert('Profile updated successfully!');
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors here
+                    console.error(xhr.responseText);
+                    alert('An error occurred while updating the profile.');
+                }
+            });
+        });
+    });
+</script> -->
+
+
+
 
   
 {% endblock %}

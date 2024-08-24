@@ -150,10 +150,7 @@
                         <li>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="{%url 'editprofile'%}">Edit Profile</a>
-                          <a class="dropdown-item" href="{% url 'feedback' %}">Feedback</a>
-                          <a class="dropdown-item" href="#">Inbox</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Account Setting</a>
+                          <a class="dropdown-item" href="{% url 'feedback' %}">Feedback</a>                        
                           <div class="dropdown-divider"></div>
                           {% if user.is_authenticated %}
                             <a class="dropdown-item" href="{% url 'logout_user' %}"></a>
@@ -227,9 +224,6 @@
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="{%url 'editprofile'%}">Edit Profile</a>
                           <a class="dropdown-item" href="{% url 'feedback' %}">Feedback</a>
-                          <a class="dropdown-item" href="#">Inbox</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Account Setting</a>
                           <div class="dropdown-divider"></div>
                           {% if user.is_authenticated %}
                             <a class="dropdown-item" href="{% url 'logout_user' %}">
