@@ -334,6 +334,7 @@ def year(request, year):
             subject_list.append(subject_data)
         
         branch_dict[branch_name] = subject_list
+    print(branch_dict)
     a = Subject.objects.all().filter(year = 1)
     b = Subject.objects.all().filter(year = 2)
     c = Subject.objects.all().filter(year = 3)
