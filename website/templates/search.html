@@ -115,7 +115,7 @@
       overflow-x: auto;
   } 
 </style>
-
+{% if subject_list %}
 <div class="container mt-5 mb-3 col-11">
     <div class="text-center wow fadeInUp" data-wow-delay="0.5s">
         <h4 class="section-title bg-white text-center text-primary px-3">
@@ -148,15 +148,16 @@
       </div>
   </div>
 </div>
-
-<div class="pages flex row justify-content-center h2" style="text-align: center;">
+{% endif %}
+{% if items %}
+<div class="pages flex row justify-content-center h2 pt-5" style="text-align: center;">
     <div class="text-center wow fadeInUp" data-wow-delay="0.5s">
         <h4 class="section-title bg-white text-center text-primary px-3">
           Topics
         </h4>
         <h6 class="">some topics related to your search</h6>
     </div>
-    <div class="mx-4 col-10 pt-5 ">
+    <div class="mx-4 col-10 pt-5 wow fadeInUp" data-wow-delay="2s">
         <div class="overflow-auto " style="border-radius: 20px;">
             <table class="table table-bordered text-white" style="border-color: rgb(69, 40, 230); background-color: rgb(17, 17, 17);">
                 <thead>
@@ -201,5 +202,5 @@
         </div>
     </div>
 </div>
-
+{% endif %}
 {% endblock %}
