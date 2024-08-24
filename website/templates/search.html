@@ -2,59 +2,198 @@
 {% block content %}
 {% load static %}
 
-    
-    <div class="p-4">
+<style>
+   
 
-        <div class="container text-center">
-            <div class="row g-2">
-                {% if items %}
-                    <h2 class="wht">Links:</h2>
-                    <br>
-                    {% for item in items %}
-                        <div class="col-4">
-                            <div class="p-3 wht">
-                                <div class="card" style="width: 18rem; height: 26rem;">
-                                    {% if item.image %}
-                                        <img src="{{item.image}}" class="card-img-top" alt="...">
-                                    {% else %}
-                                        <img src="data:image/png;base64,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" class="card-img-top">
-                                    {% endif %}
-                                    <div class="card-body" style="margin-top:-50px;">
-                                        <h5 class="card-title">{{item.title}}</h5>
-                                        <p class="card-text">{{item.description}}</p>
-                                        <a href="{{item.link}}" class="btn btn-primary">Go to playlist</a>
-                                    </div>
+    .card {
+        border: none;
+        border-radius: 10px;
+        font-size:20px;
+    }
+
+.c-details span {
+    font-weight: 300;
+    font-size: 17px
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    background-color: #eee;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 39px
+}
+
+.badge span {
+    background-color: #fffbec;
+    width: 60px;
+    height: 25px;
+    padding-bottom: 3px;
+    border-radius: 5px;
+    display: flex;
+    color: #fed85d;
+    justify-content: center;
+    align-items: center
+}
+
+.progress {
+    height: 10px;
+    border-radius: 10px
+}
+
+.progress div {
+    background-color: red
+}
+
+.text1 {
+    font-size: 14px;
+    font-weight: 600
+}
+.txt{
+  font-size:20px;
+}
+.text2 {
+    color: #a5aec0
+}
+</style>
+
+
+<style>
+  .order-card {
+      color: #fff;
+      background: linear-gradient(45deg,#4099ff,#73b4ff);
+      border-radius: 5px;
+      box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+      border: none;
+      margin-top: 20px;
+      width: 100%;
+  }
+  
+  .card-d .card-block {
+      padding-top: 15px;
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-bottom:10px;
+      position: relative;
+  }
+  
+  .progress-circle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 70px;
+      height: 70px;
+      background: conic-gradient(
+          #ffffff 0% {{ x.progress }}%,
+          rgba(255, 255, 255, 0.3) {{ x.progress }}% 100%
+      );
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .progress-circle::before {
+      content: "";
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      background-color: #4099ff;
+      border-radius: 50%;
+  }
+
+  #progress-text {
+      position: relative;
+      font-size: 18px;
+      color: white;
+      z-index: 1;
+  }
+  .scrolling-wrapper{
+      overflow-x: auto;
+  } 
+</style>
+
+<div class="container mt-5 mb-3 col-11">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.5s">
+        <h6 class="section-title bg-white text-center text-primary px-3">
+          Courses
+        </h6>
+        <h1 class="">Popular Topics</h1>
+    </div>
+    <div class="p-4">
+    
+      <div class="container-fluid wow fadeInUp" data-wow-delay="0.3s">
+              <div class="scrolling-wrapper row flex-row flex-nowrap pb-4">
+                  {% for x in subject_list %}
+                  <div class="custom-carousel-item col-md-5 col-lg-3 col-10">
+                    <a href="{% url 'subject_desc' x.subject.name %}">
+                        <div class="card-d order-card" id="{{x.subject.name}}">
+                            <div class="card-block">
+                                <h6 class="m-b-20">{{ x.subject.branch }}</h6>
+                                <h2 class="text-right py-3">{{ x.subject.name }}</h2>
+                                <p class="m-b-0"><span class="f-right"><i class="fas fa-eye"></i> {{ x.subject.views }}</span></p>
+                                <div class="progress-circle" id="progress-circle"
+                                style="background: conic-gradient(#ffffff 0% {{ x.progress }}%, rgba(255, 255, 255, 0.3) {{ x.progress }}% 100%);">>
+                                    <span id="progress-text">{{ x.progress }}%</span>
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
-                {% else %}
-                        <h4 style="color:aqua">No Related Items/Links found</h4>
-                {% endif %}
-                
-                {% if subjects %}
-                    <h2 class="wht">Subjects:</h2>
-                    <br>
-                    <div class="container text-center">
-                        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-                            {% for subject in subjects %}
-                                <div class="col">
-                                    <div class="p-3 wht" style="background-color:orange;">
-                                        <a href="{% url 'subject_desc' subject.name %}">{{subject.name}}</a>
-                                    </div>
+                    </a>
+                  </div>
+                  {% endfor %}             
+              </div>
+      </div>
+  </div>
+</div>
+
+<div class="pages">
+    <div class="flex row justify-content-center h2" style="text-align: center;">Topics</div>
+    <div class="mx-4 d-none show">
+        <div class="overflow-auto" style="border-radius: 20px;">
+            <table class="table table-bordered text-white" style="border-color: rgb(50, 50, 50); background-color: rgb(17, 17, 17);">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">#</th>
+                        <th scope="col" class="text-center">title</th>
+                        <th scope="col" class="text-center">link</th>
+                        <th scope="col" class="text-center">description</th>
+                        <th scope="col" class="text-center">likes</th>
+                        <th scope="col" class="text-center">Revision</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <th scope="row">
+                                <div class="form-check">
+                                    <input class="form-check-input border-3 item-status-checkbox" type="checkbox" value="{{ item.id }}" id="flexCheckDefault" {% if request.user in item.completed_by.all %} checked {% endif %}>   
                                 </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% else %}
-                    <h4 style="color:aqua">No Related Subjects found</h4>
-                {% endif %}
-
-            </div>
+                            </th>
+                            <td class="text-center">{{item.title}}</td>
+                            <td class="text-center" style="cursor:pointer;">
+                                <a href="{{ item.link }}"><img src="{% static 'img/youtube-brands-solid.svg' %}" style="height: 30px;" alt=""></a>
+                            </td>
+                            <td class="text-center">{{item.description}}</td>
+                            <td class="text-center">
+                                <span class="like-btn" data-item-id="{{ item.id }}">
+                                    <i class="fas fa-thumbs-up {% if request.user in item.liked_by.all %} liked{% endif %}"></i>
+                                </span> 
+                                <span class="like-count">{{item.likes}}</span>
+                            </td>
+                            <td class="text-center">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input revision" type="checkbox" id="flexSwitchCheckDefault" value="{{ item.id }}" {% if request.user in item.revision_by.all %} checked {% endif %}>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-
-    
-
     </div>
+</div>
 
 {% endblock %}
