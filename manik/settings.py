@@ -26,7 +26,7 @@ DEBUG = True
 
 
 
-ALLOWED_HOSTS = ['*', 'MANIKEDU.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
