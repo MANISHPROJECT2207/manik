@@ -1,8 +1,16 @@
 from pathlib import Path
+import os 
+import dotenv
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+#for database connection
+dotenv_file = os.path.join(BASE_DIR,".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -66,20 +74,20 @@ WSGI_APPLICATION = 'manik.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-manish = '5687482582'
+manish = 'CzknntNPmZu0rAVKLPPlcA'
 nikhil = 'mannichor#'   
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME' : 'manik',
-        'USER' : 'MANIK', 
-        'PASSWORD' : nikhil,
-        'HOST' : '110.227.147.19',
-        'PORT' : '8000',
-    }
-}
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME' : 'manik',
+#         'USER' : 'MANIK', 
+#         'PASSWORD' : nikhil, 
+#         'HOST' : 'localhost',
+#         'PORT' : '8000',
+#     }
+# }
+DATABASES = {'default': dj_database_url.config(default=os.environ['DATABASE_URL'], engine='django_cockroachdb')}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
