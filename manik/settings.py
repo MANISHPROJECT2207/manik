@@ -87,7 +87,11 @@ nikhil = 'mannichor#'
 #         'PORT' : '8000',
 #     }
 # }
-DATABASES = {'default': dj_database_url.config(default=os.environ['DATABASE_URL'], engine='django_cockroachdb')}
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ['DATABASE_URL'], 
+        engine='django_cockroachdb')
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
