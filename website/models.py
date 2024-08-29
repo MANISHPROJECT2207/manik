@@ -13,6 +13,7 @@ Branches = [
 ]
 
 class Subject(models.Model):
+    test = models.CharField(max_length=1, null=True)
     name = models.CharField(max_length=150)
     year = models.IntegerField(default=0)
     branch = models.CharField(choices=Branches, max_length=30, default="Common")
@@ -35,6 +36,7 @@ class Item(models.Model):
     revision_by = models.ManyToManyField(User, related_name='revision_items', blank=True)
     likes = models.IntegerField(default=0)
     liked_by = models.ManyToManyField(User, related_name='liked_items', blank=True)
+    test = models.CharField(max_length=1, null=True)
     
     class Meta:
         ordering = ('created_at',)
@@ -53,6 +55,7 @@ class Item(models.Model):
         unit.save()
     
 class Unit(models.Model):
+    test = models.CharField(max_length=1, null=True)
     subject = models.ForeignKey(Subject, related_name='units', on_delete=models.CASCADE)
     items = models.ManyToManyField(Item, related_name='units')
     number = models.IntegerField(default=0)
@@ -63,6 +66,7 @@ class Unit(models.Model):
         return str(f"{self.number}, {self.subject}")
     
 class Profile(models.Model):
+    test = models.CharField(max_length=1, null=True)
     user = models.ForeignKey(User, related_name='profiles', on_delete=models.CASCADE)
     pfp = models.ImageField(upload_to='profile_pictures', blank=True, null=True)
     year = models.IntegerField(default=0)
@@ -72,6 +76,7 @@ class Profile(models.Model):
         return self.user.email
     
 class Feedback(models.Model):
+    test = models.CharField(max_length=1, null=True)
     text = models.TextField()
     user = models.ForeignKey(User, related_name='feedbacks', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
