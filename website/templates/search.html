@@ -163,10 +163,9 @@
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">#</th>
-                        <th scope="col" class="text-center">title</th>
-                        <th scope="col" class="text-center">link</th>
-                        <th scope="col" class="text-center">description</th>
-                        <th scope="col" class="text-center">likes</th>
+                        <th scope="col" class="text-center">Title</th>
+                        <th scope="col" class="text-center">Link</th>
+                        <th scope="col" class="text-center">Likes</th>
                         <th scope="col" class="text-center">Revision</th>
                     </tr>
                 </thead>
@@ -183,7 +182,6 @@
                             <td class="text-center" style="cursor:pointer;">
                                 <a href="{{ item.link }}"><img src="{% static 'img/youtube-brands-solid.svg' %}" style="height: 30px;" alt=""></a>
                             </td>
-                            <td class="text-center">{{item.description}}</td>
                             <td class="text-center">
                                 <span class="like-btn" data-item-id="{{ item.id }}">
                                     <i class="fas fa-thumbs-up {% if request.user in item.liked_by.all %} liked{% endif %}"></i>

@@ -156,7 +156,7 @@ def search(request):
     query = request.GET.get('query', '')
     subjects = Subject.objects.all()
     if query:
-        items = items.filter(Q(description__icontains=query) | Q(title__icontains=query))
+        items = items.filter(Q(title__icontains=query))
         print(items)
         subjects = subjects.filter(Q(name__icontains=query) | Q(branch__icontains=query))
         subject_list = []

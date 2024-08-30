@@ -58,7 +58,7 @@
     </script>
     <style>
         .liked {
-            color: red; /* Or any color you want for the liked state */
+            color: red; 
         }
         .btn-search {
           display: flex;
@@ -344,7 +344,8 @@
 
           <div class="">
             <h1 class="work-sans-fonts m-3 mx-4 text-danger" style="padding-top: 100px;">
-              {{subject.name}}
+              {{subject.codes}} : 
+              {% if subject.full_name %} {{subject.full_name}} {% else %} {{subject.name}} {% endif %}
             </h1>
             <h4 class="work-sans-fonts m-3 mx-4">{{subject.branch}}</h4>
             <h4 class="px-4">
@@ -409,7 +410,6 @@
                               <th scope="col" class="text-center">#</th>
                               <th scope="col" class="text-center">title</th>
                               <th scope="col" class="text-center">link</th>
-                              <th scope="col" class="text-center">description</th>
                               <th scope="col" class="text-center">likes</th>
                               <th scope="col" class="text-center">Revision</th>
                           </tr>
@@ -426,7 +426,6 @@
                                   <td class="text-center" style="cursor:pointer;">
                                       <a href="{{ item.link }}"><img src="{% static 'img/youtube-brands-solid.svg' %}" style="height: 30px;" alt=""></a>
                                   </td>
-                                  <td class="text-center">{{item.description}}</td>
                                   <td class="text-center">
                                       <span class="like-btn" data-item-id="{{ item.id }}">
                                           <i class="fas fa-thumbs-up {% if request.user in item.liked_by.all %} liked{% endif %}"></i>

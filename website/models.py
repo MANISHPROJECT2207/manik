@@ -13,11 +13,13 @@ Branches = [
 ]
 
 class Subject(models.Model):
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=12)
+    full_name = models.CharField(max_length=55, null=True, blank=True)
     year = models.IntegerField(default=0)
     branch = models.CharField(choices=Branches, max_length=30, default="Common")
     views = models.IntegerField(default=0)
     viewed_by = models.ManyToManyField(User, related_name='viewed_subjects', blank=True)
+    codes = models.CharField(max_length=18, blank=True, null=True)
     
     def __str__(self):
         return (f"{self.name}, {self.branch}")
@@ -26,9 +28,6 @@ class Item(models.Model):
     unit = models.IntegerField(default=0, blank=False)
     subject = models.ForeignKey(Subject, related_name='items', on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
-    description = models.TextField(blank=True, null=True)
-    image = models.ImageField(upload_to='item_images', blank=True, null=True)
-    video = models.FileField(upload_to='videos/', blank=True, null=True)
     link = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     completed_by = models.ManyToManyField(User, related_name='completed_items', blank=True)
