@@ -346,7 +346,7 @@ def year(request, year):
             total_topics = Item.objects.all().count()
             completed_topics = Item.objects.all().filter(completed_by=user, subject=subject).count()
         
-            if total_topics > 0: progress = int((completed_topics  / total_topics) * 100)
+            if total_topics > 0: progress = int((completed_topics / total_topics) * 100)
             else: progress = 0
             
             subject_data = {
